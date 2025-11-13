@@ -7,13 +7,13 @@ class Usuari{
     private string $telefon;
     private string $rol;
     
-    public function __construct(int $id, string $nom, string $cognoms, string $correu, string $telefon, string $rol){
-            $this-> nom = $nom;
-            $this-> cognoms = $cognoms;
-            $this-> correu = $correu;
-            $this-> telefon = $telefon;
-            $this-> rol = $rol;
-        }
+    public function __construct(string $nom, string $cognoms, string $correu, string $telefon, string $rol){
+        $this-> nom = $nom;
+        $this-> cognoms = $cognoms;
+        $this-> correu = $correu;
+        $this-> telefon = $telefon;
+        $this-> rol = $rol;
+    }
 
     /**
      * Get the value of id
