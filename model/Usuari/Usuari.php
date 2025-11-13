@@ -7,9 +7,7 @@ class Usuari{
     private string $telefon;
     private string $rol;
     
-    public function __construct(int $id, string $nom, string $cognoms, string $correu, string $telefon, string $rol)
-        {
-            $this-> id = $id;
+    public function __construct(int $id, string $nom, string $cognoms, string $correu, string $telefon, string $rol){
             $this-> nom = $nom;
             $this-> cognoms = $cognoms;
             $this-> correu = $correu;
