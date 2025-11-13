@@ -1,5 +1,5 @@
 <?php
-class Usuari{
+class Productes{
     private int $id;
     private string $nom;
     private int $enCarta; // 0 false 1 true
