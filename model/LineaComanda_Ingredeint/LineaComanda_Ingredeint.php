@@ -1,5 +1,5 @@
 <?php
-class Usuari{
+class LineaComanda_Ingredeint{
     private int $id_lineaComanda;
     private int $id_Ingredient;
     private float $preuSiEsIngredientExtra;
