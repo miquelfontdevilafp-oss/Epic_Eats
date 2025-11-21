@@ -4,66 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
-    <link rel="stylesheet" href="general.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="general.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <div>
-                <a class="navbar-brand" href="#">
-                    <img src="../IMG/Logo_EpicEats_oscuro.png" alt="Logo_EpicEats" height="32">
-                </a>
-                <!-- posar la fetxa ccap a vaix -->
-            </div>
-            <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <a class="navbar-brand" href="#">
-                <img src="../IMG/Logo_EpicEats_oscuro.png" alt="Logo_EpicEats" height="32">
-            </a>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-        </li> -->
 
-<!--             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Logo Epic Eats + desplegable amb php -->
+            <a class="navbar-brand" href="#">
+                <img src="/IMG/Logo_EpicEats_oscuro.png" height="32" alt="EpicEats">
+            </a>
+
+            <!-- Menu de pagines -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="#">La Nostre Carta</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Restaurant</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Reserva</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacta</a></li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            </div> -->
+
+            <!-- Login/register + carro -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand d-flex" href="#">
+                        <p>Carro</p>
+                        <img src="/IMG/carro.png" alt="carro" height="32"
+                            class="d-inline-block align-text-top">
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Link 1</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Link 2</a></li>
+            </ul>
+
         </div>
     </nav>
-    
+
 </body>
 </html>
 
