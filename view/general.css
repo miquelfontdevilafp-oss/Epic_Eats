@@ -1,6 +1,11 @@
-*{
-    background-color: #101014;
-}
 header{
     background-color: #070707;
+}
+
+body{
+    background-color: #101014;
+}
+
+footer{
+    background-color: #18181C;
 }
