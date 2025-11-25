@@ -26,6 +26,15 @@ footer button{
     border-radius: 15%;
 }
 .iconoRedSocial{
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 32px;
+    margin-left: 10px;
+}
+.svg24{
+    width: 24px;
+    height: 24px;
+}
+.svg32{
+    width: 32px;
+    height: 32px;
 }
