@@ -1,6 +1,6 @@
 <?php
 
-include_once 'model/Alergians/Alergians.php';
+include_once 'model/Alergans/Alergans.php';
 include_once 'database/Database.php';
 
 class alergansDAO{
