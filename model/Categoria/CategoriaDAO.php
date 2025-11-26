@@ -12,7 +12,7 @@ class categoriaDAO{
         $stmt->execute();
         $results = $stmt->get_result();
         
-        $categoria = $results->fetch_object('Producte');
+        $categoria = $results->fetch_object('Categoria');
         $con->close();
         
         return $categoria;
@@ -26,7 +26,7 @@ class categoriaDAO{
         
         $listaCategories = [];
 
-        while($categoria = $results->fetch_object('Producte')){
+        while($categoria = $results->fetch_object('Categoria')){
             $listaCategories[]=$categoria;
         }
         

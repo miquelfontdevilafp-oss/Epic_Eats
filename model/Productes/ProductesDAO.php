@@ -1,6 +1,6 @@
 <?php
 
-include_once 'model/Productes/ProductesDAO.php';
+include_once 'model/Productes/Productes.php';
 include_once 'database/Database.php';
 
 class producteDAO{
