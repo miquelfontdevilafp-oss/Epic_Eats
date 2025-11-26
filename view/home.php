@@ -47,7 +47,7 @@
             </div>
         </section>
         <section>
-
+            
         </section>
     </article>
     <?php
