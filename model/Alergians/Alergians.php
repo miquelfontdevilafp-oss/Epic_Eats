@@ -1,5 +1,5 @@
 <?php
-class Alergians{
+class Alergans{
     private int $id;
     private string $nom;
     private string $descripcio;
