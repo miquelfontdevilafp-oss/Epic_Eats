@@ -1,5 +1,5 @@
 <?php
-class Ingradients{
+class Ingredients{
     private int $id;
     private string $nom;
     private float $quantitat;

@@ -12,7 +12,7 @@ class ingredientDAO{
         $stmt->execute();
         $results = $stmt->get_result();
         
-        $ingredient = $results->fetch_object('Ingradients');
+        $ingredient = $results->fetch_object('Ingredients');
         $con->close();
         
         return $ingredient;
@@ -26,7 +26,7 @@ class ingredientDAO{
         
         $listaIngredients = [];
 
-        while($ingredient = $results->fetch_object('Ingradients')){
+        while($ingredient = $results->fetch_object('Ingredients')){
             $listaIngredients[]=$ingredient;
         }
         
