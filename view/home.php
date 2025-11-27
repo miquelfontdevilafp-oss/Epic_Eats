@@ -7,11 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="general.css">
 </head>
-<body>
+<body id="home">
     <?php include 'header.php'; ?>
     <section id="sector_productes_setmana" class="row container d-flex justify-content-center">
         <div class="col-8 d-flex align-items-end">
-            <!-- background img -->
+            <!-- background immg -->
              <div>
                 <h2>Producte 1</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quod animi perspiciatis, illum sint inventore, excepturi, molestiae vitae ipsa blanditiis mollitia corporis accusamus numquam cumque dolorem nemo beatae voluptas possimus.</p>
@@ -19,29 +19,35 @@
              </div>
         </div>
         <div class="col-2">
-            <div class="row">
-                <img src="" alt="img-producte" class="col">
-                <h4 class="col">Producte 2</h4>
+            <div class="row d-flex ">
+                <div>
+                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                </div>
+                <h4 class="col">Producte</h4>
             </div>
-            <div class="row">
-                <img src="" alt="img-producte" class="col">
-                <h4 class="col">Producte 3</h4>
+            <div class="row d-flex">
+                <div>
+                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                </div>
+                <h4 class="col">Producte</h4>
             </div>
-            <div class="row">
-                <img src="" alt="img-producte" class="col">
-                <h4 class="col">Producte 4</h4>
+            <div class="row d-flex">
+                <div>
+                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                </div>
+                <h4 class="col">Producte</h4>
             </div>
-            <div class="row">
-                <img src="" alt="img-producte" class="col">
-                <h4 class="col">Producte 5</h4>
+            <div class="row d-flex">
+                <div>
+                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                </div>
+                <h4 class="col">Producte</h4>
             </div>
-            <div class="row">
-                <img src="" alt="img-producte" class="col">
-                <h4 class="col">Producte 6</h4>
-            </div>
-            <div class="row">
-                <img src="" alt="img-producte" class="col">
-                <h4 class="col">Producte 7</h4>
+            <div class="row d-flex">
+                <div>
+                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                </div>
+                <h4 class="col">Producte</h4>
             </div>
         </div>
     </section>
@@ -61,31 +67,31 @@
         </div>
         <div class="row">
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
@@ -108,19 +114,19 @@
         </div>
         <div class="row">
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <a href="">categoria</a>
                 <p></p>
                 <a href="">Veure la tenda</a>
             </div>
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <a href="">categoria</a>
                 <p></p>
                 <a href="">Veure la tenda</a>
             </div>
             <div class="col">
-                <img src="" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="">
                 <a href="">categoria</a>
                 <p></p>
                 <a href="">Veure la tenda</a>
@@ -173,7 +179,7 @@
                 <p>més vengut</p>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -182,7 +188,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -191,7 +197,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -200,7 +206,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -209,55 +215,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <p>més vengut</p>
-                <div class="row">
-                    <div>
-                        <img src="" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -269,7 +227,7 @@
                 <p>més vengut</p>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -278,7 +236,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -287,7 +245,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -296,7 +254,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -305,7 +263,55 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="" alt="">
+                        <img src="../IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <p>més vengut</p>
+                <div class="row">
+                    <div>
+                        <img src="../IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="../IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="../IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="../IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="../IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>

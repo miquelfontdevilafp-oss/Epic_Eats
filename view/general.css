@@ -38,3 +38,11 @@ footer button{
     width: 32px;
     height: 32px;
 }
+
+
+/* CSS per a Home */
+
+#sector_productes_setmana div img{
+    height: 65px;
+    border-radius: 30%;
+}
