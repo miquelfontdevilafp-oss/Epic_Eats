@@ -6,7 +6,6 @@
         <td style="border: 1px solid;">Pais</td>
         <td style="border: 1px solid;">Show</td>
     </tr>
-    <?php var_dump($usuaris)?>
     <?php foreach ($usuaris as $usuari) { ?>
         <tr style="border: 1px solid;">
             <td style="border: 1px solid;"><?=$usuari->getId() . ' ';?></td>
