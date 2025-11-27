@@ -6,13 +6,17 @@
         <td style="border: 1px solid;">Pais</td>
         <td style="border: 1px solid;">Show</td>
     </tr>
+    <?php var_dump($usuaris)?>
     <?php foreach ($usuaris as $usuari) { ?>
         <tr style="border: 1px solid;">
             <td style="border: 1px solid;"><?=$usuari->getId() . ' ';?></td>
-            <td style="border: 1px solid;"><?=$usuari->getNombre() . ' ';?></td>
-            <td style="border: 1px solid;"><?=$usuari->getCuidad() . ' ';?></td>
-            <td style="border: 1px solid;"><?=$usuari->getPais() . ' ';?></td>
-            <td style="border: 1px solid;"><a href="?controller=usuari$usuari&action=show&idusuari$usuari=<?=$usuari->getId();?>">show</a></td>
+            <td style="border: 1px solid;"><?=$usuari->getNomUsuari() . ' ';?></td>
+            <td style="border: 1px solid;"><?=$usuari->getContrasenya() . ' ';?></td>
+            <td style="border: 1px solid;"><?=$usuari->getNom() . ' ';?></td>
+            <td style="border: 1px solid;"><?=$usuari->getCognoms() . ' ';?></td>
+            <td style="border: 1px solid;"><?=$usuari->getCorreu() . ' ';?></td>
+            <td style="border: 1px solid;"><?=$usuari->getRol() . ' ';?></td>
+            <td style="border: 1px solid;"><?=$usuari->getTelefon() . ' ';?></td>
         </tr>
     <?php } ?>
 </table>

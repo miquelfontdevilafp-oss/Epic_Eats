@@ -1,7 +1,7 @@
 <?php
 
-include_once 'model/Usuari.php';
-include_once 'database/Database.php';
+include_once 'Usuari.php';
+include_once 'database\DataBase.php';
 
 class usuariDAO{
     public static function getUsuariByID($id){
