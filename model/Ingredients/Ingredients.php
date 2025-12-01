@@ -4,10 +4,10 @@ class Ingredients{
     private string $nom;
     private float $quantitat;
     
-    public function __construct(string $nom, float $quantitat){
-        $this-> nom = $nom;
-        $this-> quantitat = $quantitat;
-    }
+    // public function __construct(string $nom, float $quantitat){
+    //     $this-> nom = $nom;
+    //     $this-> quantitat = $quantitat;
+    // }
 
     /**
      * Get the value of id

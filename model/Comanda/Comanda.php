@@ -4,10 +4,10 @@ class Comanda{
     private float $preuTotal;
     private int $idUsuari;
 
-    public function __construct(float $preuTotal, int $idUsuari){
-            $this -> preuTotal = $preuTotal;
-            $this -> idUsuari = $idUsuari;
-        }
+    // public function __construct(float $preuTotal, int $idUsuari){
+    //         $this -> preuTotal = $preuTotal;
+    //         $this -> idUsuari = $idUsuari;
+    //     }
 
     /**
      * Get the value of id

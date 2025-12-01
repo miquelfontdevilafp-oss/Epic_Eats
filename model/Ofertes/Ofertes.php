@@ -8,18 +8,18 @@ class Ofertes{
     private float $xifraDescompte;
     private float $persentatjeDescompte;
     
-    public function __construct(string $nom, string $tipus, DateTime $dataInici, DateTime $dataFi, bool $persentatge, float $valorDescompte){ //Crear boolean per decidir si valor o persentatge
-        $this-> nom = $nom;
-        $this-> tipus = $tipus;
-        $this-> dataInici = $dataInici;
-        $this-> dataFi = $dataFi;
-        if ($persentatge == true) {
-            $this-> persentatjeDescompte = $valorDescompte;
-            $this-> xifraDescompte = 0;
-        }
-        $this-> xifraDescompte = $valorDescompte;
-        $this-> persentatjeDescompte = 0;
-    }
+    // public function __construct(string $nom, string $tipus, DateTime $dataInici, DateTime $dataFi, bool $persentatge, float $valorDescompte){ //Crear boolean per decidir si valor o persentatge
+    //     $this-> nom = $nom;
+    //     $this-> tipus = $tipus;
+    //     $this-> dataInici = $dataInici;
+    //     $this-> dataFi = $dataFi;
+    //     if ($persentatge == true) {
+    //         $this-> persentatjeDescompte = $valorDescompte;
+    //         $this-> xifraDescompte = 0;
+    //     }
+    //     $this-> xifraDescompte = $valorDescompte;
+    //     $this-> persentatjeDescompte = 0;
+    // }
 
     /**
      * Get the value of id

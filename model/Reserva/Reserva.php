@@ -7,13 +7,13 @@ class Reserva{
     private int $numeroPersones;
     private int $id_usuari;
 
-    public function __construct(int $id, DateTime $data, DateTime $hora, int $numeroPersones, int $id_usuari){
-            $this->id = $id;
-            $this->data = $data;
-            $this->hora = $hora;
-            $this->numeroPersones = $numeroPersones;
-            $this->id_usuari = $id_usuari;
-        }
+    // public function __construct(int $id, DateTime $data, DateTime $hora, int $numeroPersones, int $id_usuari){
+    //         $this->id = $id;
+    //         $this->data = $data;
+    //         $this->hora = $hora;
+    //         $this->numeroPersones = $numeroPersones;
+    //         $this->id_usuari = $id_usuari;
+    //     }
 
     /**
      * Get the value of id_usuari

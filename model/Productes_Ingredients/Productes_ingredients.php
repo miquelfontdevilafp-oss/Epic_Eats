@@ -6,11 +6,11 @@ class Productes_ingredients{
     private float $preuSiEsIngredientExtra;
     private float $preuPerDefecte;
     
-    public function __construct(int $quantitat, float $preuSiEsIngredientExtra, float $preuPerDefecte){
-        $this-> quantitat = $quantitat;
-        $this-> preuSiEsIngredientExtra = $preuSiEsIngredientExtra;
-        $this-> preuPerDefecte = $preuPerDefecte;
-    }
+    // public function __construct(int $quantitat, float $preuSiEsIngredientExtra, float $preuPerDefecte){
+    //     $this-> quantitat = $quantitat;
+    //     $this-> preuSiEsIngredientExtra = $preuSiEsIngredientExtra;
+    //     $this-> preuPerDefecte = $preuPerDefecte;
+    // }
 
     /**
      * Get the value of idProducte

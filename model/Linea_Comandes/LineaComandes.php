@@ -6,11 +6,11 @@ class LineaComandes{
     private int $idComanda;
     private int $idProducte;
     
-    public function __construct(float $preuUnitat, int $idComanda, int $idProducte){
-        $this-> preuUnitat = $preuUnitat;
-        $this-> idComanda = $idComanda;
-        $this-> idProducte = $idProducte;
-    }
+    // public function __construct(float $preuUnitat, int $idComanda, int $idProducte){
+    //     $this-> preuUnitat = $preuUnitat;
+    //     $this-> idComanda = $idComanda;
+    //     $this-> idProducte = $idProducte;
+    // }
 
     /**
      * Get the value of id

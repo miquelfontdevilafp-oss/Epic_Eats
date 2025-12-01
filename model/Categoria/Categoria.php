@@ -3,9 +3,9 @@ class Categoria{
     private int $id;
     private string $nom;
     
-    public function __construct(string $nom){
-        $this-> nom = $nom;
-    }
+    // public function __construct(string $nom){
+    //     $this-> nom = $nom;
+    // }
 
     /**
      * Get the value of id

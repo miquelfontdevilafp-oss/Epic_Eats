@@ -8,15 +8,15 @@ class Productes{
     private DateTime $tempsCoaccio;
     private string $imatge;
     
-    public function __construct(int $id, string $nom, string $descripcio, string $preuUnitat, DateTime $tempsCoaccio, string $imatge, int $enCarta){
-            $this-> id = $id;
-            $this-> nom = $nom;
-            $this-> descripcio = $descripcio;
-            $this-> preuUnitat = $preuUnitat;
-            $this-> tempsCoaccio = $tempsCoaccio;
-            $this-> imatge = $imatge;
-            $this-> enCarta = $enCarta;
-        }
+    // public function __construct(int $id, string $nom, string $descripcio, string $preuUnitat, DateTime $tempsCoaccio, string $imatge, int $enCarta){
+    //         $this-> id = $id;
+    //         $this-> nom = $nom;
+    //         $this-> descripcio = $descripcio;
+    //         $this-> preuUnitat = $preuUnitat;
+    //         $this-> tempsCoaccio = $tempsCoaccio;
+    //         $this-> imatge = $imatge;
+    //         $this-> enCarta = $enCarta;
+    //     }
 
     /**
      * Get the value of id
