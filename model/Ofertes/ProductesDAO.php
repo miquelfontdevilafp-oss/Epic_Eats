@@ -4,7 +4,7 @@ include_once 'Ofertes.php';
 include_once 'database\DataBase.php';
 
 class OfertesDAO{
-    public static function getOferteID($id){
+    public static function getOferteByID($id){
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM ofertes where id = ?");
         //si tenim mes camps podem fer aixo $stmt-> bind_param('iis',$id, $int2, $string);

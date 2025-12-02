@@ -1,10 +1,10 @@
 <?php
 
-include_once 'Ingredients.php';
+include_once 'Categoria.php';
 include_once 'database\DataBase.php';
 
-class IngredientsDAO{
-    public static function getIngredientByID($id){
+class CategoriaDAO{
+    public static function getCategoriaByID($id){
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM ingredients where id = ?");
         //si tenim mes camps podem fer aixo $stmt-> bind_param('iis',$id, $int2, $string);
@@ -12,27 +12,27 @@ class IngredientsDAO{
         $stmt->execute();
         $results = $stmt->get_result();
         
-        $Ingredient = $results->fetch_object('Ingredients');
+        $Categoria = $results->fetch_object('Categoria');
         $con->close();
         
-        return $Ingredient;
+        return $Categoria;
     }
-    public static function getIngredients(){
+    public static function getCategories(){
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM ingredients");
         $stmt->execute();
 
         $results = $stmt->get_result();
         
-        $listaIngredients = [];
+        $listaCategories = [];
 
-        while($ingredient = $results->fetch_object('Ingredients')){
-            $listaIngredients[]=$ingredient;
+        while($Categoria = $results->fetch_object('Categoria')){
+            $listaCategories[]=$Categoria;
         }
         
         $con->close();
         
-        return $listaIngredients;
+        return $listaCategories;
     }
 }
 
