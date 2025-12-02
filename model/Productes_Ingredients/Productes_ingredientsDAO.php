@@ -4,7 +4,7 @@ include_once 'Productes_ingredients.php';
 include_once 'database\DataBase.php';
 
 class Productes_ingredientDAO{
-    public static function getProducte_ingredientsID($id){
+    public static function getProducte_ingredientsByID($id){
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM productes__ingredients where id = ?");
         //si tenim mes camps podem fer aixo $stmt-> bind_param('iis',$id, $int2, $string);
