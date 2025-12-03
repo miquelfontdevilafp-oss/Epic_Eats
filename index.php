@@ -1,6 +1,6 @@
 <?php
 
-include_once 'controller/UsuariController.php';
+include_once 'controller/HomeController.php';
 
 $wrong = false;
 $wrongMessage = '';
@@ -15,15 +15,9 @@ if (isset($_GET['controller'])) {
         }else{
             header("Location:404.php");
         }
-    } else{
-        $wrong = true;
-        $wrongMessage = $wrongMessage.'classe no existeix<hr>';
-    }
-} else{
-    $wrong = true;
-    $wrongMessage = $wrongMessage.'controllador no existeix<hr>';
-}
-if ($wrong == true) {
-    echo"<hr>Errores: <br> $wrongMessage";
+    } 
+}else {
+   echo 'Falta el controlador en la URL. Posa-ho FOCA';
+    
 }
 ?>
