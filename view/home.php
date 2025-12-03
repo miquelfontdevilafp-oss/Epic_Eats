@@ -11,31 +11,31 @@
         <div class="col-2">
             <div class="row d-flex ">
                 <div>
-                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
                 </div>
                 <h4 class="col">Producte</h4>
             </div>
             <div class="row d-flex">
                 <div>
-                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
                 </div>
                 <h4 class="col">Producte</h4>
             </div>
             <div class="row d-flex">
                 <div>
-                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
                 </div>
                 <h4 class="col">Producte</h4>
             </div>
             <div class="row d-flex">
                 <div>
-                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
                 </div>
                 <h4 class="col">Producte</h4>
             </div>
             <div class="row d-flex">
                 <div>
-                    <img src="../IMG/ImgNotFound.png" alt="img-producte" class="col">
+                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
                 </div>
                 <h4 class="col">Producte</h4>
             </div>
@@ -57,31 +57,31 @@
         </div>
         <div class="row">
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
@@ -104,19 +104,19 @@
         </div>
         <div class="row">
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="<?=BASE_URL?>./IMG/ImgNotFound.png" alt="">
                 <a href="">categoria</a>
                 <p></p>
                 <a href="">Veure la tenda</a>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                 <a href="">categoria</a>
                 <p></p>
                 <a href="">Veure la tenda</a>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                 <a href="">categoria</a>
                 <p></p>
                 <a href="">Veure la tenda</a>
@@ -169,7 +169,7 @@
                 <p>més vengut</p>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -178,7 +178,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -205,55 +205,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <p>més vengut</p>
-                <div class="row">
-                    <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
-                    </div>
-                    <div>
-                        <p>Beguda</p>
-                        <p>preu</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -265,7 +217,7 @@
                 <p>més vengut</p>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -274,7 +226,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -283,7 +235,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -292,7 +244,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>
@@ -301,7 +253,55 @@
                 </div>
                 <div class="row">
                     <div>
-                        <img src="../IMG/ImgNotFound.png" alt="">
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <p>més vengut</p>
+                <div class="row">
+                    <div>
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
+                    </div>
+                    <div>
+                        <p>Beguda</p>
+                        <p>preu</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
                     </div>
                     <div>
                         <p>Beguda</p>

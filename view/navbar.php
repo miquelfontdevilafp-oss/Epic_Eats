@@ -4,7 +4,7 @@
 
             <!-- Logo Epic Eats + desplegable amb php -->
             <a class="navbar-brand" href="#">
-                <img src="/IMG/Logo_EpicEats_oscuro.png" height="32" alt="EpicEats">
+                <img src="<?=BASE_URL?>/IMG/Logo_EpicEats_oscuro.png" height="32" alt="EpicEats">
             </a>
 
             <!-- Menu de pagines -->

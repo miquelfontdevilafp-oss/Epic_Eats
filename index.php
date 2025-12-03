@@ -1,6 +1,7 @@
 <?php
-
+include_once 'entorn.php';
 include_once 'controller/HomeController.php';
+
 
 $wrong = false;
 $wrongMessage = '';
