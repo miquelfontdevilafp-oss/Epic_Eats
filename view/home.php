@@ -51,7 +51,7 @@
             </div>
         </div>
     </section>
-    <section id="Descobreix_Productes" class="row container">
+    <section id="Descobreix_Productes" class="row container col-10">
         <div class="row">
             <div class="col">
                 <h2>Descobreix algo nou</h2>
@@ -67,31 +67,31 @@
         </div>
         <div class="row">
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
             </div>
             <div class="col">
-                <img src="../IMG/ImgNotFound.png" alt="">
+                <img src="../IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
                 <p>categoria</p>
                 <a href=""></a>
                 <p>preu</p>
