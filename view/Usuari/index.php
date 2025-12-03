@@ -1,10 +1,13 @@
 <table style="border: 1px solid;">
     <tr style="border: 1px solid;">
         <td style="border: 1px solid;">ID</td>
-        <td style="border: 1px solid;">Nombre</td>
-        <td style="border: 1px solid;">Cuidad</td>
-        <td style="border: 1px solid;">Pais</td>
-        <td style="border: 1px solid;">Show</td>
+        <td style="border: 1px solid;">NombreUsuari</td>
+        <td style="border: 1px solid;">Contra</td>
+        <td style="border: 1px solid;">Nom</td>
+        <td style="border: 1px solid;">Cognom</td>
+        <td style="border: 1px solid;">Correu</td>
+        <td style="border: 1px solid;">Rol</td>
+        <td style="border: 1px solid;">Telefon</td>
     </tr>
     <?php foreach ($usuaris as $usuari) { ?>
         <tr style="border: 1px solid;">
