@@ -1,6 +1,7 @@
 <?php
 include_once 'entorn.php';
 include_once 'controller/HomeController.php';
+include_once 'controller/AdminController.php';
 
 
 $wrong = false;
@@ -16,9 +17,13 @@ if (isset($_GET['controller'])) {
         }else{
             header("Location:404.php");
         }
+    }
+    else {
+        echo 'No existe controlador '.$nombre_controller;
     } 
 }else {
    echo 'Falta el controlador en la URL. Posa-ho FOCA';
+
     
 }
 ?>
