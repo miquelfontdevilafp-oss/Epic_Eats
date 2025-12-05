@@ -4,9 +4,6 @@ include_once 'controller/HomeController.php';
 include_once 'controller/AdminController.php';
 
 
-$wrong = false;
-$wrongMessage = '';
-
 if (isset($_GET['controller'])) {
     $nombre_controller = $_GET['controller'].'Controller';
     if (class_exists($nombre_controller)) {
@@ -17,8 +14,7 @@ if (isset($_GET['controller'])) {
         }else{
             header("Location:404.php");
         }
-    }
-    else {
+    }else {
         echo 'No existe controlador '.$nombre_controller;
     } 
 }else {
