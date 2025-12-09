@@ -1,3 +1,26 @@
 #nav-bar{
     background-color: darkblue;
+    padding-bottom: 100%;
+}
+
+#panel{
+    background-color: antiquewhite;
+}
+
+.content-section{
+    display: none;
+}
+
+.active-section{
+    display: block;
+}
+
+table {
+    border-collapse: separate; /* required for border-spacing to work */
+    border-style: solid;
+    border-spacing: 10px;
+}
+
+td, tr {
+    border-style: solid;
 }

@@ -2,6 +2,7 @@
 include_once 'entorn.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/AdminController.php';
+include_once 'controller/LoginController.php';
 
 
 if (isset($_GET['controller'])) {

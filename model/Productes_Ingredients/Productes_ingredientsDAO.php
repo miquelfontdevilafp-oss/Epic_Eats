@@ -6,7 +6,7 @@ include_once 'database\DataBase.php';
 class Productes_ingredientDAO{
     public static function getProducte_ingredientsByID($id){
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM productes__ingredients where id = ?");
+        $stmt = $con->prepare("SELECT * FROM productes_ingredients where id = ?");
         //si tenim mes camps podem fer aixo $stmt-> bind_param('iis',$id, $int2, $string);
         $stmt-> bind_param('i',$id);
         $stmt->execute();
@@ -19,7 +19,7 @@ class Productes_ingredientDAO{
     }
     public static function getProductes_ingredients(){
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM productes__ingredients");
+        $stmt = $con->prepare("SELECT * FROM productes_ingredients");
         $stmt->execute();
 
         $results = $stmt->get_result();
