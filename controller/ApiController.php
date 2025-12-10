@@ -9,18 +9,21 @@ class ApiController{
 
 
     public function getUsers(){
-        $usuaris = usuariDAO::getUsuaris(); // obtienes objetos
+        try{
+            $usuaris = usuariDAO::getUsuaris(); // obtienes objetos
 
-        // Convertir objetos a arrays
-        $data = array_map(function($user) {
-            return $user->toArray();
-        }, $usuaris);
+            // Convertir objetos a arrays
+            $data = array_map(function($user) {
+                return $user->toArray();
+            }, $usuaris);
 
-        echo json_encode([
-            'estado' => 'Exito',
-            'usuarios' => $data
-        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
+            echo json_encode([
+                'estado' => 'Exito',
+                'usuarios' => $data
+            ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        } catch (Error){
+            echo "no fufa";
+        }
     }
 
     public function getComandes(){
