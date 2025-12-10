@@ -179,5 +179,17 @@ class Usuari{
 
         return $this;
     }
+    public function toArray() {
+        return [
+            'id' => $this->id,
+            'nomUsuari' => $this->nomUsuari,
+            'contrasenya' => $this->contrasenya,
+            'nom' => $this->nom,
+            'cognoms' => $this->cognoms,
+            'correu' => $this->correu,
+            'telefon' => $this->telefon,
+            'rol' => $this->rol
+        ];
+    }
 }
 ?>

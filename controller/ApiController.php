@@ -1,4 +1,6 @@
 <?php
+include_once 'controller/UsuariController.php';
+
 class ApiController{
     public function Api(){
         $view = 'admin.php';
@@ -7,14 +9,17 @@ class ApiController{
 
 
     public function getUsers(){
-        //cridar dao
-        //dao retorna json
-        //echo del json
+        $usuaris = usuariDAO::getUsuaris(); // obtienes objetos
+
+        // Convertir objetos a arrays
+        $data = array_map(function($user) {
+            return $user->toArray();
+        }, $usuaris);
 
         echo json_encode([
             'estado' => 'Exito',
-            'data' => 'Insertado correctamente'
-        ]); 
+            'usuarios' => $data
+        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     }
 

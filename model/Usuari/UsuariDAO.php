@@ -72,6 +72,17 @@ class usuariDAO{
         }
         
     }
+
+    public static function getUsuarisJSON() {
+        $usuaris = self::getUsuaris(); // obtienes objetos Usuari
+        $data = [];
+        foreach ($usuaris as $user) {
+            $data[] = $user->toArray(); // los conviertes a arrays
+        }
+
+        return json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+
 }
 
 ?>

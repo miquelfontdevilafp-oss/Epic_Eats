@@ -14,8 +14,10 @@ class UsuariController{
     }
     public function getUsuaris(){
         $usuaris = UsuariDAO::getUsuaris();
+        return $usuaris;
     }
     public function getUsuariByID($idUsuari){
         $usuari = UsuariDAO::getUsuariByID($idUsuari);
+        return $usuari;
     }
 }
