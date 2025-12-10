@@ -3,6 +3,8 @@ include_once 'entorn.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/AdminController.php';
 include_once 'controller/LoginController.php';
+include_once 'controller/ApiController.php';
+
 
 
 if (isset($_GET['controller'])) {
@@ -22,12 +24,3 @@ if (isset($_GET['controller'])) {
    echo 'Falta el controlador en la URL. Posa-ho FOCA';
 }
 ?>
-
-<!-- 
-*http://localhost/daw2/Epic_Eats/?controller=home&action=home
-*http://localhost/daw2/Epic_Eats/?controller=admin&action=admin
-*http://localhost/daw2/Epic_Eats/?controller=login&action=login
-*
-*
-*
--->
