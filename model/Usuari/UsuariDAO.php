@@ -55,7 +55,7 @@ class usuariDAO{
             nom max 50 \n
             cognom max 50 \n
             correu max 50 \n
-            telefon sense +32 max 9 \n
+            telefon sense +34 max 9 \n
             rol max 50";
         } else{
         $con = DataBase::connect();
