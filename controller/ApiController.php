@@ -22,7 +22,7 @@ class ApiController{
                 'usuarios' => $data
             ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } catch (Error){
-            echo "no fufa";
+            echo "'estado' => 'Error'";
         }
     }
 

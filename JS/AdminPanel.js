@@ -16,7 +16,6 @@
 
         botonesMenu.forEach(boton => {
             boton.addEventListener("click", () => {
-                console.log("u clicked");
                 const target = boton.getAttribute("data-target");
                 setActiveSection(target);
             })
@@ -31,4 +30,34 @@
 
             document.getElementById(target).classList.add("active-section");
             console.log("Adding active-section " + target);
+            if(target == "Usuaris"){
+                cargarUsuaris();
+            }
+        }
+        
+        function cargarUsuaris() {
+        fetch("api.php?controller=Api&action=getUsers")
+            .then(result => result.json())
+            .then(data => {
+                const taula = document.getElementById("taula_usuaris");
+                const trs = document.querySelectorAll("#taula_usuaris tr:not(:first-child)");
+                trs.forEach(tr => tr.remove()); 
+                data.usuarios.forEach(user => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.nomUsuari}</td>
+                        <td>${user.contrasenya}</td>
+                        <td>${user.nom}</td>
+                        <td>${user.cognoms}</td>
+                        <td>${user.correu}</td>
+                        <td>${user.rol}</td>
+                        <td>${user.telefon}</td>
+                        <td><button class="editar">Editar</button></td>
+                        <td><button class="eliminar">Eliminar</button></td>
+                    `;
+                    taula.appendChild(row);
+                });
+            })
+            .catch(err => console.error("Error no esem cargant usuaris: ", err));
         }

@@ -40,18 +40,40 @@
     <div id="panel" class="col-9">
         <section id="Usuaris" class="content-section active-section">
             <h2>Usuaris</h2>
-            <table>
+            <button id="Afegir Usuari" class="Afegir">Afegir Usuari</button>
+            <table id="taula_usuaris">
                 <tr>
                     <td>ID</td>
-                    <td>NombreUsuari</td>
-                    <td>Contra</td>
+                    <td>NomUsuari</td>
+                    <td>Contrasenya</td>
                     <td>Nom</td>
                     <td>Cognom</td>
                     <td>Correu</td>
                     <td>Rol</td>
                     <td>Telefon</td>
+                    <td>Editar</td>
+                    <td>Eliminar</td>
                 </tr>
             </table>
+            <form action="" method="get">
+                <p>ID</p>
+                <p><u>id usuari</u></p>
+                <p>Nom Usuari</p>
+                <input type="text" name="nomUsuari" id="nomUsuari">
+                <p>Contrasenya</p>
+                <input type="text" name="contrasenya" id="contrasenya">
+                <p>Nom</p>
+                <input type="text" name="nom" id="nom">
+                <p>Cognom</p>
+                <input type="text" name="cognom" id="cognom">
+                <p>Correu</p>
+                <input type="text" name="correu" id="correu">
+                <p>Rol</p>
+                <input type="text" name="rol" id="rol">
+                <p>Telefon</p>
+                <input type="text" name="telefon" id="telefon"><br><br>
+                <input type="button" value="Send">
+            </form>
         </section>
         <section id="Reserva" class="content-section">
             <h2>Reserva</h2>
