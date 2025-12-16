@@ -96,25 +96,6 @@
             document.getElementById("formulariUsuariTelefon").value = "";
         }
 
-        function editarUsuari(id) {
-            fetch(`api.php?controller=Api&action=getUserById&id=${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    const u = data.usuario;
-
-                    document.getElementById("formulariUsuariID").value = u.id;
-                    document.getElementById("formulariUsuariNomUsuari").value = u.nomUsuari;
-                    document.getElementById("formulariUsuariContrasenya").value = u.contrasenya;
-                    document.getElementById("formulariUsuariNom").value = u.nom;
-                    document.getElementById("formulariUsuariCognom").value = u.cognoms;
-                    document.getElementById("formulariUsuariCorreu").value = u.correu;
-                    document.getElementById("formulariUsuariRol").value = u.rol;
-                    document.getElementById("formulariUsuariTelefon").value = u.telefon;
-
-                    mostrarFormulario();
-                });
-        }
-
         function guardarUsuari() {
             const id = document.getElementById("formulariUsuariID").value;
 
@@ -129,7 +110,13 @@
                 telefon: document.getElementById("formulariUsuariTelefon").value
             };
 
-            const action = id ? "updateUser" : "addUser";
+            let action;
+
+            if (id) {
+                action = "updateUser";
+            } else {
+                action = "addUser";
+            }
 
             fetch(`api.php?controller=Api&action=${action}`, {
                 method: "POST",
@@ -144,6 +131,25 @@
                     } else {
                         alert("Error: " + r.message);
                     }
+                });
+        }
+
+        function editarUsuari(id) {
+            fetch(`api.php?controller=Api&action=getUserById&id=${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    const user = data.usuario;
+
+                    document.getElementById("formulariUsuariID").value = user.id;
+                    document.getElementById("formulariUsuariNomUsuari").value = user.nomUsuari;
+                    document.getElementById("formulariUsuariContrasenya").value = user.contrasenya;
+                    document.getElementById("formulariUsuariNom").value = user.nom;
+                    document.getElementById("formulariUsuariCognom").value = user.cognoms;
+                    document.getElementById("formulariUsuariCorreu").value = user.correu;
+                    document.getElementById("formulariUsuariRol").value = user.rol;
+                    document.getElementById("formulariUsuariTelefon").value = user.telefon;
+
+                    mostrarFormulario();
                 });
         }
 
