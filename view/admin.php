@@ -40,7 +40,7 @@
     <div id="panel" class="col-9">
         <section id="Usuaris" class="content-section active-section">
             <h2>Usuaris</h2>
-            <button id="afegirUsuari-btn" class="Afegir">Afegir Usuari</button>
+            <button id="btn_afegirUsuari" class="afegir usuari">Afegir Usuari</button>
             <table id="taula_usuaris">
                 <tr>
                     <td>ID</td>
@@ -75,8 +75,9 @@
                 <input type="text" id="formulariUsuariTelefon"><br><br>
                 <button type="button" id="btnGuardarUsuari">Guardar</button>
                 <button type="button" id="btnCancelarUsuari">Cancelar</button>
-                <button id="btn_afegirUsuari">Afegir Usuari</button>
+                
             </form>
+            
 
             
 
