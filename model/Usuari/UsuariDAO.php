@@ -65,12 +65,32 @@ class usuariDAO{
         $stmt->execute();
         $results = $stmt->get_result();
         
-        $missatge = $results;
         $con->close();
         
-        return $missatge;
+        return $results;
         }
         
+    }
+
+    public static function updateUsuari($id, $nomUsuari, $contrasenya, $nom, $cognoms, $correu, $telefon, $rol){
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuaris SET nomUsuari=?, contrasenya=?, nom=?, cognoms=?, correu=?, telefon=?, rol=? WHERE id=?");
+        $stmt->bind_param("sssssssi", $nomUsuari, $contrasenya, $nom, $cognoms, $correu, $telefon, $rol, $id);
+        $stmt->execute();
+        $results = $stmt->get_result();
+        $con->close();
+        return $results;
+    }
+    
+
+    public static function delateUsuari($id){
+        $con = DataBase::connect();
+        $stmt = $con->prepare("DELETE FROM usuaris WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $results = $stmt->get_result();
+        $con->close();
+        return $results;
     }
 
     public static function getUsuarisJSON() {

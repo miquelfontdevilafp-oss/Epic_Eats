@@ -154,7 +154,7 @@
         }
 
         function eliminarUsuari(id) {
-            if (!alert("Vols eliminar aquest usuari?")) return;
+            // if (!alert("Vols eliminar aquest usuari?")) return; //TODO no funciona prova a canviar-ho o treure
 
             fetch(`api.php?controller=Api&action=deleteUser`, {
                 method: "POST",
