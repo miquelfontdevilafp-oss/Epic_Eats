@@ -56,47 +56,30 @@
                 </tr>
             </table>
 
-            <!-- formulari afegir usuari -->
-            <form action="" method="get" class="afegirUsuariFormulari">
-                <p>ID</p>
-                <p><u>id usuari</u></p>
+            <!-- formulari afegir i editar usuari -->
+            <form id="formUsuari" class="afegirUsuariFormulari">
+                <input type="hidden" id="formulariUsuariID">
                 <p>Nom Usuari</p>
-                <input type="text" name="nomUsuari" id="nomUsuari">
+                <input type="text" id="formulariUsuariNomUsuari">
                 <p>Contrasenya</p>
-                <input type="text" name="contrasenya" id="contrasenya">
+                <input type="text" id="formulariUsuariContrasenya">
                 <p>Nom</p>
-                <input type="text" name="nom" id="nom">
+                <input type="text" id="formulariUsuariNom">
                 <p>Cognom</p>
-                <input type="text" name="cognom" id="cognom">
+                <input type="text" id="formulariUsuariCognom">  
                 <p>Correu</p>
-                <input type="text" name="correu" id="correu">
+                <input type="text" id="formulariUsuariCorreu">
                 <p>Rol</p>
-                <input type="text" name="rol" id="rol">
+                <input type="text" id="formulariUsuariRol">
                 <p>Telefon</p>
-                <input type="text" name="telefon" id="telefon"><br><br>
-                <input type="button" value="Send">
+                <input type="text" id="formulariUsuariTelefon"><br><br>
+                <button type="button" id="btnGuardarUsuari">Guardar</button>
+                <button type="button" id="btnCancelarUsuari">Cancelar</button>
+                <button id="btn_afegirUsuari">Afegir Usuari</button>
             </form>
 
-            <!-- formulari editar usuari -->
-            <form action="" method="get">
-                <p>ID</p>
-                <p><u>id usuari</u></p>
-                <p>Nom Usuari</p>
-                <input type="text" name="nomUsuari" id="nomUsuari">
-                <p>Contrasenya</p>
-                <input type="text" name="contrasenya" id="contrasenya">
-                <p>Nom</p>
-                <input type="text" name="nom" id="nom">
-                <p>Cognom</p>
-                <input type="text" name="cognom" id="cognom">
-                <p>Correu</p>
-                <input type="text" name="correu" id="correu">
-                <p>Rol</p>
-                <input type="text" name="rol" id="rol">
-                <p>Telefon</p>
-                <input type="text" name="telefon" id="telefon"><br><br>
-                <input type="button" value="Send">
-            </form>
+            
+
         </section>
         <section id="Reserva" class="content-section">
             <h2>Reserva</h2>

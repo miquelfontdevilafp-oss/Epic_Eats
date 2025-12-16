@@ -23,4 +23,6 @@ if (isset($_GET['controller'])) {
 }else {
    echo 'Falta el controlador en la URL. Posa-ho FOCA';
 }
+
+
 ?>

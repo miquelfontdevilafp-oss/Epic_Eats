@@ -20,4 +20,7 @@ class UsuariController{
         $usuari = UsuariDAO::getUsuariByID($idUsuari);
         return $usuari;
     }
+    public function setUsuari($nomUsuari, $contrasenya, $nom, $cognoms, $correu, $telefon, $rol){
+        $setUsuari = usuariDAO::setUsuari($nomUsuari, $contrasenya, $nom, $cognoms, $correu, $telefon, $rol);
+    }
 }
