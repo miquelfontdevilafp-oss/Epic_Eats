@@ -7,7 +7,6 @@ class ProductesDAO{
     public static function getProducteByID($id){
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM productes where id = ?");
-        //si tenim mes camps podem fer aixo $stmt-> bind_param('iis',$id, $int2, $string);
         $stmt-> bind_param('i',$id);
         $stmt->execute();
         $results = $stmt->get_result();
