@@ -1,18 +1,19 @@
 <?php
+include_once 'model/Productes/ProductesDAO.php';
 class ProductesController{
     public function Productes(){
 
         $view = 'productes.php';
         require_once __DIR__ . "\..\\view\plantilla.php";
     }
-    public function show(){
-        $view = 'view/Usuari/show.php';
-        $idProducte=$_GET['idproducte'];
-        $producte = ProductesDAO::getProducteByID($idProducte);
-        include_once 'view/main.php';
-    }
+    // public function show(){
+    //     $view = 'view/show.php';
+    //     $idProducte=$_GET['idproducte'];
+    //     $producte = ProductesDAO::getProducteByID($idProducte);
+    //     include_once 'view/main.php';
+    // }
     public function index(){
-        $view = 'view/Usuari/index.php';
+        $view = 'view/Productes/index.php';
         $productes = ProductesDAO::getProductes();
         include_once 'view/main.php';
     }
