@@ -1,0 +1,1 @@
+const butons = document.querySelectorAll(".btn-carrito")

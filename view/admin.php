@@ -68,7 +68,7 @@
                 <p>Cognom</p>
                 <input type="text" id="formulariUsuariCognom">  
                 <p>Correu</p>
-                <input type="text" id="formulariUsuariCorreu">
+                <input type="email" id="formulariUsuariCorreu">
                 <p>Rol</p>
                 <input type="text" id="formulariUsuariRol">
                 <p>Telefon</p>

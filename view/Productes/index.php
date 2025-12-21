@@ -19,6 +19,17 @@
         </tr>
     <?php } ?>
     </table>
+    <?php foreach ($productes as $producte) { ?>
+        <div class="container productes">
+            <h2><?= $producte->getNom() ?></h2>
+            <img src="<?= $producte->getImatge()?>" alt="<?= $producte->getNom()?>">
+            <p><?= $producte->getDescripcio()?></p>
+            <p><?= $producte->getPreuUnitat()?></p>
+            <label for="quantitatProducte<?= $producte->getId()?>"></label>
+            <input type="number" name="quantitatProducte<?= $producte->getId()?>" id="quantitatProducte<?= $producte->getId()?>" min="0">
+            <button id="<?= $producte->getId()?>" class="btn-carrito">Afagir al carrillo</button>
+        </div>
+    <?php } ?>
 </section>
 
 
