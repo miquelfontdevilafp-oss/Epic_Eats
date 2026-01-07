@@ -4,7 +4,6 @@ include_once 'controller/HomeController.php';
 include_once 'controller/AdminController.php';
 include_once 'controller/LoginController.php';
 include_once 'controller/ApiController.php';
-include_once 'controller/ProductesController.php';
 
 
 

@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Ingredients.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class IngredientsDAO{
     public static function getIngredientByID($id){

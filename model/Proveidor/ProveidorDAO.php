@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Proveidor.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class ProveidorDAO{
     public static function getProveidorByID($id){

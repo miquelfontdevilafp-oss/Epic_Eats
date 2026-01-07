@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Ofertes.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class OfertesDAO{
     public static function getOferteByID($id){

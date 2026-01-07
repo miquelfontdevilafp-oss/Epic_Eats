@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Alergans.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class AlerganDAO{
     public static function getAlerganByID($id){

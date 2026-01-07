@@ -1,7 +1,7 @@
 <?php
 
 include_once 'LineaComanda_Ingredient.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class LineaComanda_IngredientDAO{
     public static function getLineaComanda_IngredientByID($id){

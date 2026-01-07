@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Comanda.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class ComandaDAO{
     public static function getComandaByID($id){

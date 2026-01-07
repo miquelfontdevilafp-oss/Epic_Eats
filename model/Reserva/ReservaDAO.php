@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Reserva.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class reservaDAO{
     public static function getReservaByID($id){

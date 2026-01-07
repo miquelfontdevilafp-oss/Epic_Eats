@@ -5,11 +5,11 @@ class Alergans{
     private string $descripcio;
     private string $imatge;
     
-    public function __construct(string $nom, string $descripcio, string $imatge){
-        $this-> nom = $nom;
-        $this-> descripcio = $descripcio;
-        $this-> imatge = $imatge;
-    }
+    // public function __construct(string $nom, string $descripcio, string $imatge){
+    //     $this-> nom = $nom;
+    //     $this-> descripcio = $descripcio;
+    //     $this-> imatge = $imatge;
+    // }
 
     /**
      * Get the value of id

@@ -1,7 +1,7 @@
 <?php
 
 include_once 'Categoria.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class CategoriaDAO{
     public static function getCategoriaByID($id){

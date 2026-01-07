@@ -1,5 +1,5 @@
 <?php
-include_once 'model\Usuari\UsuariDAO.php';
+include_once 'model/Usuari/UsuariDAO.php';
 class UsuariController{
     public function show(){
         $view = 'view/Usuari/show.php';

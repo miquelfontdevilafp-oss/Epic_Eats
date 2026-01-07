@@ -1,13 +1,13 @@
 <?php
 class Usuari{
-    private int $id;
-    private string $nomUsuari;
-    private string $contrasenya;
-    private string $nom;
-    private string $cognoms;
-    private string $correu;
-    private string $telefon;
-    private string $rol;
+    private $id;
+    private $nomUsuari;
+    private $contrasenya;
+    private $nom;
+    private $cognoms;
+    private $correu;
+    private $telefon;
+    private $rol;
     
     // public function __construct(int $id, string $nomUsuari, string $contrasenya, string $nom, string $cognoms, string $correu, string $telefon, string $rol){
     //     $this->id = $id;

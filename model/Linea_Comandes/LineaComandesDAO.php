@@ -1,7 +1,7 @@
 <?php
 
 include_once 'LineaComandes.php';
-include_once 'database\DataBase.php';
+include_once 'database/DataBase.php';
 
 class LineaComandesDAO{
     public static function getLineaComandeByID($id){

@@ -1,34 +1,42 @@
 <?php
-include_once 'entorn.php';
-include_once 'controller/HomeController.php';
-include_once 'controller/AdminController.php';
-include_once 'controller/LoginController.php';
-include_once 'controller/ProductesController.php';
+// Epic Eats – Router principal (MVC)
+// Manté l'estructura del projecte però amb comportament tipus "Proyecto_Restaurante-desarrollo"
 
+include_once __DIR__ . '/entorn.php';
 
-if (isset($_GET['controller'])) {
-    $nombre_controller = $_GET['controller'].'Controller';
-    if (class_exists($nombre_controller)) {
-        $controller = new $nombre_controller();
-        $action = $_GET['action'];
-        if (isset($_GET['action']) && method_exists($controller, $action)) {
-            $controller->$action();
-        }else{
-            header("Location:404.php");
-        }
-    }else {
-        echo 'No existe controlador '.$nombre_controller;
-    } 
-}else {
-   echo 'Falta el controlador en la URL. Posa-ho FOCA';
+// Models necessaris per a la sessió (objectes serialitzats)
+include_once __DIR__ . '/model/Usuari/Usuari.php';
+
+session_start();
+
+// Controllers
+include_once __DIR__ . '/controller/HomeController.php';
+include_once __DIR__ . '/controller/AdminController.php';
+include_once __DIR__ . '/controller/ProductesController.php';
+include_once __DIR__ . '/controller/AuthController.php';
+include_once __DIR__ . '/controller/CarritoController.php';
+
+// Defaults
+$defaultController = 'Home';
+$defaultAction = 'Home';
+
+$controllerParam = $_GET['controller'] ?? $defaultController;
+$action = $_GET['action'] ?? $defaultAction;
+
+$nombre_controller = ucfirst(strtolower($controllerParam)) . 'Controller';
+
+if (!class_exists($nombre_controller)) {
+    http_response_code(404);
+    echo '<h1>Controlador no encontrado</h1>';
+    exit;
 }
-?>
 
-<!-- 
-*http://localhost/daw2/Epic_Eats/?controller=home&action=home
-*http://localhost/daw2/Epic_Eats/?controller=admin&action=admin
-*http://localhost/daw2/Epic_Eats/?controller=login&action=login
-*
-*
-*
--->
+$controller = new $nombre_controller();
+
+if (!method_exists($controller, $action)) {
+    http_response_code(404);
+    echo '<h1>Acción no encontrada</h1>';
+    exit;
+}
+
+$controller->$action();
