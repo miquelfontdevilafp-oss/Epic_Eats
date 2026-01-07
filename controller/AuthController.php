@@ -55,7 +55,7 @@ class AuthController
         }
 
         // Obté usuari per correu (el teu DAO ja consulta WHERE correu = ?)
-        $usuari = usuariDAO::getUsuariByUserName($correu);
+        $usuari = usuariDAO::getUsuariByCorreu($correu);
 
         // Missatge genèric per no revelar si existeix o no
         if (!$usuari) {
