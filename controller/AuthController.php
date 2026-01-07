@@ -64,7 +64,8 @@ class AuthController
             exit;
         }
 
-        $stored = (string)($usuari->contrasenya ?? '');
+        // IMPORTANT: Usuari té propietats privades; fem servir getters
+        $stored = (string)($usuari->getContrasenya() ?? '');
         $ok = false;
 
         // Detecta si $stored és un hash suportat per password_* (bcrypt/argon/etc.)
@@ -74,13 +75,13 @@ class AuthController
 
             // Opcional: si algun dia canvies l'algo/cost, rehash automàtic
             if ($ok && password_needs_rehash($stored, PASSWORD_BCRYPT)) {
-                $this->upgradePasswordHash((int)$usuari->id, $contrasenya);
+                $this->upgradePasswordHash((int)$usuari->getId(), $contrasenya);
             }
         } else {
             // Compatibilitat: contrasenya en text pla (projecte antic)
             $ok = hash_equals($stored, $contrasenya);
             if ($ok) {
-                $this->upgradePasswordHash((int)$usuari->id, $contrasenya);
+                $this->upgradePasswordHash((int)$usuari->getId(), $contrasenya);
             }
         }
 
@@ -121,7 +122,7 @@ class AuthController
         }
 
         // Ja existeix per correu?
-        $existing = usuariDAO::getUsuariByUserName($correu);
+        $existing = usuariDAO::getUsuariByCorreu($correu);
         if ($existing) {
             $_SESSION['flash_error'] = 'Ja existeix un usuari amb aquest correu.';
             header('Location: ' . BASE_URL . '/?controller=Auth&action=register');
@@ -141,7 +142,7 @@ class AuthController
         }
 
         // Auto-login
-        $usuari = usuariDAO::getUsuariByUserName($correu);
+        $usuari = usuariDAO::getUsuariByCorreu($correu);
 
         if (session_status() === PHP_SESSION_ACTIVE) {
             session_regenerate_id(true);

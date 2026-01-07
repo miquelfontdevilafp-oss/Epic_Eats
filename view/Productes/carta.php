@@ -6,8 +6,35 @@
         </a>
     </div>
 
-    <div class="row g-4">
-        <?php foreach (($productes ?? []) as $p): ?>
+    <div class="row">
+        <!-- Filtres (similar a Proyecto_Restaurante-desarrollo, però mantenint CSS/imatges d'Epic Eats) -->
+        <aside class="col-12 col-lg-3 mb-4 mb-lg-0">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Filtres</h5>
+                    <p class="text-muted mb-2">Categories</p>
+
+                    <?php if (!empty($categorias ?? [])): ?>
+                        <div class="d-grid gap-2" id="filtros-categorias">
+                            <?php foreach ($categorias as $c): ?>
+                                <label class="form-check">
+                                    <input class="form-check-input filtro-categoria" type="checkbox" value="<?= (int)$c->getId() ?>">
+                                    <span class="form-check-label"><?= htmlspecialchars((string)$c->getNom(), ENT_QUOTES, 'UTF-8') ?></span>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary mt-3" id="btn-limpiar-filtros">Netejar filtres</button>
+                    <?php else: ?>
+                        <p class="text-muted">No hi ha categories.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Productes -->
+        <div class="col-12 col-lg-9">
+            <div class="row g-4" id="grid-productes">
+                <?php foreach (($productes ?? []) as $p): ?>
             <?php
             // getters (objeto Productes)
             $id   = (int) $p->getId();
@@ -16,13 +43,16 @@
             $preu = (float) ($p->getPreuUnitat() ?? 0);
             $img  = (string) ($p->getImatge() ?: 'IMG/ImgNotFound.png');
 
+            $cats = $mapProducteCategories[$id] ?? [];
+            $catsAttr = implode(',', array_map('intval', $cats));
+
             // URL de imagen robusta
             $imgUrl = (str_starts_with($img, 'http') || str_starts_with($img, '/'))
                 ? $img
                 : (BASE_URL . '/' . ltrim($img, '/'));
             ?>
 
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-xl-4 producto-card" data-categorias="<?= htmlspecialchars($catsAttr, ENT_QUOTES, 'UTF-8') ?>">
                 <div class="card h-100">
                     <img
                         src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>"
@@ -54,7 +84,9 @@
                 </div>
             </div>
 
-        <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -82,5 +114,36 @@ document.addEventListener('DOMContentLoaded', function () {
             anadirAlCarrito(id, nom, preu, img, 1);
         });
     });
+
+    // Filtres per categories (client-side)
+    const checkboxes = document.querySelectorAll('.filtro-categoria');
+    const cards = document.querySelectorAll('.producto-card');
+
+    function aplicarFiltros(){
+        const seleccionadas = Array.from(checkboxes)
+            .filter(c => c.checked)
+            .map(c => parseInt(c.value, 10));
+
+        if (seleccionadas.length === 0) {
+            cards.forEach(card => card.style.display = '');
+            return;
+        }
+
+        cards.forEach(card => {
+            const attr = (card.dataset.categorias || '').trim();
+            const categorias = attr === '' ? [] : attr.split(',').map(v => parseInt(v, 10)).filter(v => !Number.isNaN(v));
+            const match = categorias.some(c => seleccionadas.includes(c));
+            card.style.display = match ? '' : 'none';
+        });
+    }
+
+    checkboxes.forEach(c => c.addEventListener('change', aplicarFiltros));
+    const btnLimpiar = document.getElementById('btn-limpiar-filtros');
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener('click', function(){
+            checkboxes.forEach(c => c.checked = false);
+            aplicarFiltros();
+        });
+    }
 });
 </script>
