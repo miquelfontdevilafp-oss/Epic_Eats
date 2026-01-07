@@ -4,7 +4,7 @@
 
             <!-- Logo Epic Eats + desplegable amb php -->
             <a class="navbar-brand" href="<?= BASE_URL ?>/?controller=Home&action=Home">
-                <img src="<?=BASE_URL?>/IMG/Logo_EpicEats_oscuro.png" height="32" alt="EpicEats">
+                <img src="<?= BASE_URL ?>/IMG/Logo_EpicEats_oscuro.png" height="32" alt="EpicEats">
             </a>
 
             <!-- Menu de pagines -->
@@ -13,6 +13,14 @@
                 <li class="nav-item"><a class="nav-link" href="#">Restaurant</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Reserva</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Contacta</a></li>
+                <?php if (!empty($_SESSION['usuario']) && is_object($_SESSION['usuario'])): ?>
+                    <?php $u = $_SESSION['usuario']; ?>
+                    <?php if (method_exists($u, 'getRol') && $u->getRol() === 'admin'): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_URL ?>/?controller=Admin&action=Admin">Admin Panel</a>
+                        </li>
+                    <?php endif; ?>
+                <?php endif; ?>
             </ul>
 
             <!-- Login/register + carro -->
@@ -40,5 +48,3 @@
         </div>
     </nav>
 </section>
-
-

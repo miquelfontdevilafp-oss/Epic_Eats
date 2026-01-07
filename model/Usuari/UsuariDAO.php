@@ -37,7 +37,20 @@ class usuariDAO
 
         return $listaUsuaris;
     }
-    public static function getUsuariByUserName($correu)
+    public static function getUsuariByUserName($userName)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT * FROM usuaris where 	nomUsuari  = ?");
+        $stmt->bind_param('s', $userName);
+        $stmt->execute();
+        $results = $stmt->get_result();
+
+        $usuari = $results->fetch_object('Usuari');
+        $con->close();
+
+        return $usuari;
+    }
+    public static function getUsuariByCorreu($correu)
     {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM usuaris where correu = ?");
