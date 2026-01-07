@@ -27,7 +27,7 @@
                     <?php $u = $_SESSION['usuario']; ?>
                     <li class="nav-item">
                         <span class="navbar-text text-white me-2">
-                            <?= htmlspecialchars($u->nomUsuari ?? ($u->nom ?? 'Usuari')) ?>
+                            <?= htmlspecialchars($u->getNomUsuari(), ENT_QUOTES, 'UTF-8') ?>
                         </span>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>/?controller=Auth&action=logout">Sortir</a></li>

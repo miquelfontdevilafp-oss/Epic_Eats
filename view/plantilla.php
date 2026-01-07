@@ -9,7 +9,6 @@
 </head>
 <header class="header">
     <?php 
-    session_start();
     include_once __DIR__ . '/navbar.php'; 
     ?> 
 </header>
