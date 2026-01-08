@@ -20,6 +20,59 @@ document.addEventListener("DOMContentLoaded", () => {
   initComandes();
 });
 
+
+// -------------------------
+// FX (Frankfurter) helpers
+// -------------------------
+const FX_STORAGE_KEY = "checkout_currency"; // compartit amb checkout
+const FX_RATE_KEY = "fx_eur_usd";           // cache localStorage
+const FX_RATE_TTL_MS = 12 * 60 * 60 * 1000; // 12h
+
+function getSelectedAdminCurrency() {
+  const sel = document.getElementById("adminComandaCurrency");
+  return (sel && sel.value) ? sel.value : (localStorage.getItem(FX_STORAGE_KEY) || "EUR");
+}
+
+function setSelectedAdminCurrency(cur) {
+  const sel = document.getElementById("adminComandaCurrency");
+  if (sel) sel.value = cur;
+  localStorage.setItem(FX_STORAGE_KEY, cur);
+}
+
+async function getEurUsdRate() {
+  try {
+    const cachedRaw = localStorage.getItem(FX_RATE_KEY);
+    if (cachedRaw) {
+      const cached = JSON.parse(cachedRaw);
+      if (cached && cached.rate && cached.ts && (Date.now() - cached.ts) < FX_RATE_TTL_MS) {
+        return Number(cached.rate);
+      }
+    }
+  } catch (_) { /* ignore */ }
+
+  const res = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD", { cache: "no-store" });
+  if (!res.ok) throw new Error("No s'ha pogut obtenir el canvi EUR/USD");
+  const data = await res.json();
+  const rate = Number(data?.rates?.USD);
+  if (!rate || !isFinite(rate)) throw new Error("Resposta de Frankfurter invàlida");
+
+  try {
+    localStorage.setItem(FX_RATE_KEY, JSON.stringify({ rate, ts: Date.now() }));
+  } catch (_) { /* ignore */ }
+
+  return rate;
+}
+
+function formatMoney(value, currency) {
+  const n = Number(value);
+  const safe = isFinite(n) ? n : 0;
+  try {
+    return new Intl.NumberFormat("es-ES", { style: "currency", currency }).format(safe);
+  } catch (_) {
+    const symbol = currency === "USD" ? "$" : "€";
+    return symbol + safe.toFixed(2);
+  }
+}
 botonesMenu.forEach(boton => {
   boton.addEventListener("click", () => {
     const target = boton.getAttribute("data-target");
@@ -59,7 +112,6 @@ function cargarUsuaris() {
         row.innerHTML = `
                             <td>${user.id}</td>
                             <td>${user.nomUsuari}</td>
-                            <td>${user.contrasenya}</td>
                             <td>${user.nom}</td>
                             <td>${user.cognoms}</td>
                             <td>${user.correu}</td>
@@ -371,6 +423,17 @@ function initComandes() {
 
   if (btnGuardar) btnGuardar.addEventListener("click", guardarComanda);
   if (btnCancelar) btnCancelar.addEventListener("click", ocultarFormComanda);
+
+  // Selector de moneda (visualització) per a Comandes
+  const curSel = document.getElementById("adminComandaCurrency");
+  if (curSel) {
+    const saved = localStorage.getItem(FX_STORAGE_KEY) || "EUR";
+    curSel.value = saved;
+    curSel.addEventListener("change", () => {
+      setSelectedAdminCurrency(curSel.value);
+      cargarComandes();
+    });
+  }
 }
 
 function limpiarFormComanda() {
@@ -383,42 +446,68 @@ function limpiarFormComanda() {
   if (sel) sel.innerHTML = "";
 }
 
-function cargarComandes() {
-  fetch("api.php?controller=Api&action=getComandes")
-    .then(r => r.json())
-    .then(data => {
-      if (!data.success) {
-        alert("Error: " + (data.message || "No s'han pogut carregar les comandes"));
-        return;
+
+
+async function cargarComandes() {
+  try {
+    const r = await fetch("api.php?controller=Api&action=getComandes");
+    const data = await r.json();
+
+    if (!data.success) {
+      alert("Error: " + (data.message || "No s'han pogut carregar les comandes"));
+      return;
+    }
+
+    const taula = document.getElementById("taula_comandes");
+    if (!taula) return;
+
+    // limpia filas (excepto cabecera)
+    document.querySelectorAll("#taula_comandes tr:not(:first-child)").forEach(tr => tr.remove());
+
+    const currency = getSelectedAdminCurrency();
+    let rate = 1;
+    let shownCurrency = "EUR";
+
+    if (currency === "USD") {
+      try {
+        rate = await getEurUsdRate();
+        shownCurrency = "USD";
+      } catch (e) {
+        console.warn(e);
+        alert("No s'ha pogut obtenir el canvi EUR/USD. Es mostraran els valors en EUR.");
+        rate = 1;
+        shownCurrency = "EUR";
       }
+    }
 
-      const taula = document.getElementById("taula_comandes");
-      if (!taula) return;
+    data.comandes.forEach(c => {
+      const preuEur = Number(c.preu_total);
+      const base = isFinite(preuEur) ? preuEur : 0;
+      const shownValue = base * rate;
 
-      // limpia filas (excepto cabecera)
-      document.querySelectorAll("#taula_comandes tr:not(:first-child)").forEach(tr => tr.remove());
-
-      data.comandes.forEach(c => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
+      const row = document.createElement("tr");
+      row.innerHTML = `
           <td>${c.id}</td>
-          <td>${c.preu_total}</td>
+          <td data-preu-eur="${base}">${formatMoney(shownValue, shownCurrency)}</td>
           <td>${c.id_usuaris}</td>
           <td><button class="editarComanda" data-id="${c.id}">Editar</button></td>
           <td><button class="eliminarComanda" data-id="${c.id}">Eliminar</button></td>
         `;
-        taula.appendChild(row);
-      });
+      taula.appendChild(row);
+    });
 
-      document.querySelectorAll(".editarComanda").forEach(btn =>
-        btn.addEventListener("click", () => editarComanda(btn.dataset.id))
-      );
-      document.querySelectorAll(".eliminarComanda").forEach(btn =>
-        btn.addEventListener("click", () => eliminarComanda(btn.dataset.id))
-      );
-    })
-    .catch(() => alert("Error de xarxa carregant comandes"));
+    document.querySelectorAll(".editarComanda").forEach(btn =>
+      btn.addEventListener("click", () => editarComanda(btn.dataset.id))
+    );
+    document.querySelectorAll(".eliminarComanda").forEach(btn =>
+      btn.addEventListener("click", () => eliminarComanda(btn.dataset.id))
+    );
+  } catch (_) {
+    alert("Error de xarxa carregant comandes");
+  }
 }
+
+
 
 function mostrarFormComanda(comanda = null) {
   const form = document.getElementById("formComanda");

@@ -37,7 +37,6 @@
                     <tr>
                         <td>ID</td>
                         <td>NomUsuari</td>
-                        <td>Contrasenya</td>
                         <td>Nom</td>
                         <td>Cognom</td>
                         <td>Correu</td>
@@ -106,6 +105,16 @@
             <section id="Comanda" class="content-section">
                 <h2>Comandes</h2>
 
+                <div style="margin: 8px 0 14px 0;">
+                    <label for="adminComandaCurrency"><strong>Moneda:</strong></label>
+                    <select id="adminComandaCurrency">
+                        <option value="EUR">EUR (€)</option>
+                        <option value="USD">USD ($)</option>
+                    </select>
+                    <small style="margin-left:8px; opacity:0.8;">Els valors es guarden en EUR; això només canvia la visualització.</small>
+                </div>
+
+
                 <button type="button" id="btn_afegirComanda">Afegir comanda</button>
 
                 <table id="taula_comandes">
@@ -121,7 +130,7 @@
                 <form id="formComanda" class="afegirUsuariFormulari" style="display:none;">
                     <input type="hidden" id="formulariComandaID">
 
-                    <p>Preu total</p>
+                    <p>Preu total <small style="opacity:0.8;">(valors en EUR)</small></p>
                     <input type="number" step="0.01" id="formulariComandaPreuTotal">
 
                     <p>ID Usuari</p>

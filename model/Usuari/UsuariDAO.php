@@ -37,11 +37,11 @@ class usuariDAO
 
         return $listaUsuaris;
     }
-    public static function getUsuariByCorreu($correu)
+    public static function getUsuariByUserName($userName)
     {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM usuaris where correu = ?");
-        $stmt->bind_param('s', $correu);
+        $stmt = $con->prepare("SELECT * FROM usuaris where 	nomUsuari  = ?");
+        $stmt->bind_param('s', $userName);
         $stmt->execute();
         $results = $stmt->get_result();
 
@@ -50,12 +50,11 @@ class usuariDAO
 
         return $usuari;
     }
-
-    public static function getUsuariByUserName($userName)
+    public static function getUsuariByCorreu($correu)
     {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM usuaris where nomUsuari = ?");
-        $stmt->bind_param('s', $userName);
+        $stmt = $con->prepare("SELECT * FROM usuaris where correu = ?");
+        $stmt->bind_param('s', $correu);
         $stmt->execute();
         $results = $stmt->get_result();
 

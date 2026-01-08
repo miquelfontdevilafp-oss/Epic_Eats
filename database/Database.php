@@ -1,4 +1,5 @@
 <?php
+
     class Database{
         // ====USO LOCAL====:
         private static $host = 'localhost';
