@@ -42,7 +42,8 @@ class ApiController
                     "id" => $c->getId(),
                     "preu_total" => $c->getPreuTotal(),
                     "id_usuaris" => $c->getIdUsuari()
-                ];
+                ,
+                    "data_comanda" => method_exists($c, "getDataComanda") ? $c->getDataComanda() : null];
             }, $comandes);
 
             echo json_encode(["success" => true, "comandes" => $data], JSON_UNESCAPED_UNICODE);

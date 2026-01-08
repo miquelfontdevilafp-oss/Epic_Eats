@@ -32,6 +32,35 @@
         <div id="panel" class="col-9">
             <section id="Usuaris" class="content-section active-section">
                 <h2>Usuaris</h2>
+
+                <div id="usuarisFilters" style="margin:10px 0 14px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+                    <div>
+                        <label for="filterUsuariText"><strong>Filtre:</strong></label><br>
+                        <input id="filterUsuariText" type="text" placeholder="Cerca per ID, nom, correu, rol..." style="min-width:260px;">
+                    </div>
+                    <div>
+                        <label for="sortUsuariField"><strong>Ordenar per:</strong></label><br>
+                        <select id="sortUsuariField">
+                            <option value="id">ID</option>
+                            <option value="nomUsuari">NomUsuari</option>
+                            <option value="nom">Nom</option>
+                            <option value="cognoms">Cognom</option>
+                            <option value="correu">Correu</option>
+                            <option value="rol">Rol</option>
+                            <option value="telefon">Telefon</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sortUsuariDir"><strong>Direcció:</strong></label><br>
+                        <select id="sortUsuariDir">
+                            <option value="asc">Ascendent</option>
+                            <option value="desc">Descendent</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" id="btnClearUsuariFilters">Netejar</button>
+                    </div>
+                </div>
                 <button id="btn_afegirUsuari" class="afegir usuari">Afegir Usuari</button>
                 <table id="taula_usuaris">
                     <tr>
@@ -115,6 +144,53 @@
                 </div>
 
 
+                
+                <div id="comandesFilters" style="margin:10px 0 14px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+                    <div>
+                        <label for="filterComandaId"><strong>Pedido ID:</strong></label><br>
+                        <input id="filterComandaId" type="number" min="1" placeholder="Ex: 12" style="width:120px;">
+                    </div>
+                    <div>
+                        <label for="filterComandaUsuari"><strong>Usuari ID:</strong></label><br>
+                        <input id="filterComandaUsuari" type="number" min="1" placeholder="Ex: 3" style="width:120px;">
+                    </div>
+                    <div>
+                        <label for="filterComandaDateFrom"><strong>Data (des de):</strong></label><br>
+                        <input id="filterComandaDateFrom" type="date">
+                    </div>
+                    <div>
+                        <label for="filterComandaDateTo"><strong>Data (fins a):</strong></label><br>
+                        <input id="filterComandaDateTo" type="date">
+                    </div>
+                    <div>
+                        <label for="filterComandaPriceMin"><strong>Preu mín (EUR):</strong></label><br>
+                        <input id="filterComandaPriceMin" type="number" step="0.01" placeholder="0.00" style="width:140px;">
+                    </div>
+                    <div>
+                        <label for="filterComandaPriceMax"><strong>Preu màx (EUR):</strong></label><br>
+                        <input id="filterComandaPriceMax" type="number" step="0.01" placeholder="99.99" style="width:140px;">
+                    </div>
+                    <div>
+                        <label for="sortComandaField"><strong>Ordenar per:</strong></label><br>
+                        <select id="sortComandaField">
+                            <option value="id">ID</option>
+                            <option value="preu_total">Preu</option>
+                            <option value="id_usuaris">Usuari ID</option>
+                            <option value="data_comanda">Data</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sortComandaDir"><strong>Direcció:</strong></label><br>
+                        <select id="sortComandaDir">
+                            <option value="desc">Descendent</option>
+                            <option value="asc">Ascendent</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" id="btnClearComandaFilters">Netejar</button>
+                    </div>
+                </div>
+
                 <button type="button" id="btn_afegirComanda">Afegir comanda</button>
 
                 <table id="taula_comandes">
@@ -122,6 +198,7 @@
                         <td>ID</td>
                         <td>Preu total</td>
                         <td>ID Usuari</td>
+                        <td>Data</td>
                         <td>Editar</td>
                         <td>Eliminar</td>
                     </tr>

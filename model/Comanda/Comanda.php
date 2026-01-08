@@ -8,6 +8,7 @@ class Comanda{
      * - Using the same name here ensures mysqli::fetch_object('Comanda') hydrates it.
      */
     private int $id_usuaris;
+    private ?string $data_comanda = null;
 
     // public function __construct(float $preu_total, int $id_usuari){
     //         $this -> preu_total = $preu_total;

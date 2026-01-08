@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 08-01-2026 a les 17:36:13
+-- Temps de generació: 08-01-2026 a les 20:49:36
 -- Versió del servidor: 10.4.32-MariaDB
 -- Versió de PHP: 8.2.12
 
@@ -62,6 +62,9 @@ CREATE TABLE `alergans_ingredients` (
 --
 
 INSERT INTO `alergans_ingredients` (`id_ingredient`, `id_alergan`) VALUES
+(1, 1),
+(3, 2),
+(2, 3),
 (1, 1),
 (3, 2),
 (2, 3);
@@ -269,6 +272,7 @@ CREATE TABLE `productes_ofertes` (
 --
 
 INSERT INTO `productes_ofertes` (`id_producte`, `id_oferta`) VALUES
+(1, 2),
 (1, 2);
 
 -- --------------------------------------------------------
@@ -538,7 +542,7 @@ ALTER TABLE `reserva`
 -- AUTO_INCREMENT per la taula `usuaris`
 --
 ALTER TABLE `usuaris`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restriccions per a les taules bolcades
@@ -609,3 +613,8 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- OPTIONAL: Afegir data a les comandes (per filtre per data al panell d'admin)
+-- ALTER TABLE `comanda` ADD COLUMN `data_comanda` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+-- UPDATE `comanda` SET `data_comanda` = CURRENT_TIMESTAMP WHERE `data_comanda` IS NULL;

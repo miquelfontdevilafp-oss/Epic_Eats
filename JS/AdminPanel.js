@@ -12,9 +12,16 @@
 const botonesMenu = document.querySelectorAll(".menu-btn");
 const secciones = document.querySelectorAll(".content-section");
 
+
+// -------------------------
+// Admin: dataset cache (filters/sort)
+// -------------------------
+let ADMIN_USERS_ALL = [];
+let ADMIN_COMANDES_ALL = [];
 document.addEventListener("DOMContentLoaded", () => {
   setActiveSection("Usuaris");
   cargarUsuaris();
+  initUsuariFiltersUI();
 
   // Inicialitza listeners del CRUD de Comandes (evita duplicar DOMContentLoaded)
   initComandes();
@@ -103,36 +110,116 @@ function cargarUsuaris() {
   fetch("api.php?controller=Api&action=getUsers")
     .then(result => result.json())
     .then(data => {
-      const taula = document.getElementById("taula_usuaris");
-      const trs = document.querySelectorAll("#taula_usuaris tr:not(:first-child)");
-      trs.forEach(tr => tr.remove());
-
-      data.usuarios.forEach(user => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-                            <td>${user.id}</td>
-                            <td>${user.nomUsuari}</td>
-                            <td>${user.nom}</td>
-                            <td>${user.cognoms}</td>
-                            <td>${user.correu}</td>
-                            <td>${user.rol}</td>
-                            <td>${user.telefon}</td>
-                            <td><button class="editar" data-id="${user.id}">Editar</button></td>
-                            <td><button class="eliminar" data-id="${user.id}">Eliminar</button></td>
-                        `;
-        taula.appendChild(row);
-      });
-
-      document.querySelectorAll(".editar").forEach(btn =>
-        btn.addEventListener("click", () => editarUsuari(btn.dataset.id))
-      );
-
-      document.querySelectorAll(".eliminar").forEach(btn =>
-        btn.addEventListener("click", () => eliminarUsuari(btn.dataset.id))
-      );
+      ADMIN_USERS_ALL = (data && data.usuarios) ? data.usuarios : [];
+      applyUsuariFiltersAndSort();
     })
     .catch(err => console.error("Error carregant usuaris: ", err));
 }
+
+function normalizeStr(v) {
+  return (v === null || v === undefined) ? "" : String(v).toLowerCase();
+}
+
+function getUsuariFilterState() {
+  const text = document.getElementById("filterUsuariText")?.value || "";
+  const field = document.getElementById("sortUsuariField")?.value || "id";
+  const dir = document.getElementById("sortUsuariDir")?.value || "asc";
+  return { text: text.trim().toLowerCase(), field, dir };
+}
+
+function applyUsuariFiltersAndSort() {
+  const taula = document.getElementById("taula_usuaris");
+  if (!taula) return;
+
+  const { text, field, dir } = getUsuariFilterState();
+
+  let rows = Array.isArray(ADMIN_USERS_ALL) ? [...ADMIN_USERS_ALL] : [];
+
+  // filter (free text across most fields)
+  if (text) {
+    rows = rows.filter(u => {
+      const hay = [
+        u.id, u.nomUsuari, u.nom, u.cognoms, u.correu, u.rol, u.telefon
+      ].map(normalizeStr).join(" | ");
+      return hay.includes(text);
+    });
+  }
+
+  // sort
+  const isDesc = dir === "desc";
+  rows.sort((a, b) => {
+    const va = a?.[field];
+    const vb = b?.[field];
+
+    // numeric first when possible
+    const na = Number(va);
+    const nb = Number(vb);
+    if (isFinite(na) && isFinite(nb) && (String(va).trim() !== "" || String(vb).trim() !== "")) {
+      return isDesc ? (nb - na) : (na - nb);
+    }
+
+    const sa = normalizeStr(va);
+    const sb = normalizeStr(vb);
+    if (sa < sb) return isDesc ? 1 : -1;
+    if (sa > sb) return isDesc ? -1 : 1;
+    return 0;
+  });
+
+  renderUsuarisTable(rows);
+}
+
+function renderUsuarisTable(users) {
+  const taula = document.getElementById("taula_usuaris");
+  if (!taula) return;
+
+  // limpia filas (excepto cabecera)
+  document.querySelectorAll("#taula_usuaris tr:not(:first-child)").forEach(tr => tr.remove());
+
+  users.forEach(user => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${user.id ?? ""}</td>
+      <td>${user.nomUsuari ?? ""}</td>
+      <td>${user.nom ?? ""}</td>
+      <td>${user.cognoms ?? ""}</td>
+      <td>${user.correu ?? ""}</td>
+      <td>${user.rol ?? ""}</td>
+      <td>${user.telefon ?? ""}</td>
+      <td><button class="editar" data-id="${user.id}">Editar</button></td>
+      <td><button class="eliminar" data-id="${user.id}">Eliminar</button></td>
+    `;
+    taula.appendChild(row);
+  });
+
+  // rebind listeners
+  document.querySelectorAll(".editar").forEach(btn =>
+    btn.addEventListener("click", () => editarUsuari(btn.dataset.id))
+  );
+  document.querySelectorAll(".eliminar").forEach(btn =>
+    btn.addEventListener("click", () => eliminarUsuari(btn.dataset.id))
+  );
+}
+
+function initUsuariFiltersUI() {
+  const t = document.getElementById("filterUsuariText");
+  const f = document.getElementById("sortUsuariField");
+  const d = document.getElementById("sortUsuariDir");
+  const clr = document.getElementById("btnClearUsuariFilters");
+
+  [t, f, d].forEach(el => {
+    if (!el) return;
+    el.addEventListener("input", applyUsuariFiltersAndSort);
+    el.addEventListener("change", applyUsuariFiltersAndSort);
+  });
+
+  if (clr) clr.addEventListener("click", () => {
+    if (t) t.value = "";
+    if (f) f.value = "id";
+    if (d) d.value = "asc";
+    applyUsuariFiltersAndSort();
+  });
+}
+
 
 document.getElementById("btn_afegirUsuari").addEventListener("click", () => {
   limpiarFormUsuari();
@@ -434,7 +521,12 @@ function initComandes() {
       cargarComandes();
     });
   }
+
+
+  // Filters / sort UI
+  initComandaFiltersUI();
 }
+
 
 function limpiarFormComanda() {
   const idEl = document.getElementById("formulariComandaID");
@@ -458,54 +550,191 @@ async function cargarComandes() {
       return;
     }
 
-    const taula = document.getElementById("taula_comandes");
-    if (!taula) return;
-
-    // limpia filas (excepto cabecera)
-    document.querySelectorAll("#taula_comandes tr:not(:first-child)").forEach(tr => tr.remove());
-
-    const currency = getSelectedAdminCurrency();
-    let rate = 1;
-    let shownCurrency = "EUR";
-
-    if (currency === "USD") {
-      try {
-        rate = await getEurUsdRate();
-        shownCurrency = "USD";
-      } catch (e) {
-        console.warn(e);
-        alert("No s'ha pogut obtenir el canvi EUR/USD. Es mostraran els valors en EUR.");
-        rate = 1;
-        shownCurrency = "EUR";
-      }
-    }
-
-    data.comandes.forEach(c => {
-      const preuEur = Number(c.preu_total);
-      const base = isFinite(preuEur) ? preuEur : 0;
-      const shownValue = base * rate;
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-          <td>${c.id}</td>
-          <td data-preu-eur="${base}">${formatMoney(shownValue, shownCurrency)}</td>
-          <td>${c.id_usuaris}</td>
-          <td><button class="editarComanda" data-id="${c.id}">Editar</button></td>
-          <td><button class="eliminarComanda" data-id="${c.id}">Eliminar</button></td>
-        `;
-      taula.appendChild(row);
-    });
-
-    document.querySelectorAll(".editarComanda").forEach(btn =>
-      btn.addEventListener("click", () => editarComanda(btn.dataset.id))
-    );
-    document.querySelectorAll(".eliminarComanda").forEach(btn =>
-      btn.addEventListener("click", () => eliminarComanda(btn.dataset.id))
-    );
+    ADMIN_COMANDES_ALL = Array.isArray(data.comandes) ? data.comandes : [];
+    await applyComandaFiltersAndSort();
   } catch (_) {
     alert("Error de xarxa carregant comandes");
   }
 }
+
+function getComandaFilterState() {
+  const id = document.getElementById("filterComandaId")?.value || "";
+  const uid = document.getElementById("filterComandaUsuari")?.value || "";
+  const dFrom = document.getElementById("filterComandaDateFrom")?.value || "";
+  const dTo = document.getElementById("filterComandaDateTo")?.value || "";
+  const pMin = document.getElementById("filterComandaPriceMin")?.value || "";
+  const pMax = document.getElementById("filterComandaPriceMax")?.value || "";
+  const sortField = document.getElementById("sortComandaField")?.value || "id";
+  const sortDir = document.getElementById("sortComandaDir")?.value || "desc";
+  return { id, uid, dFrom, dTo, pMin, pMax, sortField, sortDir };
+}
+
+// Parse a date-ish string into a YYYY-MM-DD (local) key for filtering.
+// Accepts 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', ISO, etc.
+function toDateKey(v) {
+  if (!v) return "";
+  const s = String(v).trim();
+  const m = s.match(/^(\d{4}-\d{2}-\d{2})/);
+  if (m) return m[1];
+  const dt = new Date(s);
+  if (isNaN(dt.getTime())) return "";
+  const yyyy = dt.getFullYear();
+  const mm = String(dt.getMonth() + 1).padStart(2, "0");
+  const dd = String(dt.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+async function applyComandaFiltersAndSort() {
+  const taula = document.getElementById("taula_comandes");
+  if (!taula) return;
+
+  const { id, uid, dFrom, dTo, pMin, pMax, sortField, sortDir } = getComandaFilterState();
+
+  let rows = Array.isArray(ADMIN_COMANDES_ALL) ? [...ADMIN_COMANDES_ALL] : [];
+
+  // filter: ID
+  if (id) rows = rows.filter(c => String(c.id) === String(id));
+
+  // filter: user id
+  if (uid) rows = rows.filter(c => String(c.id_usuaris) === String(uid));
+
+  // filter: price range (always in base EUR)
+  const min = (pMin !== "") ? Number(pMin) : null;
+  const max = (pMax !== "") ? Number(pMax) : null;
+  if (min !== null && isFinite(min)) rows = rows.filter(c => Number(c.preu_total) >= min);
+  if (max !== null && isFinite(max)) rows = rows.filter(c => Number(c.preu_total) <= max);
+
+  // filter: date range (if API provides data_comanda)
+  const hasDate = rows.some(c => c.data_comanda || c.data || c.date);
+  const fromK = dFrom || "";
+  const toK = dTo || "";
+  if ((fromK || toK) && hasDate) {
+    rows = rows.filter(c => {
+      const key = toDateKey(c.data_comanda || c.data || c.date);
+      if (!key) return false;
+      if (fromK && key < fromK) return false;
+      if (toK && key > toK) return false;
+      return true;
+    });
+  }
+
+  // sort
+  const isDesc = sortDir === "desc";
+  rows.sort((a, b) => {
+    const va = a?.[sortField];
+    const vb = b?.[sortField];
+
+    if (sortField === "data_comanda") {
+      const ka = toDateKey(va);
+      const kb = toDateKey(vb);
+      if (ka < kb) return isDesc ? 1 : -1;
+      if (ka > kb) return isDesc ? -1 : 1;
+      return 0;
+    }
+
+    const na = Number(va);
+    const nb = Number(vb);
+    if (isFinite(na) && isFinite(nb) && (String(va).trim() !== "" || String(vb).trim() !== "")) {
+      return isDesc ? (nb - na) : (na - nb);
+    }
+
+    const sa = normalizeStr(va);
+    const sb = normalizeStr(vb);
+    if (sa < sb) return isDesc ? 1 : -1;
+    if (sa > sb) return isDesc ? -1 : 1;
+    return 0;
+  });
+
+  await renderComandesTable(rows);
+}
+
+async function renderComandesTable(comandes) {
+  const taula = document.getElementById("taula_comandes");
+  if (!taula) return;
+
+  // limpia filas (excepto cabecera)
+  document.querySelectorAll("#taula_comandes tr:not(:first-child)").forEach(tr => tr.remove());
+
+  const currency = getSelectedAdminCurrency();
+  let rate = 1;
+  let shownCurrency = "EUR";
+
+  if (currency === "USD") {
+    try {
+      rate = await getEurUsdRate();
+      shownCurrency = "USD";
+    } catch (e) {
+      console.warn(e);
+      alert("No s'ha pogut obtenir el canvi EUR/USD. Es mostraran els valors en EUR.");
+      rate = 1;
+      shownCurrency = "EUR";
+    }
+  }
+
+  comandes.forEach(c => {
+    const preuEur = Number(c.preu_total);
+    const base = isFinite(preuEur) ? preuEur : 0;
+    const shownValue = base * rate;
+
+    const dateVal = c.data_comanda || c.data || c.date || "";
+    const dateKey = toDateKey(dateVal);
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${c.id ?? ""}</td>
+      <td data-preu-eur="${base}">${formatMoney(shownValue, shownCurrency)}</td>
+      <td>${c.id_usuaris ?? ""}</td>
+      <td>${dateKey ? dateKey : (dateVal ? dateVal : "-")}</td>
+      <td><button class="editarComanda" data-id="${c.id}">Editar</button></td>
+      <td><button class="eliminarComanda" data-id="${c.id}">Eliminar</button></td>
+    `;
+    taula.appendChild(row);
+  });
+
+  document.querySelectorAll(".editarComanda").forEach(btn =>
+    btn.addEventListener("click", () => editarComanda(btn.dataset.id))
+  );
+
+  document.querySelectorAll(".eliminarComanda").forEach(btn =>
+    btn.addEventListener("click", () => eliminarComanda(btn.dataset.id))
+  );
+}
+
+function initComandaFiltersUI() {
+  const ids = [
+    "filterComandaId",
+    "filterComandaUsuari",
+    "filterComandaDateFrom",
+    "filterComandaDateTo",
+    "filterComandaPriceMin",
+    "filterComandaPriceMax",
+    "sortComandaField",
+    "sortComandaDir"
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("input", () => applyComandaFiltersAndSort());
+    el.addEventListener("change", () => applyComandaFiltersAndSort());
+  });
+
+  const clr = document.getElementById("btnClearComandaFilters");
+  if (clr) clr.addEventListener("click", () => {
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.tagName === "SELECT") {
+        if (id === "sortComandaField") el.value = "id";
+        else if (id === "sortComandaDir") el.value = "desc";
+      } else {
+        el.value = "";
+      }
+    });
+    applyComandaFiltersAndSort();
+  });
+}
+
 
 
 
