@@ -15,6 +15,9 @@ const secciones = document.querySelectorAll(".content-section");
 document.addEventListener("DOMContentLoaded", () => {
   setActiveSection("Usuaris");
   cargarUsuaris();
+
+  // Inicialitza listeners del CRUD de Comandes (evita duplicar DOMContentLoaded)
+  initComandes();
 });
 
 botonesMenu.forEach(boton => {
@@ -356,15 +359,29 @@ function eliminarProducte(id) {
 
 let usuarisCache = null; // para no pedir usuarios 50 veces
 
-document.addEventListener("DOMContentLoaded", () => {
+function initComandes() {
   const btnAfegir = document.getElementById("btn_afegirComanda");
   const btnGuardar = document.getElementById("btnGuardarComanda");
   const btnCancelar = document.getElementById("btnCancelarComanda");
 
-  if (btnAfegir) btnAfegir.addEventListener("click", () => mostrarFormComanda());
+  if (btnAfegir) btnAfegir.addEventListener("click", () => {
+    limpiarFormComanda();
+    mostrarFormComanda();
+  });
+
   if (btnGuardar) btnGuardar.addEventListener("click", guardarComanda);
   if (btnCancelar) btnCancelar.addEventListener("click", ocultarFormComanda);
-});
+}
+
+function limpiarFormComanda() {
+  const idEl = document.getElementById("formulariComandaID");
+  const preuEl = document.getElementById("formulariComandaPreuTotal");
+  const sel = document.getElementById("formulariComandaIdUsuari");
+
+  if (idEl) idEl.value = "";
+  if (preuEl) preuEl.value = "";
+  if (sel) sel.innerHTML = "";
+}
 
 function cargarComandes() {
   fetch("api.php?controller=Api&action=getComandes")
@@ -421,11 +438,7 @@ function ocultarFormComanda() {
   if (!form) return;
 
   form.style.display = "none";
-  document.getElementById("formulariComandaID").value = "";
-  document.getElementById("formulariComandaPreuTotal").value = "";
-
-  const sel = document.getElementById("formulariComandaIdUsuari");
-  if (sel) sel.innerHTML = "";
+  limpiarFormComanda();
 }
 
 function editarComanda(id) {
@@ -454,11 +467,11 @@ function guardarComanda() {
   };
 
   if (Number.isNaN(payload.preu_total) || payload.preu_total < 0) {
-    alert("Preu total inválid");
+    alert("Preu total invàlid");
     return;
   }
   if (Number.isNaN(payload.id_usuaris) || payload.id_usuaris <= 0) {
-    alert("ID usuari inválid");
+    alert("Selecciona un usuari vàlid");
     return;
   }
 
@@ -503,6 +516,12 @@ function cargarSelectUsuaris(selectedIdUsuari = null) {
 
   const pintar = (usuarios) => {
     sel.innerHTML = "";
+
+    const ph = document.createElement("option");
+    ph.value = "";
+    ph.textContent = "-- Selecciona un usuari --";
+    sel.appendChild(ph);
+
     usuarios.forEach(u => {
       const opt = document.createElement("option");
       opt.value = u.id;

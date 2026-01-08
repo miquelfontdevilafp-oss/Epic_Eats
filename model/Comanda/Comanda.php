@@ -2,7 +2,12 @@
 class Comanda{
     private int $id;
     private float $preu_total;
-    private int $id_usuari;
+    /**
+     * IMPORTANT:
+     * - The DB column is `comanda.id_usuaris` (plural).
+     * - Using the same name here ensures mysqli::fetch_object('Comanda') hydrates it.
+     */
+    private int $id_usuaris;
 
     // public function __construct(float $preu_total, int $id_usuari){
     //         $this -> preu_total = $preu_total;
@@ -26,12 +31,19 @@ class Comanda{
     }
 
     /**
-     * Get the value of id_usuari
+     * Get the value of id_usuaris (DB column)
      */ 
-    public function getId_usuari()
+    public function getIdUsuaris()
     {
-        return $this->id_usuari;
+        return $this->id_usuaris;
     }
+
+    /**
+     * Backwards-compatible aliases.
+     * Some parts of the codebase call these variants.
+     */
+    public function getIdUsuari() { return $this->getIdUsuaris(); }
+    public function getId_usuari() { return $this->getIdUsuaris(); }
 
     /**
      * Set the value of id
@@ -58,16 +70,22 @@ class Comanda{
     }
 
     /**
-     * Set the value of id_usuari
+     * Set the value of id_usuaris
      *
      * @return  self
      */ 
-    public function setId_usuari($id_usuari)
+    public function setIdUsuaris($id_usuaris)
     {
-        $this->id_usuari = $id_usuari;
+        $this->id_usuaris = $id_usuaris;
 
         return $this;
     }
+
+    /**
+     * Backwards-compatible aliases.
+     */
+    public function setIdUsuari($id_usuari) { return $this->setIdUsuaris($id_usuari); }
+    public function setId_usuari($id_usuari) { return $this->setIdUsuaris($id_usuari); }
 }
 
 ?>
