@@ -3,41 +3,45 @@
 include_once 'Productes.php';
 include_once 'database/DataBase.php';
 
-class ProductesDAO{
-    public static function getProducteByID($id){
+class ProductesDAO
+{
+    public static function getProducteByID($id)
+    {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM productes where id = ?");
-        $stmt-> bind_param('i',$id);
+        $stmt->bind_param('i', $id);
         $stmt->execute();
         $results = $stmt->get_result();
-        
+
         $Producte = $results->fetch_object('Productes');
         $con->close();
-        
+
         return $Producte;
     }
-    public static function getProductes(){
+    public static function getProductes()
+    {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM productes");
         $stmt->execute();
 
         $results = $stmt->get_result();
-        
+
         $listaProductes = [];
 
-        while($Producte = $results->fetch_object('Productes')){
-            $listaProductes[]=$Producte;
+        while ($Producte = $results->fetch_object('Productes')) {
+            $listaProductes[] = $Producte;
         }
-        
+
         $con->close();
-        
+
         return $listaProductes;
     }
 
     /**
      * Productes visibles a la carta (en_carta = 1)
      */
-    public static function getProductesEnCarta(){
+    public static function getProductesEnCarta()
+    {
         $con = DataBase::connect();
         $stmt = $con->prepare("SELECT * FROM productes WHERE en_carta = 1");
         $stmt->execute();
@@ -45,7 +49,7 @@ class ProductesDAO{
         $results = $stmt->get_result();
         $listaProductes = [];
 
-        while($Producte = $results->fetch_object('Productes')){
+        while ($Producte = $results->fetch_object('Productes')) {
             $listaProductes[] = $Producte;
         }
 
@@ -56,7 +60,8 @@ class ProductesDAO{
     /**
      * Retorna un mapa id_producte => [id_categoria, ...]
      */
-    public static function getCategoriesByProducteIds(array $ids): array {
+    public static function getCategoriesByProducteIds(array $ids): array
+    {
         $ids = array_values(array_filter(array_map('intval', $ids), fn($v) => $v > 0));
         if (empty($ids)) {
             return [];
@@ -90,6 +95,53 @@ class ProductesDAO{
 
         return $map;
     }
-}
+    public static function updatePreuUnitat(int $id, float $preu): bool
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE productes SET preu_unitat = ? WHERE id = ?");
+        $stmt->bind_param("di", $preu, $id);
 
-?>
+        $ok = $stmt->execute();
+        $stmt->close();
+        $con->close();
+
+        return $ok;
+    }
+    public static function updateProducte(int $id, string $nom, float $preu): bool
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE productes SET nom = ?, preu_unitat = ? WHERE id = ?");
+        $stmt->bind_param("sdi", $nom, $preu, $id);
+
+        $ok = $stmt->execute();
+        $stmt->close();
+        $con->close();
+
+        return $ok;
+    }
+    public static function addProducte(string $nom, float $preu): bool
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("INSERT INTO productes (nom, preu_unitat) VALUES (?, ?)");
+        $stmt->bind_param("sd", $nom, $preu);
+
+        $ok = $stmt->execute();
+        $stmt->close();
+        $con->close();
+
+        return $ok;
+    }
+
+    public static function deleteProducte(int $id): bool
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("DELETE FROM productes WHERE id = ?");
+        $stmt->bind_param("i", $id);
+
+        $ok = $stmt->execute();
+        $stmt->close();
+        $con->close();
+
+        return $ok;
+    }
+}

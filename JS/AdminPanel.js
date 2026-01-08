@@ -1,49 +1,55 @@
-        
-        // acer con botones para canviar la "pagina" 
-        // quando entras en el panel de administracion se carga todo solo que no se be lo que no esta "abierto" 
-        // en css aremos una clase llamado active-section con display: block i lo que no se muestra poner display none con clase (ej .content-section)
-        // podemos poner un attributo "inventado" par conseguir algo parecido a la id siu usar id en egemplo data-target
 
-        // per aixo farem addeventlistener click cojiendo los botones por classe o id
-        // acer lo del escrit en document js
-    
+// acer con botones para canviar la "pagina" 
+// quando entras en el panel de administracion se carga todo solo que no se be lo que no esta "abierto" 
+// en css aremos una clase llamado active-section con display: block i lo que no se muestra poner display none con clase (ej .content-section)
+// podemos poner un attributo "inventado" par conseguir algo parecido a la id siu usar id en egemplo data-target
+
+// per aixo farem addeventlistener click cojiendo los botones por classe o id
+// acer lo del escrit en document js
 
 
-        const botonesMenu = document.querySelectorAll(".menu-btn");
-        const secciones = document.querySelectorAll(".content-section");
 
-        document.addEventListener("DOMContentLoaded", () => {
-            setActiveSection("Usuaris");
-            cargarUsuaris();
-        });
+const botonesMenu = document.querySelectorAll(".menu-btn");
+const secciones = document.querySelectorAll(".content-section");
 
-        botonesMenu.forEach(boton => {
-            boton.addEventListener("click", () => {
-                const target = boton.getAttribute("data-target");
-                setActiveSection(target);
-            });
-        });
+document.addEventListener("DOMContentLoaded", () => {
+    setActiveSection("Usuaris");
+    cargarUsuaris();
+});
 
-        function setActiveSection(target) {
-            secciones.forEach(seccion => seccion.classList.remove("active-section"));
-            document.getElementById(target).classList.add("active-section");
+botonesMenu.forEach(boton => {
+    boton.addEventListener("click", () => {
+        const target = boton.getAttribute("data-target");
+        setActiveSection(target);
+    });
+});
 
-            if (target === "Usuaris") {
-                cargarUsuaris();
-            }
-        }
+function setActiveSection(target) {
+    secciones.forEach(seccion => seccion.classList.remove("active-section"));
+    document.getElementById(target).classList.add("active-section");
 
-        function cargarUsuaris() {
-            fetch("api.php?controller=Api&action=getUsers")
-                .then(result => result.json())
-                .then(data => {
-                    const taula = document.getElementById("taula_usuaris");
-                    const trs = document.querySelectorAll("#taula_usuaris tr:not(:first-child)");
-                    trs.forEach(tr => tr.remove());
+    if (target === "Usuaris") {
+        cargarUsuaris();
+    }
+    if (target === "Reserva") { 
+        cargarReserves(); 
+    }
+    if (target === "Productes") { 
+        cargarProductes(); 
+    }
+}
 
-                    data.usuarios.forEach(user => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
+function cargarUsuaris() {
+    fetch("api.php?controller=Api&action=getUsers")
+        .then(result => result.json())
+        .then(data => {
+            const taula = document.getElementById("taula_usuaris");
+            const trs = document.querySelectorAll("#taula_usuaris tr:not(:first-child)");
+            trs.forEach(tr => tr.remove());
+
+            data.usuarios.forEach(user => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
                             <td>${user.id}</td>
                             <td>${user.nomUsuari}</td>
                             <td>${user.contrasenya}</td>
@@ -55,115 +61,291 @@
                             <td><button class="editar" data-id="${user.id}">Editar</button></td>
                             <td><button class="eliminar" data-id="${user.id}">Eliminar</button></td>
                         `;
-                        taula.appendChild(row);
-                    });
+                taula.appendChild(row);
+            });
 
-                    document.querySelectorAll(".editar").forEach(btn =>
-                        btn.addEventListener("click", () => editarUsuari(btn.dataset.id))
-                    );
+            document.querySelectorAll(".editar").forEach(btn =>
+                btn.addEventListener("click", () => editarUsuari(btn.dataset.id))
+            );
 
-                    document.querySelectorAll(".eliminar").forEach(btn =>
-                        btn.addEventListener("click", () => eliminarUsuari(btn.dataset.id))
-                    );
-                })
-                .catch(err => console.error("Error carregant usuaris: ", err));
-        }
+            document.querySelectorAll(".eliminar").forEach(btn =>
+                btn.addEventListener("click", () => eliminarUsuari(btn.dataset.id))
+            );
+        })
+        .catch(err => console.error("Error carregant usuaris: ", err));
+}
 
-        document.getElementById("btn_afegirUsuari").addEventListener("click", () => {
-            limpiarFormUsuari();
+document.getElementById("btn_afegirUsuari").addEventListener("click", () => {
+    limpiarFormUsuari();
+    mostrarFormulario();
+});
+
+document.getElementById("btnGuardarUsuari").addEventListener("click", guardarUsuari);
+document.getElementById("btnCancelarUsuari").addEventListener("click", ocultarFormulario);
+
+function mostrarFormulario() {
+    document.getElementById("formUsuari").style.display = "block";
+}
+
+function ocultarFormulario() {
+    document.getElementById("formUsuari").style.display = "none";
+}
+
+function limpiarFormUsuari() {
+    document.getElementById("formulariUsuariID").value = "";
+    document.getElementById("formulariUsuariNomUsuari").value = "";
+    document.getElementById("formulariUsuariContrasenya").value = "";
+    document.getElementById("formulariUsuariNom").value = "";
+    document.getElementById("formulariUsuariCognom").value = "";
+    document.getElementById("formulariUsuariCorreu").value = "";
+    document.getElementById("formulariUsuariRol").value = "";
+    document.getElementById("formulariUsuariTelefon").value = "";
+}
+
+function guardarUsuari() {
+    const id = document.getElementById("formulariUsuariID").value;
+
+    const data = {
+        id,
+        nomUsuari: document.getElementById("formulariUsuariNomUsuari").value,
+        contrasenya: document.getElementById("formulariUsuariContrasenya").value,
+        nom: document.getElementById("formulariUsuariNom").value,
+        cognoms: document.getElementById("formulariUsuariCognom").value,
+        correu: document.getElementById("formulariUsuariCorreu").value,
+        rol: document.getElementById("formulariUsuariRol").value,
+        telefon: document.getElementById("formulariUsuariTelefon").value
+    };
+
+    let action;
+
+    if (id) {
+        action = "updateUser";
+    } else {
+        action = "addUser";
+    }
+
+    fetch(`api.php?controller=Api&action=${action}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .then(r => {
+            if (r.success) {
+                ocultarFormulario();
+                cargarUsuaris();
+            } else {
+                alert("Error: " + r.message);
+            }
+        });
+}
+
+function editarUsuari(id) {
+    fetch(`api.php?controller=Api&action=getUserById&id=${id}`)
+        .then(res => res.json())
+        .then(data => {
+            const user = data.usuario;
+
+            document.getElementById("formulariUsuariID").value = user.id;
+            document.getElementById("formulariUsuariNomUsuari").value = user.nomUsuari;
+            document.getElementById("formulariUsuariContrasenya").value = user.contrasenya;
+            document.getElementById("formulariUsuariNom").value = user.nom;
+            document.getElementById("formulariUsuariCognom").value = user.cognoms;
+            document.getElementById("formulariUsuariCorreu").value = user.correu;
+            document.getElementById("formulariUsuariRol").value = user.rol;
+            document.getElementById("formulariUsuariTelefon").value = user.telefon;
+
             mostrarFormulario();
         });
+}
 
-        document.getElementById("btnGuardarUsuari").addEventListener("click", guardarUsuari);
-        document.getElementById("btnCancelarUsuari").addEventListener("click", ocultarFormulario);
+function eliminarUsuari(id) {
+    // if (!alert("Vols eliminar aquest usuari?")) return; //TODO no funciona prova a canviar-ho o treure
 
-        function mostrarFormulario() {
-            document.getElementById("formUsuari").style.display = "block";
-        }
+    fetch(`api.php?controller=Api&action=deleteUser`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+    })
+        .then(res => res.json())
+        .then(r => {
+            if (r.success) cargarUsuaris();
+            else alert("Error: " + r.message);
+        });
+}
 
-        function ocultarFormulario() {
-            document.getElementById("formUsuari").style.display = "none";
-        }
+//Reserva
+document.getElementById("btnGuardarReserva").addEventListener("click", guardarReserva);
+document.getElementById("btnCancelarReserva").addEventListener("click", () => {
+  document.getElementById("formReserva").style.display = "none";
+});
 
-        function limpiarFormUsuari() {
-            document.getElementById("formulariUsuariID").value = "";
-            document.getElementById("formulariUsuariNomUsuari").value = "";
-            document.getElementById("formulariUsuariContrasenya").value = "";
-            document.getElementById("formulariUsuariNom").value = "";
-            document.getElementById("formulariUsuariCognom").value = "";
-            document.getElementById("formulariUsuariCorreu").value = "";
-            document.getElementById("formulariUsuariRol").value = "";
-            document.getElementById("formulariUsuariTelefon").value = "";
-        }
+function cargarReserves(){
+  fetch("api.php?controller=Api&action=getReserves")
+    .then(r => r.json())
+    .then(data => {
+      const taula = document.getElementById("taula_reserves");
+      document.querySelectorAll("#taula_reserves tr:not(:first-child)").forEach(tr => tr.remove());
 
-        function guardarUsuari() {
-            const id = document.getElementById("formulariUsuariID").value;
+      data.reserves.forEach(res => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${res.id}</td>
+          <td>${res.data}</td>
+          <td>${res.hora}</td>
+          <td>${res.numeroPersones}</td>
+          <td>${res.id_usuari}</td>
+          <td><button class="editarReserva" data-id="${res.id}">Editar</button></td>
+        `;
+        taula.appendChild(row);
+      });
 
-            const data = {
-                id,
-                nomUsuari: document.getElementById("formulariUsuariNomUsuari").value,
-                contrasenya: document.getElementById("formulariUsuariContrasenya").value,
-                nom: document.getElementById("formulariUsuariNom").value,
-                cognoms: document.getElementById("formulariUsuariCognom").value,
-                correu: document.getElementById("formulariUsuariCorreu").value,
-                rol: document.getElementById("formulariUsuariRol").value,
-                telefon: document.getElementById("formulariUsuariTelefon").value
-            };
+      document.querySelectorAll(".editarReserva").forEach(btn =>
+        btn.addEventListener("click", () => editarReserva(btn.dataset.id))
+      );
+    });
+}
 
-            let action;
+function editarReserva(id){
+  fetch(`api.php?controller=Api&action=getReservaById&id=${id}`)
+    .then(r => r.json())
+    .then(data => {
+      const res = data.reserva;
 
-            if (id) {
-                action = "updateUser";
-            } else {
-                action = "addUser";
-            }
+      document.getElementById("formulariReservaID").value = res.id;
+      document.getElementById("formulariReservaData").value = res.data;
+      document.getElementById("formulariReservaHora").value = (res.hora || "").slice(0,5);
 
-            fetch(`api.php?controller=Api&action=${action}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-                .then(res => res.json())
-                .then(r => {
-                    if (r.success) {
-                        ocultarFormulario();
-                        cargarUsuaris();
-                    } else {
-                        alert("Error: " + r.message);
-                    }
-                });
-        }
+      document.getElementById("formReserva").style.display = "block";
+    });
+}
 
-        function editarUsuari(id) {
-            fetch(`api.php?controller=Api&action=getUserById&id=${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    const user = data.usuario;
+function guardarReserva(){
+  const payload = {
+    id: document.getElementById("formulariReservaID").value,
+    data: document.getElementById("formulariReservaData").value,
+    hora: document.getElementById("formulariReservaHora").value
+  };
 
-                    document.getElementById("formulariUsuariID").value = user.id;
-                    document.getElementById("formulariUsuariNomUsuari").value = user.nomUsuari;
-                    document.getElementById("formulariUsuariContrasenya").value = user.contrasenya;
-                    document.getElementById("formulariUsuariNom").value = user.nom;
-                    document.getElementById("formulariUsuariCognom").value = user.cognoms;
-                    document.getElementById("formulariUsuariCorreu").value = user.correu;
-                    document.getElementById("formulariUsuariRol").value = user.rol;
-                    document.getElementById("formulariUsuariTelefon").value = user.telefon;
+  fetch("api.php?controller=Api&action=updateReserva", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(resp => {
+    if(resp.success){
+      document.getElementById("formReserva").style.display = "none";
+      cargarReserves();
+    } else {
+      alert("Error al guardar reserva");
+    }
+  });
+}
 
-                    mostrarFormulario();
-                });
-        }
+// -------- PRODUCTES --------
+document.getElementById("btnGuardarProducte").addEventListener("click", guardarProducte);
+document.getElementById("btnCancelarProducte").addEventListener("click", () => {
+  document.getElementById("formProducte").style.display = "none";
+});
 
-        function eliminarUsuari(id) {
-            // if (!alert("Vols eliminar aquest usuari?")) return; //TODO no funciona prova a canviar-ho o treure
+function cargarProductes(){
+  fetch("api.php?controller=Api&action=getProductes")
+    .then(r => r.json())
+    .then(data => {
+      const taula = document.getElementById("taula_productes");
+      document.querySelectorAll("#taula_productes tr:not(:first-child)").forEach(tr => tr.remove());
 
-            fetch(`api.php?controller=Api&action=deleteUser`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id })
-            })
-                .then(res => res.json())
-                .then(r => {
-                    if (r.success) cargarUsuaris();
-                    else alert("Error: " + r.message);
-                });
-        }
+      data.productes.forEach(p => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.nom}</td>
+            <td>${p.preu_unitat}</td>
+            <td>${p.en_carta}</td>
+            <td><button class="editarProducte" data-id="${p.id}">Editar</button></td>
+            <td><button class="eliminarProducte" data-id="${p.id}">Eliminar</button></td>
+        `;
+
+        taula.appendChild(row);
+        });
+
+        document.querySelectorAll(".editarProducte").forEach(btn =>
+            btn.addEventListener("click", () => editarProducte(btn.dataset.id))
+        );
+        document.querySelectorAll(".eliminarProducte").forEach(btn =>
+        btn.addEventListener("click", () => eliminarProducte(btn.dataset.id))
+        );
+
+    });
+}
+
+function editarProducte(id){
+  fetch(`api.php?controller=Api&action=getProducteById&id=${id}`)
+    .then(r => r.json())
+    .then(data => {
+      const p = data.producte;
+
+      document.getElementById("formulariProducteID").value = p.id;
+      document.getElementById("formulariProducteNom").value = p.nom;
+      document.getElementById("formulariProductePreu").value = p.preu_unitat;
+
+      document.getElementById("formProducte").style.display = "block";
+    });
+}
+
+function guardarProducte(){
+  const id = document.getElementById("formulariProducteID").value;
+
+  const payload = {
+    id,
+    nom: document.getElementById("formulariProducteNom").value,
+    preu_unitat: document.getElementById("formulariProductePreu").value
+  };
+
+  const action = id ? "updateProducte" : "addProducte";
+
+  fetch(`api.php?controller=Api&action=${action}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(resp => {
+    if(resp.success){
+      document.getElementById("formProducte").style.display = "none";
+      cargarProductes();
+    } else {
+      alert("Error: " + (resp.message || "No s'ha pogut guardar"));
+    }
+  });
+}
+
+document.getElementById("btn_afegirProducte").addEventListener("click", () => {
+  limpiarFormProducte();
+  document.getElementById("formProducte").style.display = "block";
+});
+
+function limpiarFormProducte(){
+  document.getElementById("formulariProducteID").value = "";
+  document.getElementById("formulariProducteNom").value = "";
+  document.getElementById("formulariProductePreu").value = "";
+}
+
+function eliminarProducte(id){
+  if (!confirm("Vols eliminar aquest producte?")) return;
+
+  fetch("api.php?controller=Api&action=deleteProducte", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ id })
+  })
+  .then(r => r.json())
+  .then(resp => {
+    if (resp.success) cargarProductes();
+    else alert("Error: " + (resp.message || "No s'ha pogut eliminar"));
+  });
+}
+
+
+
