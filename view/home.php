@@ -1,47 +1,32 @@
 <section id="home">
     <section id="sector_productes_setmana" class="row container d-flex justify-content-center">
-        <div class="col-8 d-flex align-items-end">
-            <!-- background immg -->
-             <div>
-                <h2>Producte 1</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quod animi perspiciatis, illum sint inventore, excepturi, molestiae vitae ipsa blanditiis mollitia corporis accusamus numquam cumque dolorem nemo beatae voluptas possimus.</p>
-                <button>Demana ja</button>
-             </div>
+        <?php
+            $hero = $homeHero ?? null;
+            $heroNom = $hero['nom'] ?? 'Producte destacat';
+            $heroDesc = $hero['descripcio'] ?? 'Descobreix el nostre producte destacat.';
+        ?>
+        <div class="col-8 d-flex align-items-end justify-content-center text-center">
+            <div>
+                <h2><?= htmlspecialchars($heroNom) ?></h2>
+                <p><?= htmlspecialchars($heroDesc) ?></p>
+                <a class="btn btn-primary" href="<?= BASE_URL ?>/?controller=Productes&action=carta">Demana ja</a>
+            </div>
         </div>
-        <div class="col-2">
-            <div class="row d-flex ">
-                <div>
-                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
+
+        <div class="col-2" id="home_sidebar">
+            <?php foreach (($homeSidebar ?? []) as $p):
+                $img = (!empty($p['imatge'])) ? (BASE_URL . '/IMG/' . $p['imatge']) : (BASE_URL . '/IMG/ImgNotFound.png');
+            ?>
+                <div class="row d-flex align-items-center justify-content-center text-center home_sidebar_item">
+                    <div class="col-auto">
+                        <img src="<?= $img ?>" alt="img-producte" class="home_sidebar_img">
+                    </div>
+                    <h4 class="col home_sidebar_title"><?= htmlspecialchars($p['nom'] ?? 'Producte') ?></h4>
                 </div>
-                <h4 class="col">Producte</h4>
-            </div>
-            <div class="row d-flex">
-                <div>
-                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
-                </div>
-                <h4 class="col">Producte</h4>
-            </div>
-            <div class="row d-flex">
-                <div>
-                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
-                </div>
-                <h4 class="col">Producte</h4>
-            </div>
-            <div class="row d-flex">
-                <div>
-                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
-                </div>
-                <h4 class="col">Producte</h4>
-            </div>
-            <div class="row d-flex">
-                <div>
-                    <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="img-producte" class="col">
-                </div>
-                <h4 class="col">Producte</h4>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
-    <section id="Descobreix_Productes" class="row container col-10">
+    <section id="Descobreix_Productes" class="row container col-10 justify-content-center text-center">
         <div class="row">
             <div class="col">
                 <h2>Descobreix algo nou</h2>
@@ -55,75 +40,22 @@
                 </svg>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
-                <p>categoria</p>
-                <a href=""></a>
-                <p>preu</p>
-            </div>
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
-                <p>categoria</p>
-                <a href=""></a>
-                <p>preu</p>
-            </div>
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
-                <p>categoria</p>
-                <a href=""></a>
-                <p>preu</p>
-            </div>
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
-                <p>categoria</p>
-                <a href=""></a>
-                <p>preu</p>
-            </div>
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="" class="img_descobreix_productes">
-                <p>categoria</p>
-                <a href=""></a>
-                <p>preu</p>
-            </div>
+        <div class="row justify-content-center" id="home_descobreix_row">
+            <?php foreach (($homeDescobreix ?? []) as $idx => $p):
+                $img = (!empty($p['imatge'])) ? (BASE_URL . '/IMG/' . $p['imatge']) : (BASE_URL . '/IMG/ImgNotFound.png');
+                $preu = $p['preu_final'] ?? ($p['preu_unitat'] ?? null);
+            ?>
+                <div class="col home_descobreix_card <?= $idx === 0 ? 'home_descobreix_first' : '' ?>">
+                    <img src="<?= $img ?>" alt="" class="img_descobreix_productes">
+                    <p class="home_card_nom"><?= htmlspecialchars($p['nom'] ?? 'Producte') ?></p>
+                    <?php if ($preu !== null): ?>
+                        <p class="home_card_preu"><?= number_format((float)$preu, 2, ',', '.') ?>€</p>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
-    <section id="Categories" class="row container">
-        <div class="row">
-            <div class="col">
-                <h2>Les nostres categories</h2>
-            </div>
-            <div class="col">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 svg32">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 svg32">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <img src="<?=BASE_URL?>./IMG/ImgNotFound.png" alt="">
-                <a href="">categoria</a>
-                <p></p>
-                <a href="">Veure la tenda</a>
-            </div>
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
-                <a href="">categoria</a>
-                <p></p>
-                <a href="">Veure la tenda</a>
-            </div>
-            <div class="col">
-                <img src="<?=BASE_URL?>/IMG/ImgNotFound.png" alt="">
-                <a href="">categoria</a>
-                <p></p>
-                <a href="">Veure la tenda</a>
-            </div>
-        </div>
-    </section>
-    <section id="Revaixes" class="row container">
+    <section id="Revaixes" class="row container justify-content-center text-center">
         <div class="row">
             <div class="col">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 svg32">
@@ -135,19 +67,18 @@
                 <button>Mirar més</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <a href="">producte</a>
-                <p></p>
-            </div>
-            <div class="col">
-                <a href="">producte</a>
-                <p></p>
-            </div>
-            <div class="col">
-                <a href="">producte</a>
-                <p></p>
-            </div>
+        <div class="row justify-content-center">
+            <?php foreach (($homeRebaixes ?? []) as $p):
+                $nom = $p['nom'] ?? 'Producte';
+                $preu = $p['preu_final'] ?? ($p['preu_unitat'] ?? null);
+            ?>
+                <div class="col home_rebaixa_item">
+                    <a href="<?= BASE_URL ?>/?controller=Productes&action=carta" class="home_rebaixa_title"><?= htmlspecialchars($nom) ?></a>
+                    <?php if ($preu !== null): ?>
+                        <p class="home_rebaixa_preu"><?= number_format((float)$preu, 2, ',', '.') ?>€</p>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
     <section id="Vegudes" class="row container">

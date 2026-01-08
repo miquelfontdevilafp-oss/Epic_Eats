@@ -8,6 +8,7 @@ header{
 
 body{
     background-color: #101014;
+    color: #EDEDF2;
 } 
 
 footer{
@@ -39,19 +40,439 @@ footer button{
     height: 32px;
 }
 
+/* ---------------------------
+   Navbar (override Bootstrap)
+   --------------------------- */
 
-/* CSS per a Home */
+#navbar .navbar{
+    background: rgba(7, 7, 7, 0.92) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+}
 
-#sector_productes_setmana div img{
-    height: 65px;
-    border-radius: 30%;
+#navbar .navbar-brand img{
+    height: 32px;
+}
+
+#navbar .nav-link{
+    color: rgba(255, 255, 255, 0.72) !important;
+    font-weight: 500;
+}
+
+#navbar .nav-link:hover,
+#navbar .nav-link:focus{
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Botons estil “Register / Login” com a la maqueta */
+#navbar a.nav-link[href*='action=register']{
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    padding: 6px 12px !important;
+    margin-left: 8px;
+}
+
+#navbar a.nav-link[href*='action=login']{
+    background: #1D7AF7;
+    color: #fff !important;
+    border-radius: 999px;
+    padding: 6px 12px !important;
+    margin-left: 8px;
+}
+
+#navbar a.nav-link[href*='action=login']:hover{
+    filter: brightness(1.05);
+}
+
+#navbar #contador-carrito{
+    border-radius: 999px;
+}
+
+/* ---------------------------
+   Home
+   --------------------------- */
+
+#home{
+    padding: 24px 0 48px;
+}
+
+/* Containers una mica més “estrets” i centrats */
+#home .container{
+    max-width: 1200px;
+}
+
+/* HERO + sidebar */
+#sector_productes_setmana{
+    margin-top: 8px;
+    gap: 18px;
+}
+
+/* Override de la grid de Bootstrap per replicar la composició de la maqueta */
+@media (min-width: 992px){
+    #sector_productes_setmana{
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        align-items: start;
+    }
+    #sector_productes_setmana > .col-8,
+    #sector_productes_setmana > .col-2{
+        width: auto !important;
+        max-width: none !important;
+        flex: 0 0 auto !important;
+    }
+}
+
+#sector_productes_setmana > .col-8{
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    /* Més alt el producte principal (hero) */
+    min-height: 480px;
+    padding: 28px;
+    background:
+        radial-gradient(1200px 600px at 70% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, rgba(32, 33, 40, 0.98), rgba(18, 19, 24, 0.98));
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+
+#sector_productes_setmana > .col-8 > div{
+    margin: 0 auto;
+}
+
+/* Botó del hero (ara és <a class="btn ...">) */
+#sector_productes_setmana .btn{
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 16px;
+    background: #ffffff;
+    color: #0b0b0d;
+    font-weight: 800;
+}
+
+#sector_productes_setmana .btn:hover{
+    filter: brightness(0.95);
+}
+
+/* Capa fosca per donar contrast al text (similar a la foto de steak de la maqueta) */
+#sector_productes_setmana > .col-8::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.05));
+    pointer-events: none;
+}
+
+#sector_productes_setmana > .col-8 > div{
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+}
+
+#sector_productes_setmana h2{
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+#sector_productes_setmana p{
+    color: rgba(255,255,255,0.75);
+    line-height: 1.45;
+    margin-bottom: 16px;
+}
+
+/* (compat) si en algun lloc es manté <button> */
+#sector_productes_setmana button{
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 16px;
+    background: #ffffff;
+    color: #0b0b0d;
+    font-weight: 800;
+}
+
+#sector_productes_setmana button:hover{ filter: brightness(0.95); }
+
+/* Sidebar llista de productes */
+#sector_productes_setmana > .col-2{
+    border-radius: 20px;
+    padding: 14px;
+    background: rgba(24, 24, 28, 0.9);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+#sector_productes_setmana > .col-2 .row{
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-radius: 14px;
+    margin: 0;
+}
+
+#sector_productes_setmana > .col-2 .row:hover{
+    background: rgba(255,255,255,0.04);
+}
+
+#sector_productes_setmana div img,
+.home_sidebar_img{
+    height: 52px;
+    width: 52px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.home_sidebar_item{ cursor: pointer; }
+.home_sidebar_title{ text-align: center; }
+
+#sector_productes_setmana > .col-2 h4{
+    font-size: 13px;
+    margin: 0;
+    color: rgba(255,255,255,0.85);
+}
+
+/* Secció “Descobreix algo nou” */
+#Descobreix_Productes{
+    margin-top: 26px;
+    padding: 0;
+}
+
+#Descobreix_Productes > .row:first-child{
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+#Descobreix_Productes h2,
+#Categories h2,
+#Revaixes h2,
+#Vegudes h2{
+    font-weight: 800;
+    font-size: 18px;
+    margin: 0;
+}
+
+#Descobreix_Productes .svg32,
+#Categories .svg32,
+#Vegudes .svg32{
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+}
+
+#Descobreix_Productes > .row:nth-child(2){
+    gap: 14px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+}
+
+#Descobreix_Productes > .row:nth-child(2)::-webkit-scrollbar{
+    height: 8px;
+}
+
+#Descobreix_Productes > .row:nth-child(2)::-webkit-scrollbar-thumb{
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+}
+
+#Descobreix_Productes > .row:nth-child(2) > .col{
+    min-width: 220px;
+    max-width: 240px;
+    padding: 0;
 }
 
 .img_descobreix_productes{
-    width: 264px;
-    height: 198px;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    background: rgba(255,255,255,0.06);
 }
 
-.img_nostres_categories{
-    
+/* Primer producte del carrusel: més alt (com a la maqueta) */
+.home_descobreix_first .img_descobreix_productes{
+    height: 300px;
 }
+
+.home_descobreix_first{
+    min-width: 260px;
+    max-width: 280px;
+}
+
+/* Textos de les cards */
+.home_card_nom{
+    margin: 10px 0 0;
+    color: rgba(255,255,255,0.92);
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.home_card_preu{
+    margin: 6px 0 0;
+    color: rgba(255,255,255,0.70);
+    font-size: 12px;
+}
+
+/* Rebaixes (items dinàmics) */
+.home_rebaixa_item{
+    border-radius: 16px;
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 12px;
+    margin: 6px;
+}
+
+.home_rebaixa_title{
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.home_rebaixa_preu{
+    margin: 6px 0 0;
+    color: rgba(255,255,255,0.70);
+    font-size: 12px;
+}
+
+#Descobreix_Productes > .row:nth-child(2) > .col{
+    background: transparent;
+}
+
+#Descobreix_Productes > .row:nth-child(2) > .col p{
+    margin: 8px 0 0;
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+}
+
+/* Categories */
+#Categories{
+    margin-top: 28px;
+}
+
+#Categories > .row:first-child{
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+#Categories > .row:nth-child(2){
+    gap: 14px;
+}
+
+#Categories > .row:nth-child(2) > .col{
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(24, 24, 28, 0.9);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 0;
+}
+
+#Categories > .row:nth-child(2) > .col img{
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+    background: rgba(255,255,255,0.06);
+}
+
+#Categories > .row:nth-child(2) > .col a:first-of-type{
+    display: block;
+    padding: 12px 14px 6px;
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+    font-weight: 800;
+}
+
+#Categories > .row:nth-child(2) > .col a:last-of-type{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 14px 14px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+#Categories > .row:nth-child(2) > .col a:last-of-type:hover{
+    color: rgba(255,255,255,0.95);
+}
+
+/* Rebaixes */
+#Revaixes{
+    margin-top: 28px;
+    border-radius: 20px;
+    background: rgba(24, 24, 28, 0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 18px;
+}
+
+#Revaixes > .row:first-child{
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+#Revaixes > .row:first-child .col{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#Revaixes button{
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.20);
+    background: rgba(0,0,0,0);
+    padding: 8px 12px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 700;
+}
+
+#Revaixes > .row:nth-child(2){
+    gap: 14px;
+}
+
+#Revaixes > .row:nth-child(2) > .col{
+    border-radius: 18px;
+    min-height: 110px;
+    padding: 12px 14px;
+    background:
+        radial-gradient(600px 200px at 10% 50%, rgba(29,122,247,0.18), rgba(29,122,247,0) 55%),
+        rgba(16,16,20,0.9);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+#Revaixes > .row:nth-child(2) > .col a{
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+    font-weight: 800;
+}
+
+/* Responsive: Home en mòbil (similar a captura vertical) */
+@media (max-width: 991px){
+    #sector_productes_setmana > .col-8{
+        min-height: 320px;
+        margin-bottom: 14px;
+    }
+    #sector_productes_setmana > .col-2{
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 10px;
+    }
+    #sector_productes_setmana > .col-2 .row{
+        min-width: 160px;
+        flex: 0 0 auto;
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+    #sector_productes_setmana > .col-2::-webkit-scrollbar{ height: 8px; }
+    #sector_productes_setmana > .col-2::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 999px; }
+}
+
+@media (max-width: 576px){
+    #home{ padding: 16px 0 40px; }
+    #sector_productes_setmana > .col-8{ padding: 18px; border-radius: 18px; }
+    #sector_productes_setmana h2{ font-size: 30px; }
+    #Descobreix_Productes > .row:nth-child(2) > .col{ min-width: 190px; }
+    .img_descobreix_productes{ height: 200px; }
+    #Categories > .row:nth-child(2) > .col img{ height: 150px; }
+}
+
+
+/* (Les regles antigues de Home s'han integrat i ampliat a la secció "Home" de dalt.) */
