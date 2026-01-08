@@ -1,5 +1,6 @@
 <?php
 include_once 'model/Productes/ProductesDAO.php';
+include_once __DIR__ . '/../model/Categoria/CategoriaDAO.php';
 class ProductesController
 {
     public function Productes()
@@ -12,7 +13,16 @@ class ProductesController
     // Carta tipus "Proyecto_Restaurante-desarrollo": llista de productes amb botó d'afegir al carrito
     public function carta()
     {
-        $productes = ProductesDAO::getProductes();
+        // Categories per a filtres
+        $categorias = CategoriaDAO::getCategories();
+
+        // Productes visibles a la carta
+        $productes = ProductesDAO::getProductesEnCarta();
+
+        // Mapa producte => categories (N:N)
+        $ids = array_map(fn($p) => (int)$p->getId(), $productes);
+        $mapProducteCategories = ProductesDAO::getCategoriesByProducteIds($ids);
+
         $view = 'Productes/carta.php';
         require_once __DIR__ . '/../view/plantilla.php';
     }

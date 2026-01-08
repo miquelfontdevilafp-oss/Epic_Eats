@@ -8,7 +8,9 @@
     <title>Epic Eats</title>
 </head>
 <header class="header">
-    <?php include_once __DIR__ . '/navbar.php'; ?> 
+    <?php 
+    include_once __DIR__ . '/navbar.php'; 
+    ?> 
 </header>
 <body>
     <main>

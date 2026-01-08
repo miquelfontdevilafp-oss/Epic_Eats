@@ -42,7 +42,13 @@ if (empty($productos)) {
 }
 
 $usuario = $_SESSION['usuario'];
-$id_usuario = intval($usuario->id ?? 0);
+
+if (is_object($usuario) && method_exists($usuario, 'getId')) {
+    $id_usuario = (int)$usuario->getId();
+} else {
+    $id_usuario = (int)($usuario['id'] ?? 0);
+}
+
 
 if ($id_usuario <= 0) {
     http_response_code(500);
@@ -58,7 +64,7 @@ try {
     $stmt = $con->prepare('INSERT INTO comanda (preu_total, id_usuaris) VALUES (?, ?)');
     $stmt->bind_param('di', $total, $id_usuario);
     $stmt->execute();
-    $id_comanda = $stmt->insert_id;
+    $id_comanda = $con->insert_id;
     $stmt->close();
 
     if (!$id_comanda) {
