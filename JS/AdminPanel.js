@@ -18,10 +18,12 @@ const secciones = document.querySelectorAll(".content-section");
 // -------------------------
 let ADMIN_USERS_ALL = [];
 let ADMIN_COMANDES_ALL = [];
+let ADMIN_PRODUCTES_ALL = [];
 document.addEventListener("DOMContentLoaded", () => {
   setActiveSection("Usuaris");
   cargarUsuaris();
   initUsuariFiltersUI();
+  initProducteFiltersUI();
 
   // Inicialitza listeners del CRUD de Comandes (evita duplicar DOMContentLoaded)
   initComandes();
@@ -121,27 +123,29 @@ function normalizeStr(v) {
 }
 
 function getUsuariFilterState() {
-  const text = document.getElementById("filterUsuariText")?.value || "";
+  const id = document.getElementById("filterUsuariId")?.value || "";
+  const nom = document.getElementById("filterUsuariNom")?.value || "";
   const field = document.getElementById("sortUsuariField")?.value || "id";
   const dir = document.getElementById("sortUsuariDir")?.value || "asc";
-  return { text: text.trim().toLowerCase(), field, dir };
+  return { id: String(id).trim(), nom: String(nom).trim().toLowerCase(), field, dir };
 }
 
 function applyUsuariFiltersAndSort() {
   const taula = document.getElementById("taula_usuaris");
   if (!taula) return;
 
-  const { text, field, dir } = getUsuariFilterState();
+  const { id, nom, field, dir } = getUsuariFilterState();
 
   let rows = Array.isArray(ADMIN_USERS_ALL) ? [...ADMIN_USERS_ALL] : [];
 
-  // filter (free text across most fields)
-  if (text) {
+  // filter: ID (exact)
+  if (id) rows = rows.filter(u => String(u?.id) === String(id));
+
+  // filter: Nom (substring; also matches nomUsuari and cognoms for usability)
+  if (nom) {
     rows = rows.filter(u => {
-      const hay = [
-        u.id, u.nomUsuari, u.nom, u.cognoms, u.correu, u.rol, u.telefon
-      ].map(normalizeStr).join(" | ");
-      return hay.includes(text);
+      const hay = [u?.nom, u?.cognoms, u?.nomUsuari].map(normalizeStr).join(" ");
+      return hay.includes(nom);
     });
   }
 
@@ -201,19 +205,21 @@ function renderUsuarisTable(users) {
 }
 
 function initUsuariFiltersUI() {
-  const t = document.getElementById("filterUsuariText");
+  const id = document.getElementById("filterUsuariId");
+  const nom = document.getElementById("filterUsuariNom");
   const f = document.getElementById("sortUsuariField");
   const d = document.getElementById("sortUsuariDir");
   const clr = document.getElementById("btnClearUsuariFilters");
 
-  [t, f, d].forEach(el => {
+  [id, nom, f, d].forEach(el => {
     if (!el) return;
     el.addEventListener("input", applyUsuariFiltersAndSort);
     el.addEventListener("change", applyUsuariFiltersAndSort);
   });
 
   if (clr) clr.addEventListener("click", () => {
-    if (t) t.value = "";
+    if (id) id.value = "";
+    if (nom) nom.value = "";
     if (f) f.value = "id";
     if (d) d.value = "asc";
     applyUsuariFiltersAndSort();
@@ -399,31 +405,135 @@ function cargarProductes() {
   fetch("api.php?controller=Api&action=getProductes")
     .then(r => r.json())
     .then(data => {
-      const taula = document.getElementById("taula_productes");
-      document.querySelectorAll("#taula_productes tr:not(:first-child)").forEach(tr => tr.remove());
-
-      data.productes.forEach(p => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${p.id}</td>
-            <td>${p.nom}</td>
-            <td>${p.preu_unitat}</td>
-            <td>${p.en_carta}</td>
-            <td><button class="editarProducte" data-id="${p.id}">Editar</button></td>
-            <td><button class="eliminarProducte" data-id="${p.id}">Eliminar</button></td>
-        `;
-
-        taula.appendChild(row);
-      });
-
-      document.querySelectorAll(".editarProducte").forEach(btn =>
-        btn.addEventListener("click", () => editarProducte(btn.dataset.id))
-      );
-      document.querySelectorAll(".eliminarProducte").forEach(btn =>
-        btn.addEventListener("click", () => eliminarProducte(btn.dataset.id))
-      );
+      ADMIN_PRODUCTES_ALL = (data && data.productes) ? data.productes : [];
+      applyProducteFiltersAndSort();
 
     });
+}
+
+function getProducteFilterState() {
+  const id = document.getElementById("filterProducteId")?.value || "";
+  const nom = document.getElementById("filterProducteNom")?.value || "";
+  const pMin = document.getElementById("filterProductePriceMin")?.value || "";
+  const pMax = document.getElementById("filterProductePriceMax")?.value || "";
+  const enCarta = document.getElementById("filterProducteEnCarta")?.value || "";
+  const dir = document.getElementById("sortProducteIdDir")?.value || "asc";
+  return {
+    id: String(id).trim(),
+    nom: String(nom).trim().toLowerCase(),
+    pMin,
+    pMax,
+    enCarta,
+    dir
+  };
+}
+
+function isEnCartaValue(v) {
+  const s = String(v ?? "").trim().toLowerCase();
+  if (s === "1" || s === "true" || s === "si" || s === "sí") return 1;
+  if (s === "0" || s === "false" || s === "no") return 0;
+  const n = Number(v);
+  return isFinite(n) ? (n ? 1 : 0) : 0;
+}
+
+function applyProducteFiltersAndSort() {
+  const taula = document.getElementById("taula_productes");
+  if (!taula) return;
+
+  const { id, nom, pMin, pMax, enCarta, dir } = getProducteFilterState();
+
+  let rows = Array.isArray(ADMIN_PRODUCTES_ALL) ? [...ADMIN_PRODUCTES_ALL] : [];
+
+  // filter: ID exact
+  if (id) rows = rows.filter(p => String(p?.id) === String(id));
+
+  // filter: Nom substring
+  if (nom) rows = rows.filter(p => normalizeStr(p?.nom).includes(nom));
+
+  // filter: price range
+  const min = (pMin !== "") ? Number(pMin) : null;
+  const max = (pMax !== "") ? Number(pMax) : null;
+  if (min !== null && isFinite(min)) rows = rows.filter(p => Number(p?.preu_unitat) >= min);
+  if (max !== null && isFinite(max)) rows = rows.filter(p => Number(p?.preu_unitat) <= max);
+
+  // filter: en carta
+  if (enCarta === "1") rows = rows.filter(p => isEnCartaValue(p?.en_carta) === 1);
+  if (enCarta === "0") rows = rows.filter(p => isEnCartaValue(p?.en_carta) === 0);
+
+  // sort: ID asc/desc
+  const isDesc = dir === "desc";
+  rows.sort((a, b) => {
+    const na = Number(a?.id);
+    const nb = Number(b?.id);
+    if (isFinite(na) && isFinite(nb)) return isDesc ? (nb - na) : (na - nb);
+    const sa = normalizeStr(a?.id);
+    const sb = normalizeStr(b?.id);
+    if (sa < sb) return isDesc ? 1 : -1;
+    if (sa > sb) return isDesc ? -1 : 1;
+    return 0;
+  });
+
+  renderProductesTable(rows);
+}
+
+function renderProductesTable(productes) {
+  const taula = document.getElementById("taula_productes");
+  if (!taula) return;
+
+  document.querySelectorAll("#taula_productes tr:not(:first-child)").forEach(tr => tr.remove());
+
+  productes.forEach(p => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${p?.id ?? ""}</td>
+      <td>${p?.nom ?? ""}</td>
+      <td>${p?.preu_unitat ?? ""}</td>
+      <td>${p?.en_carta ?? ""}</td>
+      <td><button class="editarProducte" data-id="${p?.id}">Editar</button></td>
+      <td><button class="eliminarProducte" data-id="${p?.id}">Eliminar</button></td>
+    `;
+    taula.appendChild(row);
+  });
+
+  document.querySelectorAll(".editarProducte").forEach(btn =>
+    btn.addEventListener("click", () => editarProducte(btn.dataset.id))
+  );
+  document.querySelectorAll(".eliminarProducte").forEach(btn =>
+    btn.addEventListener("click", () => eliminarProducte(btn.dataset.id))
+  );
+}
+
+function initProducteFiltersUI() {
+  const ids = [
+    "filterProducteId",
+    "filterProducteNom",
+    "filterProductePriceMin",
+    "filterProductePriceMax",
+    "filterProducteEnCarta",
+    "sortProducteIdDir"
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("input", applyProducteFiltersAndSort);
+    el.addEventListener("change", applyProducteFiltersAndSort);
+  });
+
+  const clr = document.getElementById("btnClearProducteFilters");
+  if (clr) clr.addEventListener("click", () => {
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.tagName === "SELECT") {
+        if (id === "filterProducteEnCarta") el.value = "";
+        if (id === "sortProducteIdDir") el.value = "asc";
+      } else {
+        el.value = "";
+      }
+    });
+    applyProducteFiltersAndSort();
+  });
 }
 
 function editarProducte(id) {

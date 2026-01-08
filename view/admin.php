@@ -35,8 +35,12 @@
 
                 <div id="usuarisFilters" style="margin:10px 0 14px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
                     <div>
-                        <label for="filterUsuariText"><strong>Filtre:</strong></label><br>
-                        <input id="filterUsuariText" type="text" placeholder="Cerca per ID, nom, correu, rol..." style="min-width:260px;">
+                        <label for="filterUsuariId"><strong>ID:</strong></label><br>
+                        <input id="filterUsuariId" type="number" min="1" placeholder="Ex: 12" style="width:120px;">
+                    </div>
+                    <div>
+                        <label for="filterUsuariNom"><strong>Nom:</strong></label><br>
+                        <input id="filterUsuariNom" type="text" placeholder="Ex: Marc" style="min-width:220px;">
                     </div>
                     <div>
                         <label for="sortUsuariField"><strong>Ordenar per:</strong></label><br>
@@ -147,14 +151,6 @@
                 
                 <div id="comandesFilters" style="margin:10px 0 14px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
                     <div>
-                        <label for="filterComandaId"><strong>Pedido ID:</strong></label><br>
-                        <input id="filterComandaId" type="number" min="1" placeholder="Ex: 12" style="width:120px;">
-                    </div>
-                    <div>
-                        <label for="filterComandaUsuari"><strong>Usuari ID:</strong></label><br>
-                        <input id="filterComandaUsuari" type="number" min="1" placeholder="Ex: 3" style="width:120px;">
-                    </div>
-                    <div>
                         <label for="filterComandaDateFrom"><strong>Data (des de):</strong></label><br>
                         <input id="filterComandaDateFrom" type="date">
                     </div>
@@ -236,6 +232,44 @@
             </section>
             <section id="Productes" class="content-section">
                 <h2>Productes</h2>
+
+                <div id="productesFilters" style="margin:10px 0 14px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+                    <div>
+                        <label for="filterProducteId"><strong>ID:</strong></label><br>
+                        <input id="filterProducteId" type="number" min="1" placeholder="Ex: 8" style="width:120px;">
+                    </div>
+                    <div>
+                        <label for="filterProducteNom"><strong>Nom:</strong></label><br>
+                        <input id="filterProducteNom" type="text" placeholder="Ex: Pizza" style="min-width:220px;">
+                    </div>
+                    <div>
+                        <label for="filterProductePriceMin"><strong>Preu mín:</strong></label><br>
+                        <input id="filterProductePriceMin" type="number" step="0.01" placeholder="0.00" style="width:140px;">
+                    </div>
+                    <div>
+                        <label for="filterProductePriceMax"><strong>Preu màx:</strong></label><br>
+                        <input id="filterProductePriceMax" type="number" step="0.01" placeholder="99.99" style="width:140px;">
+                    </div>
+                    <div>
+                        <label for="filterProducteEnCarta"><strong>En carta:</strong></label><br>
+                        <select id="filterProducteEnCarta">
+                            <option value="">Tots</option>
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sortProducteIdDir"><strong>Ordenar ID:</strong></label><br>
+                        <select id="sortProducteIdDir">
+                            <option value="asc">Ascendent</option>
+                            <option value="desc">Descendent</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" id="btnClearProducteFilters">Netejar</button>
+                    </div>
+                </div>
+
                 <button type="button" id="btn_afegirProducte">Afegir producte</button>
 
                 <table id="taula_productes">

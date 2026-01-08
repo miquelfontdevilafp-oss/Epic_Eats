@@ -15,12 +15,6 @@
         // private static $db   = "epic_eats";
         // private static $port = 3307; //Puerto del docker
 
-        //====USO(InfinityFree)====:
-        // private static $host = 'sql210.infinityfree.com';
-        // private static $user = 'if0_40859015';           
-        // private static $pass = '14122006Mf';       
-        // private static $db   = 'if0_40859015_epic_eats'; 
-
         // Método estatico para establecer la conexion a la base de datos
         public static function connect(){
             //Con self le decimos a php que use la variable que tenemos creada arriba
