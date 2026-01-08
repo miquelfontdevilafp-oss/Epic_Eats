@@ -113,20 +113,35 @@
             </section>
 
             <section id="Comanda" class="content-section">
-                <h2>Comanda</h2>
-                <table>
+                <h2>Comandes</h2>
+
+                <button type="button" id="btn_afegirComanda">Afegir comanda</button>
+
+                <table id="taula_comandes">
                     <tr>
                         <td>ID</td>
-                        <td>NombreUsuari</td>
-                        <td>Contra</td>
-                        <td>Nom</td>
-                        <td>Cognom</td>
-                        <td>Correu</td>
-                        <td>Rol</td>
-                        <td>Telefon</td>
+                        <td>Preu total</td>
+                        <td>ID Usuari</td>
+                        <td>Editar</td>
+                        <td>Eliminar</td>
                     </tr>
                 </table>
+
+                <form id="formComanda" class="afegirUsuariFormulari" style="display:none;">
+                    <input type="hidden" id="formulariComandaID">
+
+                    <p>Preu total</p>
+                    <input type="number" step="0.01" id="formulariComandaPreuTotal">
+
+                    <p>ID Usuari</p>
+                    <select id="formulariComandaIdUsuari"></select>
+
+                    <br><br>
+                    <button type="button" id="btnGuardarComanda">Guardar</button>
+                    <button type="button" id="btnCancelarComanda">Cancelar</button>
+                </form>
             </section>
+
             <section id="LineaComandes" class="content-section">
                 <h2>LineaComandes</h2>
                 <table>

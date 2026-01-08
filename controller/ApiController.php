@@ -2,6 +2,7 @@
 include_once 'controller/UsuariController.php';
 include_once 'model/Reserva/ReservaDAO.php';
 include_once 'model/Productes/ProductesDAO.php';
+include_once 'model/Comanda/ComandaDAO.php';
 
 
 class ApiController
@@ -34,14 +35,20 @@ class ApiController
 
     public function getComandes()
     {
-        //cridar dao
-        //dao retorna json
-        //echo del json
+        try {
+            $comandes = ComandaDAO::getComandes();
+            $data = array_map(function ($c) {
+                return [
+                    "id" => $c->getId(),
+                    "preu_total" => $c->getPreuTotal(),
+                    "id_usuaris" => $c->getIdUsuari()
+                ];
+            }, $comandes);
 
-        echo json_encode([
-            'estado' => 'Exito',
-            'data' => 'Insertado correctamente'
-        ]);
+            echo json_encode(["success" => true, "comandes" => $data], JSON_UNESCAPED_UNICODE);
+        } catch (Throwable $e) {
+            echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        }
     }
 
     public function getLinea_Comandes()
@@ -261,6 +268,69 @@ class ApiController
         try {
             $data = json_decode(file_get_contents("php://input"), true);
             $ok = ProductesDAO::deleteProducte((int)$data["id"]);
+            echo json_encode(["success" => $ok === true]);
+        } catch (Throwable $e) {
+            echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        }
+    }
+
+    public function getComandaById()
+    {
+        try {
+            $id = (int)($_GET["id"] ?? 0);
+            $c = ComandaDAO::getComandaByID($id);
+            if (!$c) {
+                echo json_encode(["success" => false, "message" => "Comanda no trobada"]);
+                return;
+            }
+
+            echo json_encode([
+                "success" => true,
+                "comanda" => [
+                    "id" => $c->getId(),
+                    "preu_total" => $c->getPreuTotal(),
+                    "id_usuaris" => $c->getIdUsuari()
+                ]
+            ], JSON_UNESCAPED_UNICODE);
+        } catch (Throwable $e) {
+            echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        }
+    }
+
+    public function addComanda()
+    {
+        try {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $ok = ComandaDAO::addComanda(
+                (float)$data["preu_total"],
+                (int)$data["id_usuaris"]
+            );
+            echo json_encode(["success" => $ok === true]);
+        } catch (Throwable $e) {
+            echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        }
+    }
+
+    public function updateComanda()
+    {
+        try {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $ok = ComandaDAO::updateComanda(
+                (int)$data["id"],
+                (float)$data["preu_total"],
+                (int)$data["id_usuaris"]
+            );
+            echo json_encode(["success" => $ok === true]);
+        } catch (Throwable $e) {
+            echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        }
+    }
+
+    public function deleteComanda()
+    {
+        try {
+            $data = json_decode(file_get_contents("php://input"), true);
+            $ok = ComandaDAO::deleteComanda((int)$data["id"]);
             echo json_encode(["success" => $ok === true]);
         } catch (Throwable $e) {
             echo json_encode(["success" => false, "message" => $e->getMessage()]);
