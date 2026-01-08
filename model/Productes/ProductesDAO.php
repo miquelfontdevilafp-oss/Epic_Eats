@@ -144,4 +144,43 @@ class ProductesDAO
 
         return $ok;
     }
+    public static function getProductesEnCartaAmbOferta()
+    {
+        $con = DataBase::connect();
+
+        $sql = "
+        SELECT 
+            p.*,
+            o.id AS oferta_id,
+            o.nom AS oferta_nom,
+            o.tipus AS oferta_tipus,
+            o.valordescompte,
+            o.persentatjedescompte,
+            CASE
+                WHEN o.id IS NULL THEN p.preu_unitat
+                WHEN o.tipus = 'valor' THEN GREATEST(p.preu_unitat - o.valordescompte, 0)
+                WHEN o.tipus = 'percentatge' THEN ROUND(p.preu_unitat * (1 - (o.persentatjedescompte / 100)), 2)
+                ELSE p.preu_unitat
+            END AS preu_final
+        FROM productes p
+        LEFT JOIN productes_ofertes po ON po.id_producte = p.id
+        LEFT JOIN ofertes o 
+            ON o.id = po.id_oferta
+            AND NOW() BETWEEN o.datainici AND o.datafi
+        WHERE p.en_carta = 1
+    ";
+
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->get_result();
+
+        $lista = [];
+        while ($row = $results->fetch_assoc()) {
+            $lista[] = $row; // aquí devuelves array para incluir preu_final
+        }
+
+        $stmt->close();
+        $con->close();
+        return $lista;
+    }
 }
