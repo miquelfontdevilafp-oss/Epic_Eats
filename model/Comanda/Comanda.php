@@ -1,12 +1,12 @@
 <?php
 class Comanda{
     private int $id;
-    private float $preuTotal;
-    private int $idUsuari;
+    private float $preu_total;
+    private int $id_usuari;
 
-    // public function __construct(float $preuTotal, int $idUsuari){
-    //         $this -> preuTotal = $preuTotal;
-    //         $this -> idUsuari = $idUsuari;
+    // public function __construct(float $preu_total, int $id_usuari){
+    //         $this -> preu_total = $preu_total;
+    //         $this -> id_usuari = $id_usuari;
     //     }
 
     /**
@@ -18,19 +18,19 @@ class Comanda{
     }
 
     /**
-     * Get the value of preuTotal
+     * Get the value of preu_total
      */ 
     public function getPreuTotal()
     {
-        return $this->preuTotal;
+        return $this->preu_total;
     }
 
     /**
-     * Get the value of idUsuari
+     * Get the value of id_usuari
      */ 
-    public function getIdUsuari()
+    public function getId_usuari()
     {
-        return $this->idUsuari;
+        return $this->id_usuari;
     }
 
     /**
@@ -46,25 +46,25 @@ class Comanda{
     }
 
     /**
-     * Set the value of preuTotal
+     * Set the value of preu_total
      *
      * @return  self
      */ 
-    public function setPreuTotal($preuTotal)
+    public function setPreuTotal($preu_total)
     {
-        $this->preuTotal = $preuTotal;
+        $this->preu_total = $preu_total;
 
         return $this;
     }
 
     /**
-     * Set the value of idUsuari
+     * Set the value of id_usuari
      *
      * @return  self
      */ 
-    public function setIdUsuari($idUsuari)
+    public function setId_usuari($id_usuari)
     {
-        $this->idUsuari = $idUsuari;
+        $this->id_usuari = $id_usuari;
 
         return $this;
     }

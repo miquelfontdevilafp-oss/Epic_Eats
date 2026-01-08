@@ -28,15 +28,6 @@
             <div class="row">
                 <button class="menu-btn" data-target="Proveidor">Proveidor</button>
             </div>
-            <div class="row">
-                <button class="menu-btn" data-target="LineaComandes_Ingredients">LineaComandes_Ingredients</button>
-            </div>
-            <div class="row">
-                <button class="menu-btn" data-target="Producte_Ingredients">Producte_Ingredients</button>
-            </div>
-            <div class="row">
-                <button class="menu-btn" data-target="Ingredients_Proveidor">Ingredients_Proveidor</button>
-            </div>
         </div>
         <div id="panel" class="col-9">
             <section id="Usuaris" class="content-section active-section">
@@ -234,51 +225,6 @@
             </section>
             <section id="Proveidor" class="content-section">
                 <h2>Proveidor</h2>
-                <table>
-                    <tr>
-                        <td>ID</td>
-                        <td>NombreUsuari</td>
-                        <td>Contra</td>
-                        <td>Nom</td>
-                        <td>Cognom</td>
-                        <td>Correu</td>
-                        <td>Rol</td>
-                        <td>Telefon</td>
-                    </tr>
-                </table>
-            </section>
-            <section id="LineaComandes_Ingredients" class="content-section">
-                <h2>LineaComandes_Ingredients</h2>
-                <table>
-                    <tr>
-                        <td>ID</td>
-                        <td>NombreUsuari</td>
-                        <td>Contra</td>
-                        <td>Nom</td>
-                        <td>Cognom</td>
-                        <td>Correu</td>
-                        <td>Rol</td>
-                        <td>Telefon</td>
-                    </tr>
-                </table>
-            </section>
-            <section id="Producte_Ingredients" class="content-section">
-                <h2>Producte_Ingredients</h2>
-                <table>
-                    <tr>
-                        <td>ID</td>
-                        <td>NombreUsuari</td>
-                        <td>Contra</td>
-                        <td>Nom</td>
-                        <td>Cognom</td>
-                        <td>Correu</td>
-                        <td>Rol</td>
-                        <td>Telefon</td>
-                    </tr>
-                </table>
-            </section>
-            <section id="Ingredients_Proveidor" class="content-section">
-                <h2>Ingredients_Proveidor</h2>
                 <table>
                     <tr>
                         <td>ID</td>
