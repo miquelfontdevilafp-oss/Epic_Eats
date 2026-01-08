@@ -1,5 +1,4 @@
 <?php
-
     class Database{
         // ====USO LOCAL====:
         private static $host = 'localhost';
@@ -15,19 +14,19 @@
         // private static $db   = "epic_eats";
         // private static $port = 3307; //Puerto del docker
 
-        // // Método estatico para establecer la conexion a la base de datos
-        // public static function connect(){
-        //     //Con self le decimos a php que use la variable que tenemos creada arriba
-        //     $con = new mysqli(self::$host, self::$user, self::$pass, self::$db, self::$port);
+        // Método estatico para establecer la conexion a la base de datos
+        public static function connect(){
+            //Con self le decimos a php que use la variable que tenemos creada arriba
+            $con = new mysqli(self::$host, self::$user, self::$pass, self::$db, self::$port);
             
-        //     if ($con->connect_error) {
-        //         die("Conexion fallida: " . $con->connect_error);
-        //     }
+            if ($con->connect_error) {
+                die("Conexion fallida: " . $con->connect_error);
+            }
             
-        //     // Establecer charset UTF-8 para manejar correctamente los caracteres especiales
-        //     $con->set_charset("utf8mb4");
+            // Establecer charset UTF-8 para manejar correctamente los caracteres especiales
+            $con->set_charset("utf8mb4");
             
-        //     return $con; // Retornar la conexión si funciona bien
-        // }
+            return $con; // Retornar la conexión si funciona bien
+        }
     }
 ?>
