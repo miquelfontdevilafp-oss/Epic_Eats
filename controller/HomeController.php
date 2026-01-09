@@ -2,43 +2,43 @@
 class HomeController{
     public function Home(){
 
-        // Productes dinàmics per a la Home
-        // - Prioritza productes visibles a la carta
-        // - Inclou preu_final si hi ha oferta activa
-        require_once dirname(__DIR__) . '/model/Productes/ProductesDAO.php';
+        // Dades reals de la BD (mateixos productes que es mostren a la Carta)
+        require_once __DIR__ . '/../model/Productes/ProductesDAO.php';
+        require_once __DIR__ . '/../model/Categoria/CategoriaDAO.php';
 
-        $productesHome = ProductesDAO::getProductesEnCartaAmbOferta();
+        // Productes visibles a la web (Carta)
+        $productes = ProductesDAO::getProductesEnCarta();
 
-        // Fallback si el mètode amb oferta retorna buit (o si no hi ha taules d'ofertes configurades)
-        if (empty($productesHome)) {
-            $objs = ProductesDAO::getProductesEnCarta();
-            $productesHome = array_map(function ($p) {
-                return [
-                    'id' => $p->getId(),
-                    'nom' => $p->getNom(),
-                    'descripcio' => $p->getDescripcio(),
-                    'preu_unitat' => $p->getPreuUnitat(),
-                    'preu_final' => $p->getPreuUnitat(),
-                    'imatge' => $p->getImatge(),
-                    'en_carta' => $p->getEnCarta(),
-                ];
-            }, $objs);
+        // Categories
+        $categorias = CategoriaDAO::getCategories();
+        $categoriasById = [];
+        foreach ($categorias as $c) {
+            $categoriasById[(int)$c->getId()] = (string)$c->getNom();
         }
 
-        // Blocs que consumeix la vista
-        $homeHero = $productesHome[0] ?? null;
-        $homeSidebar = array_slice($productesHome, 1, 5);
-        $homeDescobreix = array_slice($productesHome, 0, 5);
+        // Mapa producte => categories
+        $ids = array_map(fn($p) => (int)$p->getId(), $productes);
+        $mapProducteCategories = ProductesDAO::getCategoriesByProducteIds($ids);
 
-        // Rebaixes: prioritzem productes amb oferta activa
-        $homeRebaixes = array_values(array_filter($productesHome, function ($p) {
-            return isset($p['oferta_id']) && !empty($p['oferta_id']);
+        // Productes amb oferta (per a Rebaixes)
+        $productesAmbOferta = ProductesDAO::getProductesEnCartaAmbOferta();
+        $rebaixes = array_values(array_filter($productesAmbOferta, function ($row) {
+            return !empty($row['oferta_id']);
         }));
-        if (empty($homeRebaixes)) {
-            $homeRebaixes = array_slice($productesHome, 0, 3);
-        } else {
-            $homeRebaixes = array_slice($homeRebaixes, 0, 3);
-        }
+
+        // Seleccions per seccions (sense exposar IDs a la UI)
+        $heroMain = $productes[0] ?? null;
+        $heroSecondary = $productes[1] ?? $heroMain;
+        $sidebarProducts = array_slice($productes, 1, 6);
+        $descobreixProducts = array_slice($productes, 0, 10);
+        $rebaixesProducts = array_slice($rebaixes, 0, 3);
+
+        // Categories a la home (evitem Begudes perquè no es mostri a la Home)
+        $filteredCategories = array_values(array_filter($categorias, function ($c) {
+            $nom = strtolower(trim((string)($c->getNom() ?? '')));
+            return $nom !== 'begudes';
+        }));
+        $homeCategories = array_slice($filteredCategories, 0, 3);
 
         $view = 'home.php';
         require_once dirname(__DIR__) . "/view/plantilla.php";

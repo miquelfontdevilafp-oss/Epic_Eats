@@ -2,6 +2,8 @@
 class Categoria{
     private int $id;
     private string $nom;
+    // Ruta relativa (p. ex. IMG/categories/entrants.webp)
+    private ?string $imatge = null;
     
     // public function __construct(string $nom){
     //     $this-> nom = $nom;
@@ -24,6 +26,14 @@ class Categoria{
     }
 
     /**
+     * Get the value of imatge
+     */
+    public function getImatge()
+    {
+        return $this->imatge;
+    }
+
+    /**
      * Set the value of id
      *
      * @return  self
@@ -43,6 +53,18 @@ class Categoria{
     public function setNom($nom)
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of imatge
+     *
+     * @return self
+     */
+    public function setImatge($imatge)
+    {
+        $this->imatge = $imatge;
 
         return $this;
     }

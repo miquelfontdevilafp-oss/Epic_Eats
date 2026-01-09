@@ -14,17 +14,14 @@ body{
 footer{
     background-color: #18181C;
 }
-footer p, button{
+/* IMPORTANT: keep footer styles scoped to footer only */
+footer p,
+footer button{
     color: #FFFFFF59;
 }
 footer a{
     text-decoration: none;
     color: #FFFFFF99;
-}
-footer button{
-    border-color: #FFFFFF59;
-    background-color: #18181C;
-    border-radius: 15%;
 }
 .iconoRedSocial{
     width: 48px;
@@ -40,6 +37,18 @@ footer button{
     height: 32px;
 }
 
+.svg20{
+    width: 20px;
+    height: 20px;
+}
+
+/* Disabled links (Reserva, etc.) */
+.ee-disabled-link{
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
 /* ---------------------------
    Navbar (override Bootstrap)
    --------------------------- */
@@ -51,7 +60,40 @@ footer button{
 }
 
 #navbar .navbar-brand img{
-    height: 32px;
+    height: 26px;
+}
+
+/* Ensure the brand mark is compact (matches mock) */
+#navbar .navbar-brand .ee-brand-logo{
+    height: 22px;
+}
+
+#navbar .ee-disabled-link{
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Brand like the mock (icon + STORE) */
+#navbar .ee-brand{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#navbar .ee-brand-logo{
+    height: 22px;
+    width: auto;
+}
+
+#navbar .ee-brand-text{
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: 13px;
+}
+
+#navbar .ee-cart{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 #navbar .nav-link{
@@ -84,8 +126,120 @@ footer button{
     filter: brightness(1.05);
 }
 
+/* En col·lapse (mòbil), els botons no han de tenir marge lateral */
+@media (max-width: 991px){
+    #navbar a.nav-link[href*='action=register'],
+    #navbar a.nav-link[href*='action=login']{
+        margin-left: 0;
+        margin-top: 8px;
+        width: fit-content;
+    }
+    #navbar .navbar-nav.ms-auto{ padding-bottom: 10px; }
+}
+
 #navbar #contador-carrito{
     border-radius: 999px;
+}
+
+/* ---------------------------
+   Footer (matches mock)
+   --------------------------- */
+
+.ee-footer{
+    background: #18181C;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.ee-footer-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 26px 16px;
+}
+
+.ee-footer-brand{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.95);
+}
+
+/* Footer brand mark sizing */
+.ee-footer .ee-brand-logo{
+    height: 22px;
+    width: auto;
+}
+
+.ee-footer-brand:hover{ color: #fff; }
+
+.ee-hr{
+    border: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.10);
+    margin: 18px 0;
+}
+
+.ee-social img{
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+.ee-social:hover img{ opacity: 1; }
+
+/* Avoid extra spacing from the legacy icon class when used in the footer */
+.ee-footer .iconoRedSocial{ margin-left: 0; }
+
+.ee-footer-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 18px;
+    font-size: 12px;
+}
+
+.ee-footer-links a{
+    color: rgba(255,255,255,0.70);
+}
+
+.ee-footer-links a:hover{ color: rgba(255,255,255,0.95); }
+
+.ee-legal{
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.35);
+}
+
+.ee-to-top{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 10px;
+    color: rgba(255,255,255,0.70);
+    background: transparent;
+    white-space: nowrap;
+}
+
+.ee-to-top:hover{ color: rgba(255,255,255,0.95); }
+
+.ee-info-dot{
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+@media (max-width: 576px){
+    .ee-footer-inner{ padding: 22px 14px; }
+    .ee-footer-links{ gap: 10px 14px; }
 }
 
 /* ---------------------------
@@ -104,30 +258,43 @@ footer button{
 /* HERO + sidebar */
 #sector_productes_setmana{
     margin-top: 8px;
-    gap: 18px;
+    position: relative;
 }
 
-/* Override de la grid de Bootstrap per replicar la composició de la maqueta */
+/* Escriptori: banner + sidebar */
 @media (min-width: 992px){
     #sector_productes_setmana{
         display: grid;
         grid-template-columns: 1fr 280px;
+        gap: 18px;
         align-items: start;
-    }
-    #sector_productes_setmana > .col-8,
-    #sector_productes_setmana > .col-2{
-        width: auto !important;
-        max-width: none !important;
-        flex: 0 0 auto !important;
     }
 }
 
-#sector_productes_setmana > .col-8{
+/* Track (mòbil: carrusel) */
+.hero-track{
+    display: block;
+}
+
+@media (max-width: 991px){
+    .hero-track{
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+    .hero-track::-webkit-scrollbar{ height: 8px; }
+    .hero-track::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 999px; }
+}
+
+/* Targetes hero */
+.hero-card{
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    /* Més alt el producte principal (hero) */
-    min-height: 480px;
+    min-height: 360px;
     padding: 28px;
     background:
         radial-gradient(1200px 600px at 70% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0) 55%),
@@ -135,53 +302,45 @@ footer button{
     box-shadow: 0 12px 40px rgba(0,0,0,0.35);
 }
 
-#sector_productes_setmana > .col-8 > div{
-    margin: 0 auto;
-}
-
-/* Botó del hero (ara és <a class="btn ...">) */
-#sector_productes_setmana .btn{
-    border: 0;
-    border-radius: 999px;
-    padding: 10px 16px;
-    background: #ffffff;
-    color: #0b0b0d;
-    font-weight: 800;
-}
-
-#sector_productes_setmana .btn:hover{
-    filter: brightness(0.95);
-}
-
-/* Capa fosca per donar contrast al text (similar a la foto de steak de la maqueta) */
-#sector_productes_setmana > .col-8::after{
+.hero-card::before{
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.05));
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.95;
+    transform: scale(1.03);
+}
+
+.hero-card::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.60), rgba(0,0,0,0.20) 55%, rgba(0,0,0,0.10));
     pointer-events: none;
 }
 
-#sector_productes_setmana > .col-8 > div{
+.hero-content{
     position: relative;
     z-index: 1;
     max-width: 560px;
 }
 
-#sector_productes_setmana h2{
+.hero-content h2{
     font-size: clamp(28px, 3vw, 40px);
     font-weight: 800;
     margin-bottom: 10px;
+    line-height: 1.05;
 }
 
-#sector_productes_setmana p{
+.hero-content p{
     color: rgba(255,255,255,0.75);
     line-height: 1.45;
     margin-bottom: 16px;
 }
 
-/* (compat) si en algun lloc es manté <button> */
-#sector_productes_setmana button{
+.hero-content button{
     border: 0;
     border-radius: 999px;
     padding: 10px 16px;
@@ -190,43 +349,63 @@ footer button{
     font-weight: 800;
 }
 
-#sector_productes_setmana button:hover{ filter: brightness(0.95); }
+.hero-content button:hover{
+    filter: brightness(0.95);
+}
 
-/* Sidebar llista de productes */
-#sector_productes_setmana > .col-2{
+@media (max-width: 991px){
+    .hero-card{
+        min-height: 320px;
+        width: 86vw;
+        scroll-snap-align: start;
+    }
+}
+
+@media (max-width: 576px){
+    .hero-card{ padding: 18px; border-radius: 18px; }
+    .hero-content h2{ font-size: 30px; }
+}
+
+/* Sidebar (escriptori) */
+.hero-sidebar{
     border-radius: 20px;
     padding: 14px;
     background: rgba(24, 24, 28, 0.9);
     border: 1px solid rgba(255,255,255,0.06);
 }
 
-#sector_productes_setmana > .col-2 .row{
+.sidebar-item{
+    display: flex;
     align-items: center;
     gap: 12px;
     padding: 10px 8px;
     border-radius: 14px;
-    margin: 0;
+    text-decoration: none;
 }
 
-#sector_productes_setmana > .col-2 .row:hover{
-    background: rgba(255,255,255,0.04);
-}
+.sidebar-item:hover{ background: rgba(255,255,255,0.04); }
 
-#sector_productes_setmana div img,
-.home_sidebar_img{
-    height: 52px;
-    width: 52px;
+.sidebar-item img{
+    height: 46px;
+    width: 46px;
     object-fit: cover;
-    border-radius: 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
 }
 
-.home_sidebar_item{ cursor: pointer; }
-.home_sidebar_title{ text-align: center; }
+.sidebar-kicker{
+    display: block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.60);
+    margin-bottom: 1px;
+}
 
-#sector_productes_setmana > .col-2 h4{
+.sidebar-title{
+    display: block;
     font-size: 13px;
-    margin: 0;
-    color: rgba(255,255,255,0.85);
+    font-weight: 800;
+    color: rgba(255,255,255,0.90);
+    line-height: 1.2;
 }
 
 /* Secció “Descobreix algo nou” */
@@ -235,9 +414,16 @@ footer button{
     padding: 0;
 }
 
-#Descobreix_Productes > .row:first-child{
+.section-header{
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 14px;
+}
+
+.section-actions{
+    display: flex;
+    gap: 10px;
 }
 
 #Descobreix_Productes h2,
@@ -256,26 +442,22 @@ footer button{
     cursor: pointer;
 }
 
-#Descobreix_Productes > .row:nth-child(2){
+.product-track{
+    display: flex;
     gap: 14px;
     overflow-x: auto;
-    flex-wrap: nowrap;
     padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 
-#Descobreix_Productes > .row:nth-child(2)::-webkit-scrollbar{
-    height: 8px;
-}
+.product-track::-webkit-scrollbar{ height: 8px; }
+.product-track::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 999px; }
 
-#Descobreix_Productes > .row:nth-child(2)::-webkit-scrollbar-thumb{
-    background: rgba(255,255,255,0.12);
-    border-radius: 999px;
-}
-
-#Descobreix_Productes > .row:nth-child(2) > .col{
+.product-card{
     min-width: 220px;
     max-width: 240px;
-    padding: 0;
+    scroll-snap-align: start;
 }
 
 .img_descobreix_productes{
@@ -287,59 +469,56 @@ footer button{
     background: rgba(255,255,255,0.06);
 }
 
-/* Primer producte del carrusel: més alt (com a la maqueta) */
-.home_descobreix_first .img_descobreix_productes{
-    height: 300px;
+.product-meta{
+    padding-top: 8px;
 }
 
-.home_descobreix_first{
-    min-width: 260px;
-    max-width: 280px;
+.product-category{
+    display: block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.60);
 }
 
-/* Textos de les cards */
-.home_card_nom{
-    margin: 10px 0 0;
-    color: rgba(255,255,255,0.92);
-    font-weight: 800;
+.product-title{
+    display: block;
+    margin-top: 3px;
     font-size: 13px;
-}
-
-.home_card_preu{
-    margin: 6px 0 0;
-    color: rgba(255,255,255,0.70);
-    font-size: 12px;
-}
-
-/* Rebaixes (items dinàmics) */
-.home_rebaixa_item{
-    border-radius: 16px;
-    background: rgba(0,0,0,0.18);
-    border: 1px solid rgba(255,255,255,0.06);
-    padding: 12px;
-    margin: 6px;
-}
-
-.home_rebaixa_title{
-    color: rgba(255,255,255,0.92);
-    text-decoration: none;
     font-weight: 800;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.92);
 }
 
-.home_rebaixa_preu{
-    margin: 6px 0 0;
-    color: rgba(255,255,255,0.70);
+.product-price{
+    display: block;
+    margin-top: 6px;
     font-size: 12px;
+    color: rgba(255,255,255,0.75);
 }
 
-#Descobreix_Productes > .row:nth-child(2) > .col{
-    background: transparent;
+@media (max-width: 576px){
+    .product-card{ min-width: 190px; }
+    .img_descobreix_productes{ height: 200px; }
 }
 
-#Descobreix_Productes > .row:nth-child(2) > .col p{
-    margin: 8px 0 0;
-    color: rgba(255,255,255,0.7);
-    font-size: 12px;
+/* Punts de paginació (mòbil) */
+.scroll-dots{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.scroll-dots .dot{
+    width: 6px;
+    height: 6px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.22);
+}
+
+.scroll-dots .dot.is-active{
+    width: 18px;
+    background: rgba(255,255,255,0.55);
 }
 
 /* Categories */
@@ -350,6 +529,14 @@ footer button{
 #Categories > .row:first-child{
     align-items: center;
     margin-bottom: 14px;
+}
+
+/* Fletxes a la dreta amb espai entre icones */
+#Categories > .row:first-child .col-auto{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 #Categories > .row:nth-child(2){
@@ -409,7 +596,14 @@ footer button{
     margin-bottom: 12px;
 }
 
-#Revaixes > .row:first-child .col{
+/* Botó sempre a la dreta */
+#Revaixes > .row:first-child .col-auto{
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Només la columna de títol (evita que el botó s'estiri/centri raro) */
+#Revaixes > .row:first-child .revaixes-title{
     display: flex;
     align-items: center;
     gap: 10px;
@@ -431,48 +625,114 @@ footer button{
 #Revaixes > .row:nth-child(2) > .col{
     border-radius: 18px;
     min-height: 110px;
-    padding: 12px 14px;
+    /* Sense padding al contenidor perquè la imatge pugui ocupar tot l'ample */
+    padding: 0;
+    overflow: hidden;
     background:
         radial-gradient(600px 200px at 10% 50%, rgba(29,122,247,0.18), rgba(29,122,247,0) 55%),
         rgba(16,16,20,0.9);
     border: 1px solid rgba(255,255,255,0.06);
 }
 
-#Revaixes > .row:nth-child(2) > .col a{
-    color: rgba(255,255,255,0.92);
+/* Targeta completa clicable */
+#Revaixes .rebaixa-card{
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
+    color: rgba(255,255,255,0.92);
+    /* Recupera l'espai interior que abans tenia el contenidor */
+    padding: 12px 14px;
+}
+
+/* Imatge del producte a Rebaixes */
+#Revaixes .rebaixa-img{
+    /* Imatge a sang: ocupa tot l'ample del contenidor (inclòs el padding de la targeta) */
+    width: calc(100% + 28px);
+    height: 120px;
+    object-fit: cover;
+    border-radius: 18px 18px 14px 14px;
+    display: block;
+    margin: -12px -14px 10px;
+    background: rgba(255,255,255,0.06);
+}
+
+#Revaixes .rebaixa-title{
+    display: block;
+    margin-bottom: 6px;
     font-weight: 800;
 }
 
-/* Responsive: Home en mòbil (similar a captura vertical) */
-@media (max-width: 991px){
-    #sector_productes_setmana > .col-8{
-        min-height: 320px;
-        margin-bottom: 14px;
-    }
-    #sector_productes_setmana > .col-2{
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        padding: 10px;
-    }
-    #sector_productes_setmana > .col-2 .row{
-        min-width: 160px;
-        flex: 0 0 auto;
-        border: 1px solid rgba(255,255,255,0.06);
-    }
-    #sector_productes_setmana > .col-2::-webkit-scrollbar{ height: 8px; }
-    #sector_productes_setmana > .col-2::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius: 999px; }
+#Revaixes .rebaixa-price{
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+}
+
+#Revaixes .rebaixa-old{
+    text-decoration: line-through;
+    opacity: .7;
+    font-weight: 700;
+}
+
+#Revaixes .rebaixa-new{
+    font-weight: 900;
 }
 
 @media (max-width: 576px){
     #home{ padding: 16px 0 40px; }
-    #sector_productes_setmana > .col-8{ padding: 18px; border-radius: 18px; }
-    #sector_productes_setmana h2{ font-size: 30px; }
-    #Descobreix_Productes > .row:nth-child(2) > .col{ min-width: 190px; }
+    .product-card{ min-width: 190px; }
     .img_descobreix_productes{ height: 200px; }
     #Categories > .row:nth-child(2) > .col img{ height: 150px; }
 }
 
 
 /* (Les regles antigues de Home s'han integrat i ampliat a la secció "Home" de dalt.) */
+
+/* ---------------------------
+   Carta (La nostra carta)
+   Objectiu:
+   - Imatges sense deformació
+   - Targetes amb alçada variable
+   - Espai vertical entre targetes més reduït (sense "masonry")
+   --------------------------- */
+
+.ee-carta .ee-carta-grid{
+    /* Redueix el "gutter" vertical respecte a g-4/g-3 */
+    --bs-gutter-y: 0.9rem;
+    --bs-gutter-x: 1.0rem;
+}
+
+@media (max-width: 576px){
+    .ee-carta .ee-carta-grid{
+        --bs-gutter-y: 0.7rem;
+        --bs-gutter-x: 0.7rem;
+    }
+}
+
+.ee-carta .card{
+    background: rgba(24, 24, 28, 0.90);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.ee-carta .card-body{
+    padding: 14px;
+}
+
+.ee-carta .card-title{ margin-bottom: 0.4rem; }
+.ee-carta .card-text{ margin-bottom: 0.75rem; }
+
+.ee-carta .card-img-top{
+    width: 100%;
+    height: auto;
+    display: block;
+    background: rgba(255,255,255,0.06);
+    max-height: 240px;      /* límit suau: evita targetes molt altes */
+    object-fit: cover;      /* retalla si cal, però no deforma */
+}
+
+@media (max-width: 576px){
+    .ee-carta .card-img-top{ max-height: 200px; }
+}

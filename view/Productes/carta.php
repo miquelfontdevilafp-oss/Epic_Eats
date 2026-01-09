@@ -1,4 +1,4 @@
-<section class="container py-5">
+<section class="container py-5 ee-carta">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="m-0">Carta</h3>
         <a class="btn btn-outline-primary" href="<?= BASE_URL ?>/?controller=Carrito&action=verCarrito">
@@ -33,7 +33,8 @@
 
         <!-- Productes -->
         <div class="col-12 col-lg-9">
-            <div class="row g-4" id="grid-productes">
+            <!-- Grid amb espai vertical més ajustat (evita sensació de buits) -->
+            <div class="row g-3 ee-carta-grid" id="grid-productes">
                 <?php foreach (($productes ?? []) as $p): ?>
             <?php
             // getters (objeto Productes)
@@ -53,17 +54,18 @@
             ?>
 
             <div class="col-md-6 col-xl-4 producto-card" data-categorias="<?= htmlspecialchars($catsAttr, ENT_QUOTES, 'UTF-8') ?>">
-                <div class="card h-100">
+                <!-- Sense h-100: cada targeta s'adapta al contingut (imatge + text) -->
+                <div class="card">
                     <img
                         src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>"
                         class="card-img-top"
                         alt="<?= htmlspecialchars($nom, ENT_QUOTES, 'UTF-8') ?>"
                         onerror="this.src='<?= BASE_URL ?>/IMG/ImgNotFound.png'">
 
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($nom, ENT_QUOTES, 'UTF-8') ?></h5>
 
-                        <p class="card-text text-muted" style="flex:1">
+                        <p class="card-text text-muted">
                             <?= htmlspecialchars($desc, ENT_QUOTES, 'UTF-8') ?>
                         </p>
 

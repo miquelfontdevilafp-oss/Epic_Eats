@@ -1,26 +1,222 @@
+:root{
+    --admin-bg: #101014;
+    --admin-surface: rgba(24, 24, 28, 0.92);
+    --admin-surface-2: rgba(14, 14, 18, 0.92);
+    --admin-border: rgba(255, 255, 255, 0.08);
+    --admin-border-2: rgba(255, 255, 255, 0.12);
+    --admin-text: #EDEDF2;
+    --admin-muted: rgba(255, 255, 255, 0.68);
+    --admin-muted-2: rgba(255, 255, 255, 0.48);
+    --admin-accent: #1D7AF7;
+    --admin-danger: #ff4d4d;
+}
+
+/*
+   Admin Panel Theme
+   - Colors aligned with the public EpicEats theme
+   - Keeps existing layout (left navigation + right content)
+*/
+
+body{
+    background: var(--admin-bg);
+    color: var(--admin-text);
+}
+
+/* Prevent accidental horizontal scroll caused by wide tables */
+html, body{ overflow-x: hidden; }
+
+/* Left navigation */
 #nav-bar{
-    background-color: darkblue;
-    padding-bottom: 100%;
+    background: rgba(7, 7, 7, 0.92);
+    border-right: 1px solid var(--admin-border);
+    min-height: 100vh;
+    padding: 18px 12px;
+    position: sticky;
+    top: 0;
 }
 
+.admin-brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 8px 14px 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.admin-brand img{
+    width: 36px;
+    height: 36px;
+}
+
+.admin-brand-title{
+    font-weight: 800;
+    line-height: 1;
+}
+
+.admin-brand-sub{
+    font-size: 12px;
+    color: var(--admin-muted);
+    margin-top: 2px;
+}
+
+.menu-btn{
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--admin-muted);
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}
+
+.menu-btn:hover,
+.menu-btn:focus{
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.92);
+}
+
+.menu-btn.is-active{
+    background: rgba(29, 122, 247, 0.18);
+    border-color: rgba(29, 122, 247, 0.35);
+    color: #fff;
+}
+
+/* Disabled buttons (no API implemented) */
+.menu-btn.is-disabled,
+.menu-btn:disabled{
+    opacity: 0.45;
+    background: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.75);
+    cursor: not-allowed;
+}
+
+.menu-btn:disabled:hover,
+.menu-btn.is-disabled:hover{
+    background: rgba(255,255,255,0.02);
+    color: rgba(255,255,255,0.75);
+}
+
+/* Right panel */
 #panel{
-    background-color: antiquewhite;
+    padding: 22px 18px;
+    min-height: 100vh;
 }
 
-.content-section{
-    display: none;
+.content-section{ display: none; }
+.active-section{ display: block; }
+
+.content-section h2{
+    font-weight: 800;
+    margin: 6px 0 14px 0;
 }
 
-.active-section{
-    display: block;
+/* Forms / filters blocks: keep structure but improve readability */
+#panel input,
+#panel select{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--admin-border-2);
+    color: var(--admin-text);
+    border-radius: 10px;
+    padding: 8px 10px;
+    outline: none;
 }
 
-table {
-    border-collapse: separate; /* required for border-spacing to work */
-    border-style: solid;
-    border-spacing: 10px;
+#panel input::placeholder{ color: rgba(255,255,255,0.45); }
+
+#panel label{ color: rgba(255,255,255,0.86); }
+
+.afegirUsuariFormulari{
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    padding: 14px;
+    margin-top: 14px;
+    max-width: 560px;
 }
 
-td, tr {
-    border-style: solid;
+/* Buttons (general) */
+#panel button{
+    border-radius: 999px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.92);
+    font-weight: 700;
+}
+
+#panel button:hover{ background: rgba(255,255,255,0.10); }
+
+/* Primary add buttons */
+#btn_afegirUsuari,
+#btn_afegirComanda{
+    background: var(--admin-accent);
+    border-color: transparent;
+    color: #fff;
+}
+
+#btn_afegirUsuari:hover,
+#btn_afegirComanda:hover{ filter: brightness(1.05); }
+
+/* Row actions */
+#panel button.editar{
+    border-color: rgba(29, 122, 247, 0.35);
+}
+
+#panel button.editar:hover{
+    background: rgba(29, 122, 247, 0.14);
+}
+
+#panel button.eliminar{
+    border-color: rgba(255, 77, 77, 0.45);
+}
+
+#panel button.eliminar:hover{
+    background: rgba(255, 77, 77, 0.12);
+}
+
+/* Tables */
+#panel table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+#panel table tr:first-child td{
+    font-weight: 800;
+    color: rgba(255,255,255,0.90);
+    background: rgba(255,255,255,0.04);
+}
+
+#panel td{
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.78);
+    vertical-align: middle;
+}
+
+#panel tr:last-child td{ border-bottom: 0; }
+
+#panel table tr:not(:first-child):hover td{
+    background: rgba(255,255,255,0.02);
+}
+
+/* When a table is wider than the viewport, allow horizontal scrolling */
+#panel{ overflow-x: auto; }
+
+/* Responsive: keep nav usable */
+@media (max-width: 992px){
+    #nav-bar{
+        position: relative;
+        min-height: unset;
+        border-right: 0;
+        border-bottom: 1px solid var(--admin-border);
+    }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 08-01-2026 a les 20:49:36
+-- Temps de generació: 09-01-2026 a les 14:57:57
 -- Versió del servidor: 10.4.32-MariaDB
 -- Versió de PHP: 8.2.12
 
@@ -77,17 +77,25 @@ INSERT INTO `alergans_ingredients` (`id_ingredient`, `id_alergan`) VALUES
 
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
-  `nom` varchar(50) NOT NULL
+  `nom` varchar(50) NOT NULL,
+  `imatge` varchar(255) NOT NULL DEFAULT 'IMG/ImgNotFound.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Bolcament de dades per a la taula `categoria`
 --
 
-INSERT INTO `categoria` (`id`, `nom`) VALUES
-(1, 'Entrants'),
-(2, 'Plats principals'),
-(3, 'Postres');
+INSERT INTO `categoria` (`id`, `nom`, `imatge`) VALUES
+(1, 'Entrants', 'IMG/pintxus.webp'),
+(2, 'Plats principals', 'IMG/filet.webp'),
+(3, 'Postres', 'IMG/cheescake.webp'),
+(5, 'Begudes', 'IMG/aigua.webp'),
+(6, 'Amanides', 'IMG/amanida.webp'),
+(7, 'Pasta', 'IMG/spageti.webp'),
+(8, 'Burgers', 'IMG/amburgesa.webp'),
+(9, 'Sushi', 'IMG/sushi.webp'),
+(10, 'Vegà', 'IMG/amanida.webp'),
+(11, 'Especialitats', 'IMG/trosos-de-carn.webp');
 
 -- --------------------------------------------------------
 
@@ -110,7 +118,9 @@ INSERT INTO `comanda` (`id`, `preu_total`, `id_usuaris`) VALUES
 (2, 11.90, 2),
 (3, 12.00, 14),
 (4, 37.38, 14),
-(5, 0.00, 14);
+(5, 0.00, 14),
+(6, 0.00, 1),
+(7, 0.00, 2);
 
 -- --------------------------------------------------------
 
@@ -157,7 +167,14 @@ INSERT INTO `linea_comandes` (`id`, `preu_unitat`, `id_comanda`, `id_producte`) 
 (8, 0.00, 5, 4),
 (9, 0.00, 5, 4),
 (10, 0.00, 5, 4),
-(11, 0.00, 5, 5);
+(11, 0.00, 5, 5),
+(12, 12.50, 6, 22),
+(13, 12.50, 6, 22),
+(14, 11.90, 6, 5),
+(15, 22.90, 7, 27),
+(16, 24.90, 7, 14),
+(17, 6.50, 7, 28),
+(18, 6.50, 7, 28);
 
 -- --------------------------------------------------------
 
@@ -218,10 +235,40 @@ CREATE TABLE `productes` (
 --
 
 INSERT INTO `productes` (`id`, `nom`, `descripcio`, `preu_unitat`, `imatge`, `en_carta`) VALUES
-(1, 'producte1', 'Descrpcio 1', 20.00, 'imatge.svg/png/webp', 1),
-(4, 'Bruschetta', 'Pa torrat amb tomàquet i alfàbrega', 5.50, 'https://example.com/img/productes/bruschetta.jpg', 1),
-(5, 'Pizza Margherita', 'Tomàquet, mozzarella i alfàbrega fresca', 11.90, 'https://example.com/img/productes/margherita.jpg', 1),
-(6, 'producte2', 'Descrpcio 2', 16.99, 'imatge.svg/png/webp', 0);
+(1, 'producte1', 'Descrpcio 1', 20.00, 'IMG/filet.webp', 1),
+(4, 'Bruschetta', 'Pa torrat amb tomàquet i alfàbrega', 5.50, 'IMG/pintxus.webp', 1),
+(5, 'Pizza Margherita', 'Tomàquet, mozzarella i alfàbrega fresca', 11.90, 'IMG/pitzza.webp', 1),
+(6, 'producte2', 'Descrpcio 2', 16.99, 'IMG/trosos-de-carn.webp', 0),
+(7, 'Croquetes de pernil', 'Croquetes cremoses de pernil ibèric', 6.90, 'IMG/croquetes.webp', 1),
+(8, 'Patates braves', 'Patata cruixent amb salsa brava i allioli', 5.50, 'IMG/croquetes.webp', 1),
+(9, 'Hummus amb pita', 'Hummus casolà amb pa de pita', 5.90, 'IMG/pintxus.webp', 1),
+(10, 'Nachos amb guacamole', 'Nachos amb guacamole i pico de gallo', 7.20, 'IMG/pintxus.webp', 1),
+(11, 'Amanida César', 'Enciam, pollastre, crostons i salsa césar', 10.50, 'IMG/amanida.webp', 1),
+(12, 'Amanida mediterrània', 'Tomàquet, olives, feta i orenga', 9.80, 'IMG/amanida.webp', 1),
+(13, 'Bowl vegà', 'Quinoa, alvocat, edamame i verdures', 11.90, 'IMG/amanida.webp', 1),
+(14, 'Entrecot a la brasa', 'Entrecot amb pebre i sal en escates', 24.90, 'IMG/filetde-carn.webp', 1),
+(15, 'Costelles BBQ', 'Costelles amb salsa barbacoa i patates', 19.90, 'IMG/trosos-de-carn.webp', 1),
+(16, 'Salmó a la planxa', 'Salmó amb llimona i verdures', 18.40, 'IMG/filet-fet.webp', 1),
+(17, 'Pollastre teriyaki', 'Pollastre amb salsa teriyaki i arròs', 14.90, 'IMG/pollastre.webp', 1),
+(18, 'Curry vegà', 'Curry de verdures amb arròs basmati', 13.50, 'IMG/filet en paella.webp', 1),
+(19, 'Spaghetti carbonara', 'Carbonara cremosa amb bacó', 12.90, 'IMG/spageti.webp', 1),
+(20, 'Pasta al pesto', 'Pesto d’alfàbrega i parmesà', 11.90, 'IMG/spageti.webp', 1),
+(21, 'Lasanya de carn', 'Lasanya clàssica gratinada', 13.90, 'IMG/lasanya.webp', 1),
+(22, 'Burger clàssica', 'Vedella, cheddar, enciam i tomàquet', 12.50, 'IMG/amburgesa.webp', 1),
+(23, 'Burger doble', 'Doble vedella, doble cheddar i bacon', 15.90, 'IMG/amburgesa2.webp', 1),
+(24, 'Burger vegana', 'Hamburguesa vegetal amb alvocat', 13.90, 'IMG/amburgesa.webp', 1),
+(25, 'Nigiri salmó (6u)', 'Nigiri de salmó fresc', 13.50, 'IMG/sushi.webp', 1),
+(26, 'Uramaki alvocat (8u)', 'Uramaki d’alvocat i cogombre', 12.80, 'IMG/sushi.webp', 1),
+(27, 'Mix sushi (16u)', 'Selecció variada de sushi', 22.90, 'IMG/sushi.webp', 1),
+(28, 'Cheesecake', 'Pastís de formatge amb coulis', 6.50, 'IMG/cheescake.webp', 1),
+(29, 'Tiramisú', 'Tiramisú clàssic italià', 6.20, 'IMG/postre.webp', 1),
+(30, 'Brownie amb gelat', 'Brownie de xocolata amb gelat', 6.90, 'IMG/brownie.webp', 1),
+(31, 'Fruita de temporada', 'Assortit de fruita fresca', 4.90, 'IMG/raim.webp', 1),
+(32, 'Aigua', 'Aigua mineral 50cl', 1.90, 'IMG/aigua.webp', 1),
+(33, 'Refresc cola', 'Refresc 33cl', 2.50, 'IMG/cocacola.webp', 1),
+(34, 'Llimonada', 'Llimonada casolana', 3.20, 'IMG/llimonada.webp', 1),
+(35, 'Cafè', 'Cafè espresso', 1.80, 'IMG/cafe.webp', 1),
+(36, 'Tè verd', 'Infusió de te verd', 2.20, 'IMG/te-verd.webp', 1);
 
 -- --------------------------------------------------------
 
@@ -233,6 +280,59 @@ CREATE TABLE `productes_categoria` (
   `id_producte` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Bolcament de dades per a la taula `productes_categoria`
+--
+
+INSERT INTO `productes_categoria` (`id_producte`, `id_categoria`) VALUES
+(4, 1),
+(5, 2),
+(7, 1),
+(8, 1),
+(9, 1),
+(9, 10),
+(10, 1),
+(11, 6),
+(12, 6),
+(13, 6),
+(13, 10),
+(14, 2),
+(14, 11),
+(15, 2),
+(15, 11),
+(16, 2),
+(17, 2),
+(18, 2),
+(18, 10),
+(19, 7),
+(19, 2),
+(20, 7),
+(20, 2),
+(21, 7),
+(21, 2),
+(22, 8),
+(22, 2),
+(23, 8),
+(23, 2),
+(24, 8),
+(24, 10),
+(25, 9),
+(25, 2),
+(26, 9),
+(26, 10),
+(27, 9),
+(27, 2),
+(28, 3),
+(29, 3),
+(30, 3),
+(31, 3),
+(31, 10),
+(32, 5),
+(33, 5),
+(34, 5),
+(35, 5),
+(36, 5);
 
 -- --------------------------------------------------------
 
@@ -273,7 +373,14 @@ CREATE TABLE `productes_ofertes` (
 
 INSERT INTO `productes_ofertes` (`id_producte`, `id_oferta`) VALUES
 (1, 2),
-(1, 2);
+(1, 2),
+(7, 1),
+(8, 1),
+(9, 1),
+(5, 2),
+(28, 3),
+(29, 3),
+(14, 4);
 
 -- --------------------------------------------------------
 
@@ -488,13 +595,13 @@ ALTER TABLE `alergans`
 -- AUTO_INCREMENT per la taula `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la taula `comanda`
 --
 ALTER TABLE `comanda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la taula `ingredients`
@@ -506,7 +613,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT per la taula `linea_comandes`
 --
 ALTER TABLE `linea_comandes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT per la taula `ofertes`
@@ -518,7 +625,7 @@ ALTER TABLE `ofertes`
 -- AUTO_INCREMENT per la taula `productes`
 --
 ALTER TABLE `productes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT per la taula `productes_ingredients`
@@ -613,8 +720,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
--- OPTIONAL: Afegir data a les comandes (per filtre per data al panell d'admin)
--- ALTER TABLE `comanda` ADD COLUMN `data_comanda` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
--- UPDATE `comanda` SET `data_comanda` = CURRENT_TIMESTAMP WHERE `data_comanda` IS NULL;

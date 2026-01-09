@@ -1,6 +1,13 @@
 <section>
     <section class="container-fluid row justify-content-md-center">
         <div class="col-2" id="nav-bar">
+            <div class="admin-brand">
+                <img src="<?= BASE_URL ?>/IMG/Logo_EpicEats_oscuro.svg" alt="EpicEats" />
+                <div class="admin-brand-text">
+                    <div class="admin-brand-title">EpicEats</div>
+                    <div class="admin-brand-sub">Admin Panel</div>
+                </div>
+            </div>
             <div class="row">
                 <button class="menu-btn" data-target="Usuaris">Usuaris</button>
             </div>

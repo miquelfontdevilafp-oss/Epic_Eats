@@ -12,6 +12,9 @@
 const botonesMenu = document.querySelectorAll(".menu-btn");
 const secciones = document.querySelectorAll(".content-section");
 
+// Seccions amb API/CRUD implementat (la resta es mostren com a deshabilitades)
+const ADMIN_ENABLED_TARGETS = new Set(["Usuaris", "Reserva", "Comanda", "Productes"]);
+
 
 // -------------------------
 // Admin: dataset cache (filters/sort)
@@ -20,6 +23,7 @@ let ADMIN_USERS_ALL = [];
 let ADMIN_COMANDES_ALL = [];
 let ADMIN_PRODUCTES_ALL = [];
 document.addEventListener("DOMContentLoaded", () => {
+  initAdminMenuStates();
   setActiveSection("Usuaris");
   cargarUsuaris();
   initUsuariFiltersUI();
@@ -28,6 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicialitza listeners del CRUD de Comandes (evita duplicar DOMContentLoaded)
   initComandes();
 });
+
+function initAdminMenuStates(){
+  botonesMenu.forEach(btn => {
+    const target = btn.getAttribute("data-target");
+    if (!ADMIN_ENABLED_TARGETS.has(target)) {
+      btn.classList.add("is-disabled");
+      btn.disabled = true;
+      btn.setAttribute("title", "Secció pendent d'API (deshabilitada)");
+    }
+  });
+}
 
 
 // -------------------------
@@ -92,6 +107,12 @@ botonesMenu.forEach(boton => {
 function setActiveSection(target) {
   secciones.forEach(seccion => seccion.classList.remove("active-section"));
   document.getElementById(target).classList.add("active-section");
+
+  // marca el botó actiu (només per a seccions habilitades)
+  botonesMenu.forEach(btn => {
+    const t = btn.getAttribute("data-target");
+    btn.classList.toggle("is-active", (t === target));
+  });
 
   if (target === "Usuaris") {
     cargarUsuaris();
