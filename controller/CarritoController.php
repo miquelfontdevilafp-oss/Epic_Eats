@@ -9,7 +9,6 @@ class CarritoController {
     }
 
     public function checkout() {
-        // Mateixa lògica que Proyecto_Restaurante-desarrollo: cal estar loguejat
         if (!isset($_SESSION['usuario']) || !$_SESSION['usuario']) {
             header('Location: ' . BASE_URL . '/?controller=Auth&action=login');
             exit;

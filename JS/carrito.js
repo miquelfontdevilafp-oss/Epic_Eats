@@ -1,5 +1,3 @@
-// Carrito (localStorage) – inspirat en el projecte de referència
-
 function obtenerCarrito() {
   const carrito = localStorage.getItem('carrito');
   return carrito ? JSON.parse(carrito) : [];

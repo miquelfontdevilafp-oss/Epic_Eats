@@ -17,7 +17,7 @@ class ApiController
     public function getUsers()
     {
         try {
-            $usuaris = usuariDAO::getUsuaris(); // obtienes objetos
+            $usuaris = usuariDAO::getUsuaris();
 
             // Convertir objetos a arrays
             $data = array_map(function ($user) {

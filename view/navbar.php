@@ -6,14 +6,11 @@ $u = $_SESSION['usuario'] ?? null;
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ee-navbar">
         <div class="container-fluid">
 
-            <!-- Brand (logo + STORE) -->
             <a class="navbar-brand ee-brand" href="<?= BASE_URL ?>/?controller=Home&action=Home">
-                <!-- Epic Eats logo + STORE (avoid duplicate "STORE" inside the image) -->
                 <img class="ee-brand-logo" src="<?= BASE_URL ?>/IMG/Logo_EpicEats_Claro.svg" alt="Epic Eats">
                 <span class="ee-brand-text">STORE</span>
             </a>
 
-            <!-- Botó col·lapse (mòbil) -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#eeNavbar"
                     aria-controls="eeNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,14 +18,12 @@ $u = $_SESSION['usuario'] ?? null;
 
             <div class="collapse navbar-collapse" id="eeNavbar">
 
-                <!-- Menu de pàgines -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= BASE_URL ?>/?controller=Productes&action=carta">La Nostre Carta</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#">Restaurant</a></li>
                     <li class="nav-item">
-                        <!-- Deshabilitado -->
                         <a class="nav-link ee-disabled-link" href="#" aria-disabled="true" tabindex="-1">Reserva</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#">Contacta</a></li>
@@ -39,8 +34,7 @@ $u = $_SESSION['usuario'] ?? null;
                         </li>
                     <?php endif; ?>
                 </ul>
-
-                <!-- Carro + Login/Register -->
+                
                 <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item me-lg-2">
                         <a class="nav-link ee-cart" href="<?= BASE_URL ?>/?controller=Carrito&action=verCarrito">

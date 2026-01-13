@@ -12,7 +12,6 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
             La teva comanda s'ha creat correctament. <strong>Referència: #<?= htmlspecialchars((string)$id) ?></strong>
         </div>
 
-        <p class="text-muted">(Opcional) Pots ampliar aquesta pàgina per mostrar el detall de línies i productes.</p>
     <?php endif; ?>
 
     <a class="btn btn-primary" href="<?= BASE_URL ?>/?controller=Productes&action=carta">Tornar a la carta</a>

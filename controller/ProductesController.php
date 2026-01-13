@@ -1,5 +1,5 @@
 <?php
-include_once 'model/Productes/ProductesDAO.php';
+include_once __DIR__ . '/../model/Productes/ProductesDAO.php';
 include_once __DIR__ . '/../model/Categoria/CategoriaDAO.php';
 class ProductesController
 {
@@ -10,7 +10,7 @@ class ProductesController
         require_once dirname(__DIR__) . "/view/plantilla.php";
     }
 
-    // Carta tipus "Proyecto_Restaurante-desarrollo": llista de productes amb botó d'afegir al carrito
+    // llista de productes
     public function carta()
     {
         // Categories per a filtres
@@ -31,13 +31,13 @@ class ProductesController
     //     $view = 'view/show.php';
     //     $idProducte=$_GET['idproducte'];
     //     $producte = ProductesDAO::getProducteByID($idProducte);
-    //     include_once 'view/main.php';
+    //     include_once __DIR__ . '/../view/main.php';
     // }
     public function index()
     {
         $view = 'view/Productes/index.php';
         $productes = ProductesDAO::getProductes();
-        include_once 'view/main.php';
+        include_once __DIR__ . '/../view/main.php';
     }
     // public function getUsuaris(){
     //     $usuaris = UsuariDAO::getUsuaris();

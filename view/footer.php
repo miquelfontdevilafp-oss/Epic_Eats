@@ -1,11 +1,10 @@
 <footer id="site-footer" class="ee-footer">
     <div class="container-fluid ee-footer-inner">
 
-        <!-- Top: brand + social -->
+        
         <div class="row align-items-center gy-3 ee-footer-top">
             <div class="col-12 col-md-6">
                 <a class="ee-footer-brand" href="<?= BASE_URL ?>/?controller=Home&action=Home">
-                    <!-- Epic Eats logo + STORE (avoid duplicate "STORE" inside the image) -->
                     <img class="ee-brand-logo" src="<?= BASE_URL ?>/IMG/Logo_EpicEats_Claro.svg" alt="Epic Eats">
                     <span class="ee-brand-text">STORE</span>
                 </a>
@@ -25,7 +24,6 @@
 
         <hr class="ee-hr">
 
-        <!-- Links -->
         <nav class="ee-footer-links" aria-label="Footer">
             <a href="<?= BASE_URL ?>/?controller=Home&action=Home">Inici</a>
             <a href="#">Restaurant</a>
@@ -40,7 +38,6 @@
 
         <hr class="ee-hr">
 
-        <!-- Bottom: legal + back to top -->
         <div class="row align-items-start gy-3 ee-footer-bottom">
             <div class="col-12 col-lg-9">
                 <p class="ee-legal">

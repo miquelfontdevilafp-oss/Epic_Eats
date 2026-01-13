@@ -1,24 +1,11 @@
-
-// acer con botones para canviar la "pagina" 
-// quando entras en el panel de administracion se carga todo solo que no se be lo que no esta "abierto" 
-// en css aremos una clase llamado active-section con display: block i lo que no se muestra poner display none con clase (ej .content-section)
-// podemos poner un attributo "inventado" par conseguir algo parecido a la id siu usar id en egemplo data-target
-
-// per aixo farem addeventlistener click cojiendo los botones por classe o id
-// acer lo del escrit en document js
-
-
-
 const botonesMenu = document.querySelectorAll(".menu-btn");
 const secciones = document.querySelectorAll(".content-section");
 
-// Seccions amb API/CRUD implementat (la resta es mostren com a deshabilitades)
+// apis implementades (la resta es mostren com a deshabilitades)
 const ADMIN_ENABLED_TARGETS = new Set(["Usuaris", "Reserva", "Comanda", "Productes"]);
 
 
-// -------------------------
-// Admin: dataset cache (filters/sort)
-// -------------------------
+
 let ADMIN_USERS_ALL = [];
 let ADMIN_COMANDES_ALL = [];
 let ADMIN_PRODUCTES_ALL = [];
@@ -29,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initUsuariFiltersUI();
   initProducteFiltersUI();
 
-  // Inicialitza listeners del CRUD de Comandes (evita duplicar DOMContentLoaded)
+  
   initComandes();
 });
 
@@ -45,9 +32,7 @@ function initAdminMenuStates(){
 }
 
 
-// -------------------------
-// FX (Frankfurter) helpers
-// -------------------------
+
 const FX_STORAGE_KEY = "checkout_currency"; // compartit amb checkout
 const FX_RATE_KEY = "fx_eur_usd";           // cache localStorage
 const FX_RATE_TTL_MS = 12 * 60 * 60 * 1000; // 12h
@@ -72,7 +57,7 @@ async function getEurUsdRate() {
         return Number(cached.rate);
       }
     }
-  } catch (_) { /* ignore */ }
+  } catch (_) { }
 
   const res = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD", { cache: "no-store" });
   if (!res.ok) throw new Error("No s'ha pogut obtenir el canvi EUR/USD");
@@ -82,7 +67,7 @@ async function getEurUsdRate() {
 
   try {
     localStorage.setItem(FX_RATE_KEY, JSON.stringify({ rate, ts: Date.now() }));
-  } catch (_) { /* ignore */ }
+  } catch (_) {  }
 
   return rate;
 }
@@ -108,7 +93,7 @@ function setActiveSection(target) {
   secciones.forEach(seccion => seccion.classList.remove("active-section"));
   document.getElementById(target).classList.add("active-section");
 
-  // marca el botó actiu (només per a seccions habilitades)
+  // marca el botó actiu
   botonesMenu.forEach(btn => {
     const t = btn.getAttribute("data-target");
     btn.classList.toggle("is-active", (t === target));
@@ -159,10 +144,10 @@ function applyUsuariFiltersAndSort() {
 
   let rows = Array.isArray(ADMIN_USERS_ALL) ? [...ADMIN_USERS_ALL] : [];
 
-  // filter: ID (exact)
+  // filtre: ID 
   if (id) rows = rows.filter(u => String(u?.id) === String(id));
 
-  // filter: Nom (substring; also matches nomUsuari and cognoms for usability)
+  // filtre: Nom
   if (nom) {
     rows = rows.filter(u => {
       const hay = [u?.nom, u?.cognoms, u?.nomUsuari].map(normalizeStr).join(" ");
@@ -170,13 +155,12 @@ function applyUsuariFiltersAndSort() {
     });
   }
 
-  // sort
+  // ordenar
   const isDesc = dir === "desc";
   rows.sort((a, b) => {
     const va = a?.[field];
     const vb = b?.[field];
 
-    // numeric first when possible
     const na = Number(va);
     const nb = Number(vb);
     if (isFinite(na) && isFinite(nb) && (String(va).trim() !== "" || String(vb).trim() !== "")) {
@@ -197,7 +181,7 @@ function renderUsuarisTable(users) {
   const taula = document.getElementById("taula_usuaris");
   if (!taula) return;
 
-  // limpia filas (excepto cabecera)
+  // netejo filas
   document.querySelectorAll("#taula_usuaris tr:not(:first-child)").forEach(tr => tr.remove());
 
   users.forEach(user => {
@@ -216,7 +200,7 @@ function renderUsuarisTable(users) {
     taula.appendChild(row);
   });
 
-  // rebind listeners
+  // torno a cargar els botons
   document.querySelectorAll(".editar").forEach(btn =>
     btn.addEventListener("click", () => editarUsuari(btn.dataset.id))
   );
@@ -333,7 +317,6 @@ function editarUsuari(id) {
 }
 
 function eliminarUsuari(id) {
-  // if (!alert("Vols eliminar aquest usuari?")) return; //TODO no funciona prova a canviar-ho o treure
 
   fetch(`api.php?controller=Api&action=deleteUser`, {
     method: "POST",
@@ -465,23 +448,23 @@ function applyProducteFiltersAndSort() {
 
   let rows = Array.isArray(ADMIN_PRODUCTES_ALL) ? [...ADMIN_PRODUCTES_ALL] : [];
 
-  // filter: ID exact
+  // filtre: ID
   if (id) rows = rows.filter(p => String(p?.id) === String(id));
 
-  // filter: Nom substring
+  // filtre: Nom
   if (nom) rows = rows.filter(p => normalizeStr(p?.nom).includes(nom));
 
-  // filter: price range
+  // filtre rang de preu
   const min = (pMin !== "") ? Number(pMin) : null;
   const max = (pMax !== "") ? Number(pMax) : null;
   if (min !== null && isFinite(min)) rows = rows.filter(p => Number(p?.preu_unitat) >= min);
   if (max !== null && isFinite(max)) rows = rows.filter(p => Number(p?.preu_unitat) <= max);
 
-  // filter: en carta
+  // filtre en carta
   if (enCarta === "1") rows = rows.filter(p => isEnCartaValue(p?.en_carta) === 1);
   if (enCarta === "0") rows = rows.filter(p => isEnCartaValue(p?.en_carta) === 0);
 
-  // sort: ID asc/desc
+  // filtre ID asc/desc
   const isDesc = dir === "desc";
   rows.sort((a, b) => {
     const na = Number(a?.id);
@@ -623,11 +606,10 @@ function eliminarProducte(id) {
       else alert("Error: " + (resp.message || "No s'ha pogut eliminar"));
     });
 }
-// ======================
-// COMANDES (PEDIDOS)
-// ======================
 
-let usuarisCache = null; // para no pedir usuarios 50 veces
+// COMANDES
+
+let usuarisCache = null;
 
 function initComandes() {
   const btnAfegir = document.getElementById("btn_afegirComanda");
@@ -642,7 +624,7 @@ function initComandes() {
   if (btnGuardar) btnGuardar.addEventListener("click", guardarComanda);
   if (btnCancelar) btnCancelar.addEventListener("click", ocultarFormComanda);
 
-  // Selector de moneda (visualització) per a Comandes
+  // Selector de moneda
   const curSel = document.getElementById("adminComandaCurrency");
   if (curSel) {
     const saved = localStorage.getItem(FX_STORAGE_KEY) || "EUR";
@@ -654,7 +636,7 @@ function initComandes() {
   }
 
 
-  // Filters / sort UI
+  // Filtres
   initComandaFiltersUI();
 }
 
@@ -700,8 +682,6 @@ function getComandaFilterState() {
   return { id, uid, dFrom, dTo, pMin, pMax, sortField, sortDir };
 }
 
-// Parse a date-ish string into a YYYY-MM-DD (local) key for filtering.
-// Accepts 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS', ISO, etc.
 function toDateKey(v) {
   if (!v) return "";
   const s = String(v).trim();
@@ -723,19 +703,19 @@ async function applyComandaFiltersAndSort() {
 
   let rows = Array.isArray(ADMIN_COMANDES_ALL) ? [...ADMIN_COMANDES_ALL] : [];
 
-  // filter: ID
+  // filtre ID
   if (id) rows = rows.filter(c => String(c.id) === String(id));
 
-  // filter: user id
+  // filtre id
   if (uid) rows = rows.filter(c => String(c.id_usuaris) === String(uid));
 
-  // filter: price range (always in base EUR)
+  // filtre rang de preus
   const min = (pMin !== "") ? Number(pMin) : null;
   const max = (pMax !== "") ? Number(pMax) : null;
   if (min !== null && isFinite(min)) rows = rows.filter(c => Number(c.preu_total) >= min);
   if (max !== null && isFinite(max)) rows = rows.filter(c => Number(c.preu_total) <= max);
 
-  // filter: date range (if API provides data_comanda)
+  // filtre date
   const hasDate = rows.some(c => c.data_comanda || c.data || c.date);
   const fromK = dFrom || "";
   const toK = dTo || "";
@@ -749,7 +729,7 @@ async function applyComandaFiltersAndSort() {
     });
   }
 
-  // sort
+  // asc/desc
   const isDesc = sortDir === "desc";
   rows.sort((a, b) => {
     const va = a?.[sortField];
@@ -783,7 +763,7 @@ async function renderComandesTable(comandes) {
   const taula = document.getElementById("taula_comandes");
   if (!taula) return;
 
-  // limpia filas (excepto cabecera)
+  // netegar filas
   document.querySelectorAll("#taula_comandes tr:not(:first-child)").forEach(tr => tr.remove());
 
   const currency = getSelectedAdminCurrency();
@@ -878,7 +858,7 @@ function mostrarFormComanda(comanda = null) {
   document.getElementById("formulariComandaID").value = comanda ? comanda.id : "";
   document.getElementById("formulariComandaPreuTotal").value = comanda ? comanda.preu_total : "";
 
-  // cargar select de usuarios y seleccionar el actual si existe
+  // cargar select de usuarios i seleccionar l'actual si existe
   cargarSelectUsuaris(comanda ? comanda.id_usuaris : null);
 }
 

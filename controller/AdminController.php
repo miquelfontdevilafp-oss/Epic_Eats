@@ -1,7 +1,7 @@
 <?php
 class AdminController{
     public function Admin(){
-        // Restringim accés a admin (mateix criteri que Proyecto_Restaurante-desarrollo)
+        // Restringim accés a nomes l'admin
         if (!isset($_SESSION['usuario']) || !$_SESSION['usuario']) {
             header('Location: ' . BASE_URL . '/?controller=Auth&action=login');
             exit;
@@ -9,7 +9,6 @@ class AdminController{
         $u = $_SESSION['usuario'];
         $rol = null;
         if (is_object($u)) {
-            // pot ser Usuari (Epic Eats)
             $rol = $u->getRol() ?? ($u->rol ?? null);
         }
         if ($rol !== 'admin') {

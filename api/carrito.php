@@ -81,7 +81,7 @@ try {
             continue;
         }
 
-        // Alguns esquemes poden tenir "quantitat" i d'altres no. Intentem amb quantitat primer.
+        // Alguns esquemes poden tenir quantitat, faig aixo per veure si en te
         $inserted = false;
         try {
             $stmtL = $con->prepare('INSERT INTO linea_comandes (preu_unitat, id_comanda, id_producte, quantitat) VALUES (?, ?, ?, ?)');
@@ -90,13 +90,12 @@ try {
             $stmtL->close();
             $inserted = true;
         } catch (Throwable $e) {
-            // fallback sense quantitat
         }
 
         if (!$inserted) {
             $stmtL = $con->prepare('INSERT INTO linea_comandes (preu_unitat, id_comanda, id_producte) VALUES (?, ?, ?)');
             $stmtL->bind_param('dii', $precio_unidad, $id_comanda, $id_producte);
-            // Si no hi ha quantitat, inserim tantes línies com unitats (com a mínim 1)
+            // Inserim unitats
             $times = max(1, $cantidad);
             for ($i = 0; $i < $times; $i++) {
                 $stmtL->execute();
@@ -119,7 +118,7 @@ try {
             $con->close();
         }
     } catch (Throwable $e2) {
-        // ignore
+        
     }
     http_response_code(500);
     echo json_encode(['estado' => 'Fallido', 'mensaje' => 'Error al crear el pedido', 'detalle' => $e->getMessage()]);

@@ -1,8 +1,4 @@
 <?php
-// Autenticació d'usuaris (login/register/logout)
-// - Login per correu
-// - Password: suporta hashes de password_hash (bcrypt/argon/etc.) i també text pla (rehash al primer login)
-
 include_once __DIR__ . '/../model/Usuari/UsuariDAO.php';
 include_once __DIR__ . '/../database/DataBase.php';
 

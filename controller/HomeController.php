@@ -1,12 +1,10 @@
 <?php
 class HomeController{
     public function Home(){
-
-        // Dades reals de la BD (mateixos productes que es mostren a la Carta)
         require_once __DIR__ . '/../model/Productes/ProductesDAO.php';
         require_once __DIR__ . '/../model/Categoria/CategoriaDAO.php';
 
-        // Productes visibles a la web (Carta)
+        // Productes visibles a la carta
         $productes = ProductesDAO::getProductesEnCarta();
 
         // Categories
@@ -20,20 +18,20 @@ class HomeController{
         $ids = array_map(fn($p) => (int)$p->getId(), $productes);
         $mapProducteCategories = ProductesDAO::getCategoriesByProducteIds($ids);
 
-        // Productes amb oferta (per a Rebaixes)
+        // Productes rebaixats
         $productesAmbOferta = ProductesDAO::getProductesEnCartaAmbOferta();
         $rebaixes = array_values(array_filter($productesAmbOferta, function ($row) {
             return !empty($row['oferta_id']);
         }));
 
-        // Seleccions per seccions (sense exposar IDs a la UI)
+        // Seleccions per seccions
         $heroMain = $productes[0] ?? null;
         $heroSecondary = $productes[1] ?? $heroMain;
         $sidebarProducts = array_slice($productes, 1, 6);
         $descobreixProducts = array_slice($productes, 0, 10);
         $rebaixesProducts = array_slice($rebaixes, 0, 3);
 
-        // Categories a la home (evitem Begudes perquè no es mostri a la Home)
+        // Categories a la home 
         $filteredCategories = array_values(array_filter($categorias, function ($c) {
             $nom = strtolower(trim((string)($c->getNom() ?? '')));
             return $nom !== 'begudes';

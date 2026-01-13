@@ -33,8 +33,6 @@
 </section>
 
 <script>
-    // Frankfurter API: https://www.frankfurter.app/
-    // Nota: els preus del projecte es mantenen en EUR i només es canvia la visualització.
     const FX_CACHE_KEY = 'fx_eur_usd';
     const FX_TTL_MS = 12 * 60 * 60 * 1000; // 12h
 
@@ -71,7 +69,6 @@
     }
 
     function moneyFormatter(currency) {
-        // Mantinc la presentació en format d'Espanya (coma decimal), però canviant la moneda.
         return new Intl.NumberFormat('es-ES', {
             style: 'currency',
             currency,

@@ -1,9 +1,3 @@
-/*
- * Home – scroll dots (mòbil)
- * - Genera punts de paginació per a qualsevol contenidor amb data-scroll-dots="<id>"
- * - El contenidor de punts ha de tenir data-dots-for="<id>"
- */
-
 (() => {
     const initTrack = (track) => {
         const key = track.getAttribute('data-scroll-dots');

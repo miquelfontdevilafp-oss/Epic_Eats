@@ -7,7 +7,6 @@
     </div>
 
     <div class="row">
-        <!-- Filtres (similar a Proyecto_Restaurante-desarrollo, però mantenint CSS/imatges d'Epic Eats) -->
         <aside class="col-12 col-lg-3 mb-4 mb-lg-0">
             <div class="card">
                 <div class="card-body">
@@ -33,11 +32,9 @@
 
         <!-- Productes -->
         <div class="col-12 col-lg-9">
-            <!-- Grid amb espai vertical més ajustat (evita sensació de buits) -->
             <div class="row g-3 ee-carta-grid" id="grid-productes">
                 <?php foreach (($productes ?? []) as $p): ?>
             <?php
-            // getters (objeto Productes)
             $id   = (int) $p->getId();
             $nom  = (string) ($p->getNom() ?? '');
             $desc = (string) ($p->getDescripcio() ?? '');
@@ -47,14 +44,12 @@
             $cats = $mapProducteCategories[$id] ?? [];
             $catsAttr = implode(',', array_map('intval', $cats));
 
-            // URL de imagen robusta
             $imgUrl = (str_starts_with($img, 'http') || str_starts_with($img, '/'))
                 ? $img
                 : (BASE_URL . '/' . ltrim($img, '/'));
             ?>
 
             <div class="col-md-6 col-xl-4 producto-card" data-categorias="<?= htmlspecialchars($catsAttr, ENT_QUOTES, 'UTF-8') ?>">
-                <!-- Sense h-100: cada targeta s'adapta al contingut (imatge + text) -->
                 <div class="card">
                     <img
                         src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>"
@@ -95,12 +90,10 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // contador (si existe)
     if (typeof actualizarContadorCarrito === 'function') {
         actualizarContadorCarrito();
     }
 
-    // listeners a botones
     document.querySelectorAll('.btn-add-carrito').forEach(btn => {
         btn.addEventListener('click', function () {
             const id = parseInt(this.dataset.id, 10);
@@ -117,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Filtres per categories (client-side)
     const checkboxes = document.querySelectorAll('.filtro-categoria');
     const cards = document.querySelectorAll('.producto-card');
 

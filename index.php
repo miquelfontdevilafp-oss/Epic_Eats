@@ -1,22 +1,17 @@
 <?php
-// Epic Eats – Router principal (MVC)
-// Manté l'estructura del projecte però amb comportament tipus "Proyecto_Restaurante-desarrollo"
 
 include_once __DIR__ . '/entorn.php';
 
-// Models necessaris per a la sessió (objectes serialitzats)
 include_once __DIR__ . '/model/Usuari/Usuari.php';
 
 session_start();
 
-// Controllers
 include_once __DIR__ . '/controller/HomeController.php';
 include_once __DIR__ . '/controller/AdminController.php';
 include_once __DIR__ . '/controller/ProductesController.php';
 include_once __DIR__ . '/controller/AuthController.php';
 include_once __DIR__ . '/controller/CarritoController.php';
 
-// Defaults
 $defaultController = 'Home';
 $defaultAction = 'Home';
 
