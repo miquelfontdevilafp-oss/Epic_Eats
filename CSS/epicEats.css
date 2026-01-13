@@ -736,3 +736,13 @@ footer a{
 @media (max-width: 576px){
     .ee-carta .card-img-top{ max-height: 200px; }
 }
+/* FIX CARTA: forzar texto blanco (título, descripción y precio) */
+.ee-carta,
+.ee-carta *:not(.btn):not(.badge) {
+  color: #fff !important;
+}
+
+/* Bootstrap pone .text-muted con prioridad alta */
+.ee-carta .text-muted {
+  color: rgba(255,255,255,0.85) !important;
+}

@@ -22,11 +22,6 @@ $u = $_SESSION['usuario'] ?? null;
                     <li class="nav-item">
                         <a class="nav-link" href="<?= BASE_URL ?>/?controller=Productes&action=carta">La Nostre Carta</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Restaurant</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link ee-disabled-link" href="#" aria-disabled="true" tabindex="-1">Reserva</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contacta</a></li>
 
                     <?php if ($u && $u->getRol() === 'admin'): ?>
                         <li class="nav-item">
@@ -34,7 +29,7 @@ $u = $_SESSION['usuario'] ?? null;
                         </li>
                     <?php endif; ?>
                 </ul>
-                
+
                 <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item me-lg-2">
                         <a class="nav-link ee-cart" href="<?= BASE_URL ?>/?controller=Carrito&action=verCarrito">
