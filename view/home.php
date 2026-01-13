@@ -1,5 +1,4 @@
 <section id="home">
-    <!-- HERO (escriptori: banner + sidebar / mòbil: carrusel de 2 targetes) -->
     <section id="sector_productes_setmana" class="container">
         <?php
             // Helpers
@@ -41,7 +40,6 @@
                 </div>
             </article>
 
-            <!-- Segona targeta (només en mòbil), per aconseguir l'efecte "la següent targeta es veu a la dreta" -->
             <article class="hero-card hero-secondary d-lg-none" style="--hero-image: url('<?= htmlspecialchars($heroSecImgUrl, ENT_QUOTES, 'UTF-8') ?>');">
                 <div class="hero-content">
                     <h2><?= htmlspecialchars($heroSecNom, ENT_QUOTES, 'UTF-8') ?></h2>
@@ -51,7 +49,6 @@
         </div>
         <div class="scroll-dots d-lg-none" data-dots-for="hero" aria-label="Paginació hero"></div>
 
-        <!-- Sidebar (només escriptori) -->
         <aside class="hero-sidebar d-none d-lg-block">
             <?php foreach (($sidebarProducts ?? []) as $sp): ?>
                 <?php
@@ -70,7 +67,6 @@
         </aside>
     </section>
 
-    <!-- Descobreix -->
     <section id="Descobreix_Productes" class="container">
         <div class="section-header">
             <h2>Descobreix algo nou</h2>
@@ -119,7 +115,6 @@
             <div class="col">
                 <h2>Les nostres categories</h2>
             </div>
-            <!-- Fletxes alineades a la dreta -->
             <div class="col col-auto ms-auto text-end">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 svg32">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -155,7 +150,6 @@
                 </svg>
                 <h2>Rebaixes més populars</h2>
             </div>
-            <!-- Botó alineat a la dreta -->
             <div class="col col-auto ms-auto text-end">
                 <button type="button" onclick="location.href='<?= BASE_URL ?>/?controller=Productes&action=carta'">Mirar més</button>
             </div>
@@ -171,7 +165,6 @@
                         $imgUrl = $mkImgUrl($img);
                     ?>
                     <div class="col">
-                        <!-- Targeta clicable completa: imatge a dalt + nom a sota -->
                         <a class="rebaixa-card" href="<?= BASE_URL ?>/?controller=Productes&action=carta" aria-label="<?= htmlspecialchars($nom, ENT_QUOTES, 'UTF-8') ?>">
                             <img class="rebaixa-img" src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>"
                                  alt="<?= htmlspecialchars($nom, ENT_QUOTES, 'UTF-8') ?>"
