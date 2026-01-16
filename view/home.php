@@ -1,7 +1,6 @@
 <section id="home">
     <section id="sector_productes_setmana" class="container">
         <?php
-            // Helpers
             $mkImgUrl = function ($img) {
                 $img = (string)($img ?: 'IMG/ImgNotFound.png');
                 if (str_starts_with($img, 'http') || str_starts_with($img, '/')) {

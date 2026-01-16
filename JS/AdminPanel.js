@@ -980,7 +980,3 @@ function cargarSelectUsuaris(selectedIdUsuari = null) {
     })
     .catch(() => alert("Error de xarxa carregant usuaris"));
 }
-
-
-
-

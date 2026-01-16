@@ -31,7 +31,6 @@
         const setActive = () => {
             const left = track.scrollLeft;
 
-            // Troba l'element més proper a l'inici del track
             let idx = 0;
             let best = Number.POSITIVE_INFINITY;
             for (let i = 0; i < items.length; i++) {

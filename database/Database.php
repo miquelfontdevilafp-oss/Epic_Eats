@@ -2,18 +2,18 @@
 
     class Database{
         // ====USO LOCAL====:
-        private static $host = 'localhost';
-        private static $user = 'root';
-        private static $pass = '';
-        private static $db = 'epic_eats';
-        private static $port = 3306;
+        // private static $host = 'localhost';
+        // private static $user = 'root';
+        // private static $pass = '';
+        // private static $db = 'epic_eats';
+        // private static $port = 3306;
         
         //====USO DOCKER====
-        // private static $host = "127.0.0.1";
-        // private static $user = "root";
-        // private static $pass = "root";
-        // private static $db   = "epic_eats";
-        // private static $port = 3307; //Puerto del docker
+        private static $host = "127.0.0.1";
+        private static $user = "root";
+        private static $pass = "root";
+        private static $db   = "epic_eats";
+        private static $port = 3307; //Puerto del docker
 
         // Método estatico para establecer la conexion a la base de datos
         public static function connect(){
